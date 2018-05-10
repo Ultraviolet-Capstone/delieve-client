@@ -12,7 +12,7 @@ import com.ultraviolet.delieve.R;
 
 
 
-public class SendFragment extends Fragment {
+public class DeliverFragment extends Fragment {
 
     @Override
     public void onCreate (Bundle savedInstanceState){
@@ -25,6 +25,6 @@ public class SendFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
-        return inflater.inflate(R.layout.fragment_send, container, false);
+        return inflater.inflate(R.layout.fragment_deliver, container, false);
     }
 }

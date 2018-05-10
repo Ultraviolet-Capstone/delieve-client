@@ -1,20 +1,17 @@
 package com.ultraviolet.delieve.ui;
 
-import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
+import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
-import android.widget.TextView;
 
 import com.ultraviolet.delieve.R;
 
 public class MainActivity extends AppCompatActivity {
 
-    private TextView mTextMessage;
+    private Fragment sendFragment, deliverFragment, myPageFragment;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -23,13 +20,22 @@ public class MainActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    mTextMessage.setText(R.string.title_home);
+                    getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.fragment_container, sendFragment)
+                            .addToBackStack(null)
+                            .commit();
                     return true;
                 case R.id.navigation_dashboard:
-                    mTextMessage.setText(R.string.title_dashboard);
+                    getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.fragment_container, deliverFragment)
+                            .addToBackStack(null)
+                            .commit();
                     return true;
                 case R.id.navigation_notifications:
-                    mTextMessage.setText(R.string.title_notifications);
+                    getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.fragment_container, myPageFragment)
+                            .addToBackStack(null)
+                            .commit();
                     return true;
             }
             return false;
@@ -41,8 +47,16 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mTextMessage = (TextView) findViewById(R.id.message);
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        sendFragment = new SendFragment();
+        deliverFragment = new DeliverFragment();
+        myPageFragment = new MyPageFragment();
+
+        sendFragment.setArguments(getIntent().getExtras());
+        getSupportFragmentManager().beginTransaction().add(
+                R.id.fragment_container, sendFragment).commit();
+
+
+        BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
 

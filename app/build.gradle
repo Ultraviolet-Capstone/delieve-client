@@ -30,6 +30,4 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 
 
-    implementation 'com.flipboard:bottomsheet-core:1.5.3'
-    implementation 'com.flipboard:bottomsheet-commons:1.5.3' // optional
 }
