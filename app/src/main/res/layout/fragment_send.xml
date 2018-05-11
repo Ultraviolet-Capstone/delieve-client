@@ -1,22 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 
-<LinearLayout android:id="@+id/root"
-    android:orientation="vertical"
+<com.ultraviolet.delieve.view.slidingUpPanelLayoutCustom xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:sothree="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/sliding_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    android:gravity="bottom"
+    sothree:umanoPanelHeight="68dp"
+    sothree:umanoShadowHeight="4dp">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+     android:layout_width="match_parent"
+     android:layout_height="match_parent"
+            android:gravity="center"
+     android:text="Map Should be here."
+     android:textSize="16sp" />
+    </LinearLayout>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/send_from"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
             <TextView
-                android:id="@+id/textView2"
-                android:layout_width="match_parent"
+                android:id="@+id/send_from_label"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Test2" />
+                android:text="From"
+                android:textStyle="bold" />
+        </LinearLayout>
+        <LinearLayout
+        android:id="@+id/send_to"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+        <TextView
+            android:id="@+id/send_to_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="To"
+            android:textStyle="bold" />
+    </LinearLayout>
 
-            <View
-                android:id="@+id/view1"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+    </android.support.constraint.ConstraintLayout>
 
 
-</LinearLayout>
+</com.ultraviolet.delieve.view.slidingUpPanelLayoutCustom>
