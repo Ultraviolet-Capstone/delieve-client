@@ -1,9 +1,8 @@
-package com.ultraviolet.delieve.ui;
+package com.ultraviolet.delieve;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -11,12 +10,10 @@ import android.widget.Toast;
 
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
-import com.google.zxing.qrcode.encoder.QRCode;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import static java.security.AccessController.getContext;
 
 public class ScanQrcode extends AppCompatActivity{
     private Button buttonScan;
@@ -24,7 +21,6 @@ public class ScanQrcode extends AppCompatActivity{
 
     //qr code scanner object
     private IntentIntegrator qrScan;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

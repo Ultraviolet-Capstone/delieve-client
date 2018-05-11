@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 import com.ultraviolet.delieve.R;
 
 
-
 public class DeliverFragment extends Fragment {
 
     @Override
