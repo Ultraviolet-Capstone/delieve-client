@@ -4,17 +4,47 @@
 
     <!-- To access Google+ APIs: -->
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
+        android:name=".KaKaoSDKGlobalController"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <meta-data
+            android:name="com.kakao.sdk.AppKey"
+            android:value="@string/kakao_app_key" />
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyB489H8eZfN0LtIyaJftQVxwz1NyBYpwkI" />
+
+        <activity android:name=".KakaoSignupActivity" />
         <activity
             android:name=".ui.MainActivity"
-            android:label="@string/app_name"></activity>
+            android:label="@string/app_name" />
+        <activity android:name=".ScanQrcode" />
+        <activity android:name=".EvaluateDeliver1" />
+        <activity android:name=".EvaluateDeliver2" />
+        <activity android:name=".LoginActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".ui.GenerateQrcode" />
+        <activity
+            android:name=".ui.WaitingForMatchingActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_waiting_for_matching"
+            android:theme="@style/FullscreenTheme" />
+        <activity android:name=".ui.MatchingDisplayActivity" />
+        <activity android:name=".ui.SignupActivity"></activity>
     </application>
 
 </manifest>
