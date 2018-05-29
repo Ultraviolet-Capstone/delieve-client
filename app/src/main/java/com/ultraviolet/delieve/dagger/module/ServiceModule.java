@@ -1,6 +1,7 @@
 package com.ultraviolet.delieve.dagger.module;
 
 import com.ultraviolet.delieve.data.service.AuthService;
+import com.ultraviolet.delieve.data.service.DeliveryRequestService;
 
 import dagger.Module;
 import dagger.Provides;
@@ -13,5 +14,11 @@ public class ServiceModule {
     AuthService provideAuthService(Retrofit retrofit) {
         return retrofit.create(AuthService.class);
         }
+
+    @Provides
+    DeliveryRequestService provideDeliveryRequestService(Retrofit retrofit) {
+        return retrofit.create(DeliveryRequestService.class);
+    }
+
 
 }

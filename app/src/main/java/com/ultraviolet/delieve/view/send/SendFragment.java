@@ -41,6 +41,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 import com.ultraviolet.delieve.R;
+import com.ultraviolet.delieve.view.base.BaseFragment;
 import com.ultraviolet.delieve.view.base.BaseSupportMapFragment;
 
 import java.util.Calendar;
@@ -54,7 +55,7 @@ import static android.app.Activity.RESULT_OK;
 import static com.sothree.slidinguppanel.SlidingUpPanelLayout.PanelState.ANCHORED;
 import static com.sothree.slidinguppanel.SlidingUpPanelLayout.PanelState.COLLAPSED;
 
-public class SendFragment extends BaseSupportMapFragment {
+public class SendFragment extends BaseFragment {
 
     /**
      * Map
@@ -155,6 +156,8 @@ public class SendFragment extends BaseSupportMapFragment {
         super.onCreateView(layoutInflater, viewGroup, bundle);
         View rootView = layoutInflater.inflate(R.layout.fragment_send, viewGroup, false);
 
+
+        if (bundle == null) Log.d("credt", "bundle is null");
         if (mSupportMapFragment == null){
             initMap();
         }
@@ -170,11 +173,12 @@ public class SendFragment extends BaseSupportMapFragment {
 
     }
 
+
     @Override
     public void onPause() {
         super.onPause();
         if (mFusedLocationClient != null) {
-            mFusedLocationClient.removeLocationUpdates(locationCallback);
+            //mFusedLocationClient.removeLocationUpdates(locationCallback);
         }
     }
 
@@ -183,7 +187,6 @@ public class SendFragment extends BaseSupportMapFragment {
         super.onActivityCreated(savedInstanceState);
 
         setupSlidingUpPanel();
-
     }
 
 
@@ -230,7 +233,6 @@ public class SendFragment extends BaseSupportMapFragment {
     private void initMap(){
         mSupportMapFragment = SupportMapFragment.newInstance();
         mSupportMapFragment.getMapAsync(new OnMapReadyCallback() {
-
             @Override
             public void onMapReady(GoogleMap googleMap) {
 
@@ -321,4 +323,11 @@ public class SendFragment extends BaseSupportMapFragment {
             }
         }
     }
+
+    @Override
+    public void onSaveInstanceState(Bundle bundle) {
+        super.onSaveInstanceState(bundle);
+    }
+
+
 }

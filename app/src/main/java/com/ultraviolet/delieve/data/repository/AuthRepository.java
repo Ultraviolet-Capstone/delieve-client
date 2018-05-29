@@ -3,7 +3,6 @@ package com.ultraviolet.delieve.data.repository;
 import retrofit2.Response;
 import rx.Observable;
 import com.ultraviolet.delieve.data.dto.TokenDto;
-import com.ultraviolet.delieve.data.dto.EmptyDto;
 import com.ultraviolet.delieve.data.dto.UserDto;
 
 

@@ -2,7 +2,6 @@ package com.ultraviolet.delieve.data.service;
 
 
 import com.ultraviolet.delieve.data.dto.TokenDto;
-import com.ultraviolet.delieve.data.dto.EmptyDto;
 import com.ultraviolet.delieve.data.dto.UserDto;
 
 import retrofit2.Response;

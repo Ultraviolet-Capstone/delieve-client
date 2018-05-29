@@ -11,9 +11,10 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.ultraviolet.delieve.R;
+import com.ultraviolet.delieve.data.dto.DelieveryRequestDto;
 import com.ultraviolet.delieve.data.repository.AuthRepository;
+import com.ultraviolet.delieve.data.repository.DeliveryRequestRepository;
 import com.ultraviolet.delieve.data.repository.UserRepository;
-import com.ultraviolet.delieve.model.User;
 import com.ultraviolet.delieve.view.base.BaseActivity;
 import com.ultraviolet.delieve.view.deliever.DeliveryListFragment;
 import com.ultraviolet.delieve.view.enroll.BeforeEnrollFragment;
@@ -28,10 +29,11 @@ import butterknife.ButterKnife;
 public class MainActivity extends BaseActivity
         implements FragmentManager.OnBackStackChangedListener  {
 
-    private TextView mTextMessage;
-
     @Inject
     AuthRepository mAuthRepository;
+
+    @Inject
+    DeliveryRequestRepository mDeliveryRequestRepository;
 
     @Inject
     UserRepository mUserRepository;
@@ -75,25 +77,47 @@ public class MainActivity extends BaseActivity
         getDiComponent().inject(this);
         getSupportFragmentManager().addOnBackStackChangedListener(this);
 
-        if (!mUserRepository.isUserSignedIn()){
-            Log.d("delieve", "not signed in");
-            // gyul's activity
-            //
-        }
 
-        init();
-
-/*
         if(mAuthRepository != null){
+            /*
             mAuthRepository.getToken("admin", "admin", "password")
                     .subscribe(dto -> {
-                        AuthDto authDto = dto;
-                        Log.d("credt", authDto.accessToken);
+                        TokenDto authDto = dto;
+                        Log.d("credt", authDto.getAccessToken());
                     }, throwable -> {
                         throwable.printStackTrace();
-                    });
-        }*/
+                        Log.d("credt",throwable.getMessage());
+                    });*/
+            /*
+            mAuthRepository.register(new UserDto("test", "1234", "cred@naver.com","321", "111111115", "kakao", "fd",
+                    "fd","male"))
+                    .subscribe(res -> {
+                        Log.d("credt2", String.valueOf(res.code()));
+                    }, throwable -> {
+                        throwable.printStackTrace();
+                    });*/
+            /*
+            mAuthRepository.login("123")
+                    .subscribe(dto -> {
+                        Log.d("credt", dto.getAccessToken());
+                    }, throwable -> {
+                        Log.d("credt", throwable.getMessage());
+                    });*/
+            /*
+            mDeliveryRequestRepository.postRequest(new DelieveryRequestDto(
+                    "HYUNSU ZIP", 129,33,
+                    "SEOUL LAND", 111, 39,
+                    "2018-05-29T20:05:10.780Z","2018-05-29T20:05:13.002Z",
+                    "22", "010-8510-7976",
+                    "credtiger", "S", 0.22, 1))
+                    .subscribe(res -> {
+                        Log.d("credt", String.valueOf(res.message()));
+                    }, throwable -> {
+                        throwable.printStackTrace();
+                    });*/
 
+        }
+        init();
     }
 
     private void init(){
@@ -125,9 +149,10 @@ public class MainActivity extends BaseActivity
 
     @Override
     public void onBackPressed() {
+        /*
         while (getSupportFragmentManager().getBackStackEntryCount()!= 0) {
             getSupportFragmentManager().popBackStackImmediate();
-        }
+        }*/
         super.onBackPressed();
     }
 
