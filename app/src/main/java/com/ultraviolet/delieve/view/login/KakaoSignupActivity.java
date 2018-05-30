@@ -70,6 +70,8 @@ public class KakaoSignupActivity extends Activity {
                 // 우선 서버를 login()
                 //  ip/auth/user/token?76~
 
+                //계정있는지확인
+
                 if (isSignup==false) {
                     redirectSignUpActivity(url, email);
 

@@ -11,12 +11,21 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ultraviolet.delieve.R;
+import com.ultraviolet.delieve.data.dto.UserDto;
+import com.ultraviolet.delieve.data.repository.AuthRepository;
+import com.ultraviolet.delieve.view.base.BaseActivity;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class SignupActivity extends AppCompatActivity {
+public class SignupActivity extends BaseActivity {
+
+    @Inject
+    AuthRepository mAuthRepository;
+
     @BindView(R.id.input_name) EditText _nameText;
     @BindView(R.id.input_email) EditText _emailText;
     @BindView(R.id.input_password) EditText _passwordText;
@@ -25,7 +34,20 @@ public class SignupActivity extends AppCompatActivity {
 
     @OnClick(R.id.btn_signup)
     void onSignUpClicked(){
+        String name=_nameText.getText().toString();
+        String phone=_passwordText.getText().toString();
+        String email=_emailText.getText().toString();
 
+
+
+        mAuthRepository.register(new UserDto("test", "1234", "cred@naver.com","321", "111111115", "kakao", "fd",
+                "fd","male"))
+                .subscribe(res -> {
+                    Log.d("credt2", String.valueOf(res.code()));
+                }, throwable -> {
+                    throwable.printStackTrace();
+
+                });
     }
 
     @OnClick(R.id.link_login)
@@ -38,6 +60,7 @@ public class SignupActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
         ButterKnife.bind(this);
+        getDiComponent().inject(this);
 
 
         String kakao_email=getIntent().getStringExtra("email");
