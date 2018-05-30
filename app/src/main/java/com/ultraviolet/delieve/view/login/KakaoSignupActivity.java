@@ -18,7 +18,7 @@ import com.ultraviolet.delieve.view.main.MainActivity;
 
 public class KakaoSignupActivity extends Activity {
 
-    boolean isSignup=true;
+    boolean isSignup=false;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -73,7 +73,7 @@ public class KakaoSignupActivity extends Activity {
                 //계정있는지확인
 
                 if (isSignup==false) {
-                    redirectSignUpActivity(url, email);
+                    redirectSignUpActivity(url, email, kakaoID, kakaoNickname);
 
                 } else {
                     redirectMainActivity(url, kakaoNickname); // 로그인 성공시 MainActivity로
@@ -85,10 +85,12 @@ public class KakaoSignupActivity extends Activity {
             }
         });
     }
-    private void redirectSignUpActivity(String url, String email) {
+    private void redirectSignUpActivity(String url, String email, String token, String nickname) {
         Intent intent = new Intent(KakaoSignupActivity.this, SignupActivity.class);
         intent.putExtra("url", url);
         intent.putExtra("email", email);
+        intent.putExtra("token", token);
+        intent.putExtra("nickname", nickname);
         startActivity(intent);
         finish();
     }
