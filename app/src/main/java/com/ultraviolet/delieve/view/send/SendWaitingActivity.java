@@ -1,20 +1,21 @@
 package com.ultraviolet.delieve.view.send;
 
 import android.annotation.SuppressLint;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.MotionEvent;
 import android.view.View;
 
 import com.ultraviolet.delieve.R;
+import com.ultraviolet.delieve.view.base.BaseActivity;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
  * status bar and navigation/system bar) with user interaction.
  */
-public class SendWaitingActivity extends AppCompatActivity {
+public class SendWaitingActivity extends BaseActivity {
     /**
      * Whether or not the system UI should be auto-hidden after
      * {@link #AUTO_HIDE_DELAY_MILLIS} milliseconds.
@@ -81,6 +82,11 @@ public class SendWaitingActivity extends AppCompatActivity {
             if (AUTO_HIDE) {
                 delayedHide(AUTO_HIDE_DELAY_MILLIS);
             }
+            SendMatchedFragmentDialog dialog = new SendMatchedFragmentDialog();
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            dialog.show(ft, SendMatchedFragmentDialog.TAG);
+
+
             return false;
         }
     };
@@ -100,6 +106,7 @@ public class SendWaitingActivity extends AppCompatActivity {
         mContentView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 toggle();
             }
         });
