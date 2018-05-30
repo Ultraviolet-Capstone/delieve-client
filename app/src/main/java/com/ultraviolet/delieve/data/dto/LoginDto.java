@@ -9,7 +9,7 @@ public class LoginDto {
 
     public class UserInfo{
         public int id;
-        public int Delivable;
+        public int delivable;
         public String name;
         public String phone;
         public String email;

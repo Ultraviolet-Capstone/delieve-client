@@ -95,7 +95,7 @@ public class SendWaitingActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_send_waiting);
+        setContentView(R.layout.activity_send_waiting_for_matching);
 
         mVisible = true;
         mControlsView = findViewById(R.id.fullscreen_content_controls);

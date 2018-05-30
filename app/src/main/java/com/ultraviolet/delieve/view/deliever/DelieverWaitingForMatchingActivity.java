@@ -89,7 +89,7 @@ public class DelieverWaitingForMatchingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_waiting_for_matching);
+        setContentView(R.layout.activity_deliever_waiting_for_matching);
 
         mVisible = true;
         mControlsView = findViewById(R.id.fullscreen_content_controls);

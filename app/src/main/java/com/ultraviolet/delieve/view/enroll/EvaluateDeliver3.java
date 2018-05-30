@@ -111,6 +111,8 @@ public class EvaluateDeliver3 extends BaseActivity{
                     }, throwable -> {
                         throwable.printStackTrace();
                     });
+            setResult(1);
+            finish();
     }
 
     @Override

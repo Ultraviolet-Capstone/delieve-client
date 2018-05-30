@@ -67,9 +67,14 @@ public class MainActivity extends BaseActivity
     @Inject
     DelieverFragment mDelieverFragment;
 
+    @Inject
+    EnrollWaitingFragment mEnrollWaitingFragment;
+
 
     @BindView(R.id.navigation)
     BottomNavigationView mBottomNavigationView;
+
+    private Fragment  mMiddleFragment;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -167,18 +172,24 @@ public class MainActivity extends BaseActivity
     }
 
     Fragment getDelieverFragment(){
-
+        Fragment targetFragment;
         switch (mUserRepository.getUserType()){
             case User.USER_DELIEVER :
+                targetFragment = mDelieverFragment;
             break;
             case User.USER_BEFORE_DELIEVER:
+                targetFragment = mBeforeEnrollFragment;
             break;
             case User.USER_WAITNG_FOR_JUDGE :
+                targetFragment = mEnrollWaitingFragment;
             break;
+            default:
+                targetFragment = mBeforeEnrollFragment;
         }
 
+        Log.d("credt", "user state : " + mUserRepository.getUserType());
         //return mDelieverFragment;
-        return mBeforeEnrollFragment;
+        return targetFragment;
     }
 
     void replaceFragment(Fragment fragment){
@@ -206,7 +217,6 @@ public class MainActivity extends BaseActivity
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
     }
 
 

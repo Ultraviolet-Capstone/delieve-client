@@ -3,7 +3,6 @@ package com.ultraviolet.delieve.data.repository.impl;
 import android.util.Log;
 
 import com.ultraviolet.delieve.data.dto.LoginDto;
-import com.ultraviolet.delieve.data.dto.UserDto;
 import com.ultraviolet.delieve.data.repository.UserRepository;
 import com.ultraviolet.delieve.model.User;
 
@@ -22,7 +21,7 @@ public class UserRepositoryImpl implements UserRepository {
     @Override
     public void userSignIn(LoginDto loginDto){
         this.user = new User(loginDto.accessToken,
-                loginDto.userInfo.Delivable,
+                loginDto.userInfo.delivable,
                 loginDto.userInfo.name,
                 loginDto.userInfo.phone,
                 loginDto.userInfo.email,
@@ -31,6 +30,7 @@ public class UserRepositoryImpl implements UserRepository {
                 );
 
         Log.i("delieve", "user signed in as " + user.getName());
+        Log.i("delieve", "state " + user.getDelivable());
     }
 
     @Override

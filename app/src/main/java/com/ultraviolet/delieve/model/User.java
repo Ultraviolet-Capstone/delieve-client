@@ -3,9 +3,13 @@ package com.ultraviolet.delieve.model;
 import java.io.Serializable;
 
 public class User implements Serializable {
-    public static final int USER_BEFORE_DELIEVER = 1;
-    public static final int USER_WAITNG_FOR_JUDGE = 2;
-    public static final int USER_DELIEVER = 3;
+
+    public static final int USER_BEFORE_DELIEVER = 0;
+    public static final int USER_WAITNG_FOR_JUDGE = 1;
+    public static final int USER_DELIEVER = 2;
+    public static final int USER_JUDGE_PENDING = 3;
+    public static final int USER_JUDGE_DECLINE = 4;
+
 
     private String authToken;
 
