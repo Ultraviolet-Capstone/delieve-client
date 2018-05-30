@@ -20,4 +20,9 @@ public interface DeliveryService {
                                                                   @Query("long") double lng ,
                                                                   @Query("userId") String id);
 
+    @GET("/matching")
+    Observable<Response<DeliveryMatchingDto>> getDeliveryMatchingForSender(@Query("lat") double lat,
+                                                                  @Query("long") double lng ,
+                                                                  @Query("userId") String id);
+
 }

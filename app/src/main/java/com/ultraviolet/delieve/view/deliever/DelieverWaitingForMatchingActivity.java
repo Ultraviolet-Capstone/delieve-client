@@ -5,16 +5,39 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
 import com.ultraviolet.delieve.R;
+import com.ultraviolet.delieve.data.repository.DeliveryRepository;
+import com.ultraviolet.delieve.data.repository.UserRepository;
+import com.ultraviolet.delieve.view.base.BaseActivity;
+
+import java.util.concurrent.TimeUnit;
+
+import javax.inject.Inject;
+
+import rx.Observable;
+import rx.Subscription;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
+import rx.schedulers.Schedulers;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
  * status bar and navigation/system bar) with user interaction.
  */
-public class DelieverWaitingForMatchingActivity extends AppCompatActivity {
+public class DelieverWaitingForMatchingActivity extends BaseActivity {
+
+
+    @Inject
+    DeliveryRepository mDeliveryRepository;
+
+    @Inject
+    UserRepository mUserRepository;
+
+
     /**
      * Whether or not the system UI should be auto-hidden after
      * {@link #AUTO_HIDE_DELAY_MILLIS} milliseconds.
@@ -85,6 +108,8 @@ public class DelieverWaitingForMatchingActivity extends AppCompatActivity {
         }
     };
 
+    Subscription subscription;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -95,6 +120,7 @@ public class DelieverWaitingForMatchingActivity extends AppCompatActivity {
         mControlsView = findViewById(R.id.fullscreen_content_controls);
         mContentView = findViewById(R.id.fullscreen_content);
 
+        getDiComponent().inject(this);
 
         // Set up the user interaction to manually show or hide the system UI.
         mContentView.setOnClickListener(new View.OnClickListener() {
@@ -108,6 +134,30 @@ public class DelieverWaitingForMatchingActivity extends AppCompatActivity {
         // operations to prevent the jarring behavior of controls going away
         // while interacting with the UI.
         findViewById(R.id.dummy_button).setOnTouchListener(mDelayHideTouchListener);
+
+        // Timer
+        subscription = Observable.interval(5000, 5000, TimeUnit.MILLISECONDS)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<Long>() {
+                    public void call(Long aLong) {
+                        mDeliveryRepository.getDeliveryMatching(127.045,
+                                37.2842,
+                                String.valueOf(mUserRepository.getUserId()))
+                                .subscribe(res->{
+                                    if (res.code() == 200){
+                                        //new DelieverMatchedDialogFragment(res.body());
+                                        Log.d("credt", res.body().stuffName);
+                                    }
+                                    else{
+                                        Log.d("credt", "" + res.code());
+
+                                    }
+                                },throwable -> {
+                                    throwable.printStackTrace();
+                                });
+                    }
+                });
     }
 
     @Override
@@ -161,5 +211,11 @@ public class DelieverWaitingForMatchingActivity extends AppCompatActivity {
     private void delayedHide(int delayMillis) {
         mHideHandler.removeCallbacks(mHideRunnable);
         mHideHandler.postDelayed(mHideRunnable, delayMillis);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        subscription.unsubscribe();
     }
 }

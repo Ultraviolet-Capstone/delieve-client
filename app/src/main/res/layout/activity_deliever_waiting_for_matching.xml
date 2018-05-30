@@ -15,11 +15,11 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:keepScreenOn="true"
-        android:text="@string/dummy_content"
+        android:text="매칭 대기중"
         android:textColor="#33b5e5"
         android:textSize="50sp"
         android:textStyle="bold"
-        tools:text="매칭 대기중" />
+     />
 
     <!-- This FrameLayout insets its children based on system windows using
          android:fitsSystemWindows. -->

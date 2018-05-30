@@ -40,4 +40,13 @@ public class DeliveryRepositoryImpl implements DeliveryRepository {
         return res.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
+
+    @Override
+    public Observable<Response<DeliveryMatchingDto>> getDeliveryMatchingForSender(double lat, double lng, String id) {
+        Observable<Response<DeliveryMatchingDto>> res = service
+                .getDeliveryMatchingForSender(lat,lng,id);
+
+        return res.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
 }

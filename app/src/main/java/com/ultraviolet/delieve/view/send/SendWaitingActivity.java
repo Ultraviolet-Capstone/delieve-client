@@ -5,17 +5,37 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
 import com.ultraviolet.delieve.R;
+import com.ultraviolet.delieve.data.repository.DeliveryRepository;
+import com.ultraviolet.delieve.data.repository.UserRepository;
 import com.ultraviolet.delieve.view.base.BaseActivity;
+
+import java.util.concurrent.TimeUnit;
+
+import javax.inject.Inject;
+
+import rx.Observable;
+import rx.Subscriber;
+import rx.Subscription;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
+import rx.schedulers.Schedulers;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
  * status bar and navigation/system bar) with user interaction.
  */
 public class SendWaitingActivity extends BaseActivity {
+
+    @Inject
+    UserRepository mUserRepository;
+
+    @Inject
+    DeliveryRepository mDeliveryRepository;
     /**
      * Whether or not the system UI should be auto-hidden after
      * {@link #AUTO_HIDE_DELAY_MILLIS} milliseconds.
@@ -91,6 +111,9 @@ public class SendWaitingActivity extends BaseActivity {
         }
     };
 
+
+    Subscription subscription;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -109,7 +132,32 @@ public class SendWaitingActivity extends BaseActivity {
 
                 toggle();
             }
+
         });
+
+        // Timer
+        subscription = Observable.interval(5000, 5000, TimeUnit.MILLISECONDS)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<Long>() {
+                    public void call(Long aLong) {
+                        mDeliveryRepository.getDeliveryMatchingForSender(127.045,
+                                37.2842,
+                                String.valueOf(mUserRepository.getUserId()))
+                                .subscribe(res->{
+                                    if (res.code() == 200){
+                                        //new DelieverMatchedDialogFragment(res.body());
+                                        Log.d("credt", res.body().stuffName);
+                                    }
+                                    else{
+                                        Log.d("credt", "" + res.code());
+
+                                    }
+                                },throwable -> {
+                                    throwable.printStackTrace();
+                                });
+                    }
+                });
 
         // Upon interacting with UI controls, delay any scheduled hide()
         // operations to prevent the jarring behavior of controls going away

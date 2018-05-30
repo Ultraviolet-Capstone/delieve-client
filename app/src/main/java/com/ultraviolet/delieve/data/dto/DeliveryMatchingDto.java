@@ -13,4 +13,5 @@ public class DeliveryMatchingDto {
     public double distance;
     public String beginTime;
     public String finishTime;
+    public String delivererSelfiURL;
 }
