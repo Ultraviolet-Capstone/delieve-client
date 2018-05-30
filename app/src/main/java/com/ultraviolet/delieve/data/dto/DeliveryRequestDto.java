@@ -6,7 +6,7 @@ public class DeliveryRequestDto {
     FinishLocation finishLocation;
     String beginTime;
     String finishTime;
-    String senderId;
+    int senderId;
     String recieverPhoneNumber;
     Stuff stuff;
 
@@ -18,7 +18,7 @@ public class DeliveryRequestDto {
                               double fay,
                               String beginTime,
                               String finishTime,
-                              String senderId,
+                              int senderId,
                               String receiverPhoneNumber,
                               String name,
                               String size,

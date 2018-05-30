@@ -166,7 +166,7 @@ public class SendFragment extends BaseFragment {
                     "HYUNSU ZIP", 129, 33,
                     "SEOUL LAND", 111, 39,
                     "2018-05-29T20:05:10.780Z", "2018-05-29T20:05:13.002Z",
-                    "22", "010-8510-7976",
+                    22, "010-8510-7976",
                     "credtiger", "S", 0.22, 1))
                     .subscribe(res -> {
                         Log.d("credt", String.valueOf(res.message()));
