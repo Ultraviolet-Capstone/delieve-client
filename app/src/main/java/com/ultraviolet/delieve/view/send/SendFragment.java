@@ -23,6 +23,7 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
@@ -41,11 +42,15 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 import com.ultraviolet.delieve.R;
+import com.ultraviolet.delieve.data.dto.DelieveryRequestDto;
+import com.ultraviolet.delieve.data.repository.DeliveryRequestRepository;
 import com.ultraviolet.delieve.view.base.BaseFragment;
 import com.ultraviolet.delieve.view.base.BaseSupportMapFragment;
 
 import java.util.Calendar;
 import java.util.List;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -68,6 +73,9 @@ public class SendFragment extends BaseFragment {
     private FusedLocationProviderClient mFusedLocationClient;
     Marker currentLocationMaker;
 
+
+    @Inject
+    DeliveryRequestRepository mDeliveryRequestRepository;
 
     @BindView(R.id.sliding_layout)
     SlidingUpPanelLayout slidingUpPanelLayout;
@@ -150,14 +158,31 @@ public class SendFragment extends BaseFragment {
         mDatePicker.show();
     }
 
+    @OnClick(R.id.submit)
+    public void onSubmitClicked(){
+        if (isRequestValid());
+        {
+            mDeliveryRequestRepository.postRequest(new DelieveryRequestDto(
+                    "HYUNSU ZIP", 129, 33,
+                    "SEOUL LAND", 111, 39,
+                    "2018-05-29T20:05:10.780Z", "2018-05-29T20:05:13.002Z",
+                    "22", "010-8510-7976",
+                    "credtiger", "S", 0.22, 1))
+                    .subscribe(res -> {
+                        Log.d("credt", String.valueOf(res.message()));
+                        Toast.makeText(getContext(),String.valueOf(res.message()),
+                                Toast.LENGTH_SHORT).show();
+                    }, throwable -> {
+                        throwable.printStackTrace();
+                    });
+        }
+    }
 
     @Override
     public View onCreateView(LayoutInflater layoutInflater, ViewGroup viewGroup, Bundle bundle) {
         super.onCreateView(layoutInflater, viewGroup, bundle);
         View rootView = layoutInflater.inflate(R.layout.fragment_send, viewGroup, false);
 
-
-        if (bundle == null) Log.d("credt", "bundle is null");
         if (mSupportMapFragment == null){
             initMap();
         }
@@ -169,6 +194,7 @@ public class SendFragment extends BaseFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getDiComponent().inject(this);
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(getActivity());
 
     }
@@ -189,6 +215,9 @@ public class SendFragment extends BaseFragment {
         setupSlidingUpPanel();
     }
 
+    public boolean isRequestValid(){
+        return true;
+    }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == PLACE_PICKER_REQUEST) {

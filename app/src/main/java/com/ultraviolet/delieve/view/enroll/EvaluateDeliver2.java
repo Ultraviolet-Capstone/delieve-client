@@ -36,14 +36,14 @@ public class EvaluateDeliver2 extends AppCompatActivity implements View.OnClickL
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_evaluate_deliver2);
+        setContentView(R.layout.activity_evaluate_deliever2);
 
         //iv_UserPhoto=(ImageView)this.findViewById(R.id.user_image);
-        Button btn_agreeJoin=(Button)this.findViewById(R.id.btn_UpladId);
+        Button btn_agreeJoin= this.findViewById(R.id.btn_UpladId);
         StrictMode.VmPolicy.Builder builder=new StrictMode.VmPolicy.Builder();
         StrictMode.setVmPolicy(builder.build());
         btn_agreeJoin.setOnClickListener(this);
-        Button finishE1=(Button)findViewById(R.id.btn_evaluatefinish);
+        Button finishE1= findViewById(R.id.btn_evaluatefinish);
         finishE1.setOnClickListener(this);
 
     }
@@ -89,7 +89,7 @@ public class EvaluateDeliver2 extends AppCompatActivity implements View.OnClickL
 
                 if (extras != null) {
                     Bitmap photo=extras.getParcelable("data");
-                    iv_UserPhoto=(ImageView)findViewById(R.id.deliver_idcard);
+                    iv_UserPhoto= findViewById(R.id.deliver_idcard);
                     iv_UserPhoto.setImageBitmap(photo);
 
                     storeCropImage(photo, filePath);
