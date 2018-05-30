@@ -33,12 +33,20 @@ public class EvaluateDeliver2 extends AppCompatActivity implements View.OnClickL
     private int id_view;
     private String absolutePath;
 
+    Intent mainIntent;
+
+
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_evaluate_deliever2);
 
-        //iv_UserPhoto=(ImageView)this.findViewById(R.id.user_image);
+        Bitmap selfie=(Bitmap)getIntent().getParcelableExtra("selfie");
+        mainIntent=new Intent(getApplicationContext(), EvaluateDeliver3.class);
+        mainIntent.putExtra("selfie", selfie);
+
+
         Button btn_agreeJoin= this.findViewById(R.id.btn_UpladId);
         StrictMode.VmPolicy.Builder builder=new StrictMode.VmPolicy.Builder();
         StrictMode.setVmPolicy(builder.build());
@@ -89,8 +97,10 @@ public class EvaluateDeliver2 extends AppCompatActivity implements View.OnClickL
 
                 if (extras != null) {
                     Bitmap photo=extras.getParcelable("data");
-                    iv_UserPhoto= findViewById(R.id.deliver_idcard);
+
                     iv_UserPhoto.setImageBitmap(photo);
+                    mainIntent.putExtra("id", photo);
+
 
                     storeCropImage(photo, filePath);
 
@@ -110,7 +120,7 @@ public class EvaluateDeliver2 extends AppCompatActivity implements View.OnClickL
     public void onClick(View v) {
         id_view= v.getId();
         if(v.getId()==R.id.btn_evaluatefinish){
-            Intent mainIntent=new Intent(EvaluateDeliver2.this, EvaluateDeliver3.class);
+
             startActivity(mainIntent);
             finish();
 

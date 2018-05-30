@@ -63,6 +63,13 @@
                 android:hint="Phone Number"/>
         </android.support.design.widget.TextInputLayout>
 
+        <com.tallan.android.customviews.DateDisplayPicker
+            android:id="@+id/clientEditCreate_BirthDateDayPicker"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@android:style/Widget.Holo.Spinner"
+            android:hint="Date"/>
+
         <RadioGroup
             android:id="@+id/radiogroupFacetype"
             android:layout_width="wrap_content"

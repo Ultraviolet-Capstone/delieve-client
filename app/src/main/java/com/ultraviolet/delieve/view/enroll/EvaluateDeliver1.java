@@ -38,17 +38,20 @@ public class EvaluateDeliver1 extends AppCompatActivity implements View.OnClickL
     private ImageView iv_UserPhoto;
     private int id_view;
     private String absolutePath;
+    Intent mainIntent;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_evaluate_deliever1);
+        mainIntent=new Intent(getApplicationContext(), EvaluateDeliver2.class);
 
         //iv_UserPhoto=(ImageView)this.findViewById(R.id.user_image);
         Button btn_agreeJoin=(Button)this.findViewById(R.id.btn_UpladPicture);
         StrictMode.VmPolicy.Builder builder=new StrictMode.VmPolicy.Builder();
         StrictMode.setVmPolicy(builder.build());
         btn_agreeJoin.setOnClickListener(this);
+
         Button finishE1=(Button)findViewById(R.id.btn_signupfinish);
         finishE1.setOnClickListener(this);
 
@@ -57,6 +60,7 @@ public class EvaluateDeliver1 extends AppCompatActivity implements View.OnClickL
         Intent intent=new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
         String url="tmp_"+String.valueOf(System.currentTimeMillis())+".jpg";
+
         mImageCaptureUri=Uri.fromFile(new File(Environment.getExternalStorageDirectory(), url));
         int permissionCheck= ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA);
         if(permissionCheck== PackageManager.PERMISSION_DENIED){
@@ -104,6 +108,8 @@ public class EvaluateDeliver1 extends AppCompatActivity implements View.OnClickL
                     iv_UserPhoto=(ImageView)findViewById(R.id.deliver_image);
                     iv_UserPhoto.setImageBitmap(photo);
 
+                    mainIntent.putExtra("selfie", photo);
+
                     storeCropImage(photo, filePath);
 
                     absolutePath=filePath;
@@ -136,7 +142,7 @@ public class EvaluateDeliver1 extends AppCompatActivity implements View.OnClickL
     public void onClick(View v) {
         id_view= v.getId();
         if(v.getId()==R.id.btn_signupfinish){
-            Intent mainIntent=new Intent(EvaluateDeliver1.this, EvaluateDeliver2.class);
+
             startActivity(mainIntent);
             finish();
 
@@ -167,6 +173,8 @@ public class EvaluateDeliver1 extends AppCompatActivity implements View.OnClickL
 
     private void storeCropImage(Bitmap bitmap, String filePath){
         String dirPath=Environment.getExternalStorageDirectory().getAbsolutePath()+"/SmartWheel";
+
+
         File directory_SmartWheel=new File(dirPath);
 
         if(!directory_SmartWheel.exists())
