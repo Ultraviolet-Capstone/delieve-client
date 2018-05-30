@@ -47,12 +47,12 @@ public class EvaluateDeliver1 extends AppCompatActivity implements View.OnClickL
         mainIntent=new Intent(getApplicationContext(), EvaluateDeliver2.class);
 
         //iv_UserPhoto=(ImageView)this.findViewById(R.id.user_image);
-        Button btn_agreeJoin=(Button)this.findViewById(R.id.btn_UpladPicture);
+        Button btn_agreeJoin= this.findViewById(R.id.btn_UpladPicture);
         StrictMode.VmPolicy.Builder builder=new StrictMode.VmPolicy.Builder();
         StrictMode.setVmPolicy(builder.build());
         btn_agreeJoin.setOnClickListener(this);
 
-        Button finishE1=(Button)findViewById(R.id.btn_signupfinish);
+        Button finishE1= findViewById(R.id.btn_signupfinish);
         finishE1.setOnClickListener(this);
 
     }
@@ -105,7 +105,7 @@ public class EvaluateDeliver1 extends AppCompatActivity implements View.OnClickL
 
                 if (extras != null) {
                     Bitmap photo=extras.getParcelable("data");
-                    iv_UserPhoto=(ImageView)findViewById(R.id.deliver_image);
+                    iv_UserPhoto= findViewById(R.id.deliver_image);
                     iv_UserPhoto.setImageBitmap(photo);
 
                     mainIntent.putExtra("selfie", photo);

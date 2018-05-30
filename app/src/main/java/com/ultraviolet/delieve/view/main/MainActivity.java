@@ -6,9 +6,11 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.util.Log;
 import android.view.MenuItem;
 
 import com.ultraviolet.delieve.R;
+import com.ultraviolet.delieve.data.dto.UserDto;
 import com.ultraviolet.delieve.data.repository.AuthRepository;
 import com.ultraviolet.delieve.data.repository.DeliveryRequestRepository;
 import com.ultraviolet.delieve.data.repository.UserRepository;
@@ -90,7 +92,7 @@ public class MainActivity extends BaseActivity
                         throwable.printStackTrace();
                         Log.d("credt",throwable.getMessage());
                     });*/
-            /*
+/*
             mAuthRepository.register(new UserDto("test", "1234", "cred@naver.com","321", "111111115", "kakao", "fd",
                     "fd","male"))
                     .subscribe(res -> {
@@ -146,7 +148,8 @@ public class MainActivity extends BaseActivity
             case User.USER_WAITNG_FOR_JUDGE :
         }*/
 
-        return mDelieverFragment;
+        //return mDelieverFragment;
+        return mBeforeEnrollFragment;
 
     }
 
@@ -166,7 +169,6 @@ public class MainActivity extends BaseActivity
         }
         super.onBackPressed();
     }
-
 
     @Override
     public void onBackStackChanged() {

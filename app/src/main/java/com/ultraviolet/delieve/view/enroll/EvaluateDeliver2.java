@@ -42,7 +42,7 @@ public class EvaluateDeliver2 extends AppCompatActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_evaluate_deliever2);
 
-        Bitmap selfie=(Bitmap)getIntent().getParcelableExtra("selfie");
+        Bitmap selfie= getIntent().getParcelableExtra("selfie");
         mainIntent=new Intent(getApplicationContext(), EvaluateDeliver3.class);
         mainIntent.putExtra("selfie", selfie);
 

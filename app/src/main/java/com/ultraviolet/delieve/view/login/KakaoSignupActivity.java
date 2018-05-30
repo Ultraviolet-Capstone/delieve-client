@@ -80,7 +80,6 @@ public class KakaoSignupActivity extends BaseActivity {
                 Log.d("kakao", email);
                 Log.d("kakao", "==========================");
 
-
                 // 우선 서버를 login()
                 //  ip/auth/user/token?76~
                 mAuthRepository.login("123")//kakaoID
@@ -100,9 +99,6 @@ public class KakaoSignupActivity extends BaseActivity {
                             Log.d("delieve", throwable.getMessage());
                             redirectSignUpActivity(url, email);
                         });
-
-                // 없으 => sig
-                // 있어1 ->
             }
         });
     }
