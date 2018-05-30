@@ -26,4 +26,3 @@ public interface AuthService {
     Observable<Response<Void>> register(@Body UserDto userDto);
 
 }
-

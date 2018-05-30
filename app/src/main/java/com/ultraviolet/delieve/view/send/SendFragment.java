@@ -249,7 +249,7 @@ public class SendFragment extends BaseFragment {
             slidingUpPanelLayout.setPanelHeight(
                     slidingUpPanelLayout.getPanelHeight() +
                             //getActivity().findViewById(R.id.navigation).getHeight()
-                            195     // height of navigation bar
+                            205     // height of navigation bar
             );
             slidingUpPanelLayout.setParallaxOffset(500);
             //TODO : it must be normalized

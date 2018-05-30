@@ -7,7 +7,7 @@ import android.view.View;
 
 import butterknife.ButterKnife;
 
-public abstract class ContractFragmen<T> extends BaseFragment{
+public abstract class ContractFragment<T> extends BaseFragment{
     
         private T mContract;
 

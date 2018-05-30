@@ -9,18 +9,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.baoyz.widget.PullRefreshLayout;
 import com.ultraviolet.delieve.R;
 import com.ultraviolet.delieve.model.DeliveryRequest;
-import com.ultraviolet.delieve.view.base.ContractFragmen;
-
-import java.util.ArrayList;
+import com.ultraviolet.delieve.view.base.ContractFragment;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class DeliveryListFragment extends ContractFragmen<DeliveryListFragment.Contract> implements DeliveryListContract.View {
+public class DeliveryListFragment extends ContractFragment<DeliveryListFragment.Contract> implements DeliveryListContract.View {
 
     @Inject
     DeliveryListPresenter presenter;
@@ -28,10 +27,14 @@ public class DeliveryListFragment extends ContractFragmen<DeliveryListFragment.C
     @BindView(R.id.deliever_recycler_view)
     RecyclerView mRecyclerView;
 
+    @BindView(R.id.pull_refresh_layout)
+    PullRefreshLayout mPullRefreshLayout;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getDiComponent().inject(this);
+
     }
 
     @Override
@@ -45,14 +48,6 @@ public class DeliveryListFragment extends ContractFragmen<DeliveryListFragment.C
 
         return rootView;
 
-    }
-
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-
-        ButterKnife.bind(this, view);
-        presenter.setView(this);
-        setupUi();
     }
 
     @Override
@@ -77,6 +72,13 @@ public class DeliveryListFragment extends ContractFragmen<DeliveryListFragment.C
 
     void setupUi(){
         setUpRecyclerView();
+        setUpPullRefreshLayout();
+    }
+
+    private void setUpPullRefreshLayout() {
+        // listen refresh event
+        mPullRefreshLayout.setOnRefreshListener(()
+                -> mPullRefreshLayout.setRefreshing(false));
     }
 
     void setUpRecyclerView(){
@@ -91,6 +93,7 @@ public class DeliveryListFragment extends ContractFragmen<DeliveryListFragment.C
                 test,
                 dr -> getContract().onItemSelected(dr));
         mRecyclerView.setAdapter(adapter);
+
     }
 
     public interface Contract {
