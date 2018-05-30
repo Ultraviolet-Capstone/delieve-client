@@ -1,8 +1,9 @@
 package com.ultraviolet.delieve.dagger.module;
 
 import com.ultraviolet.delieve.data.service.AuthService;
-import com.ultraviolet.delieve.data.service.DeliveryRequestService;
+import com.ultraviolet.delieve.data.service.DeliveryService;
 import com.ultraviolet.delieve.data.service.EnrollService;
+import com.ultraviolet.delieve.data.service.QRApiService;
 
 import dagger.Module;
 import dagger.Provides;
@@ -22,8 +23,13 @@ public class ServiceModule {
     }
 
     @Provides
-    DeliveryRequestService provideDeliveryRequestService(Retrofit retrofit) {
-        return retrofit.create(DeliveryRequestService.class);
+    DeliveryService provideDeliveryRequestService(Retrofit retrofit) {
+        return retrofit.create(DeliveryService.class);
+    }
+
+    @Provides
+    QRApiService provideQrApiService(Retrofit retrofit){
+        return retrofit.create(QRApiService.class);
     }
 
 

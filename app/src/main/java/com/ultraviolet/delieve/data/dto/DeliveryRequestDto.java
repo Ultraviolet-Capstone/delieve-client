@@ -1,7 +1,7 @@
 package com.ultraviolet.delieve.data.dto;
 
 
-public class DelieveryRequestDto {
+public class DeliveryRequestDto {
     BeginLocation beginLocation;
     FinishLocation finishLocation;
     String beginTime;
@@ -10,20 +10,20 @@ public class DelieveryRequestDto {
     String recieverPhoneNumber;
     Stuff stuff;
 
-    public DelieveryRequestDto(String beginAddress,
-                               double bax,
-                               double bay,
-                               String finishAddress,
-                               double fax,
-                               double fay,
-                               String beginTime,
-                               String finishTime,
-                               String senderId,
-                               String receiverPhoneNumber,
-                               String name,
-                               String size,
-                               double weight,
-                               int code){
+    public DeliveryRequestDto(String beginAddress,
+                              double bax,
+                              double bay,
+                              String finishAddress,
+                              double fax,
+                              double fay,
+                              String beginTime,
+                              String finishTime,
+                              String senderId,
+                              String receiverPhoneNumber,
+                              String name,
+                              String size,
+                              double weight,
+                              int code){
         this.beginLocation = new BeginLocation(beginAddress,
                 new GPS(bax, bay));
         this.finishLocation = new FinishLocation(finishAddress,

@@ -20,6 +20,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 
 public class EvaluateDeliver3 extends BaseActivity{
 
@@ -34,14 +35,15 @@ public class EvaluateDeliver3 extends BaseActivity{
     void onClick(){
 
         if (selfie != null && idcard != null) {
+
             ByteArrayOutputStream bos1 = new ByteArrayOutputStream();
             selfie.compress(Bitmap.CompressFormat.JPEG, 0 /*ignored for PNG*/, bos1);
             MultipartBody.create(MediaType.parse("image/*"), bos1.toByteArray());
 
-
             ByteArrayOutputStream bos2 = new ByteArrayOutputStream();
             idcard.compress(Bitmap.CompressFormat.JPEG, 0 /*ignored for PNG*/, bos2);
             MultipartBody.create(MediaType.parse("image/*"), bos2.toByteArray());
+
         }
     }
 

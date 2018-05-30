@@ -1,7 +1,9 @@
 package com.ultraviolet.delieve.view.main;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
@@ -10,21 +12,29 @@ import android.util.Log;
 import android.view.MenuItem;
 
 import com.ultraviolet.delieve.R;
-import com.ultraviolet.delieve.data.dto.UserDto;
+import com.ultraviolet.delieve.data.dto.DeliveryMatchingDto;
 import com.ultraviolet.delieve.data.repository.AuthRepository;
-import com.ultraviolet.delieve.data.repository.DeliveryRequestRepository;
+import com.ultraviolet.delieve.data.repository.DeliveryRepository;
+import com.ultraviolet.delieve.data.repository.EnrollRepository;
 import com.ultraviolet.delieve.data.repository.UserRepository;
+import com.ultraviolet.delieve.data.service.EnrollService;
 import com.ultraviolet.delieve.view.base.BaseActivity;
 import com.ultraviolet.delieve.view.deliever.DelieverFragment;
 import com.ultraviolet.delieve.view.deliever.list.DeliveryListFragment;
 import com.ultraviolet.delieve.view.enroll.BeforeEnrollFragment;
+import com.ultraviolet.delieve.view.enroll.EnrollWaitingFragment;
 import com.ultraviolet.delieve.view.send.SendFragment;
 
+
+import java.io.ByteArrayOutputStream;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 
 public class MainActivity extends BaseActivity
         implements FragmentManager.OnBackStackChangedListener  {
@@ -33,10 +43,13 @@ public class MainActivity extends BaseActivity
     AuthRepository mAuthRepository;
 
     @Inject
-    DeliveryRequestRepository mDeliveryRequestRepository;
+    DeliveryRepository mDeliveryRepository;
 
     @Inject
     UserRepository mUserRepository;
+
+   @Inject
+   EnrollRepository mEnrollService;
 
     @Inject
     SendFragment mSendFragment;
@@ -108,7 +121,7 @@ public class MainActivity extends BaseActivity
                         Log.d("credt", throwable.getMessage());
                     });*/
             /*
-            mDeliveryRequestRepository.postRequest(new DelieveryRequestDto(
+            mDeliveryRepository.postDeliveryRequest(new DeliveryRequestDto(
                     "HYUNSU ZIP", 129,33,
                     "SEOUL LAND", 111, 39,
                     "2018-05-29T20:05:10.780Z","2018-05-29T20:05:13.002Z",
@@ -119,7 +132,39 @@ public class MainActivity extends BaseActivity
                     }, throwable -> {
                         throwable.printStackTrace();
                     });*/
+            /*
+            mDeliveryRepository.getDeliveryMatching(37.279173,
+                    127.043332,
+                    "77")
+                    .subscribe(res -> {
 
+                    }, throwable -> {
+
+                    });
+                    */
+            int w = 300, h = 300;
+
+            Bitmap.Config conf1 = Bitmap.Config.ARGB_8888; // see other conf types
+            Bitmap.Config conf2 = Bitmap.Config.ARGB_4444;
+            Bitmap bmp1 = Bitmap.createBitmap(w, h, conf1);
+            Bitmap bmp2 = Bitmap.createBitmap(w, h, conf2);
+
+            ByteArrayOutputStream bos1 = new ByteArrayOutputStream();
+            bmp1.compress(Bitmap.CompressFormat.JPEG, 0 /*ignored for PNG*/, bos1);
+            RequestBody body1 = MultipartBody.create(MediaType.parse("image/*"), bos1.toByteArray());
+
+            ByteArrayOutputStream bos2 = new ByteArrayOutputStream();
+            bmp2.compress(Bitmap.CompressFormat.JPEG, 0 /*ignored for PNG*/, bos2);
+            RequestBody body2 = MultipartBody.create(MediaType.parse("image/*"), bos2.toByteArray());
+
+            RequestBody body3 = MultipartBody.create(MediaType.parse("text/plain"), "test");
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+            mEnrollService.requestEnroll(body1, body2,body3)
+            .subscribe(res->{
+            }, throwable -> {
+                throwable.printStackTrace();
+            });
         }
         init();
     }
@@ -144,8 +189,11 @@ public class MainActivity extends BaseActivity
 /*
         switch (mUserRepository.getUserType()){
             case User.USER_DELIEVER :
+            break;
             case User.USER_BEFORE_DELIEVER:
+            break;
             case User.USER_WAITNG_FOR_JUDGE :
+            break;
         }*/
 
         return mDelieverFragment;

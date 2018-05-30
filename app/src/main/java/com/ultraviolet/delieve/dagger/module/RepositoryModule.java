@@ -1,13 +1,16 @@
 package com.ultraviolet.delieve.dagger.module;
 
 import com.ultraviolet.delieve.data.repository.AuthRepository;
-import com.ultraviolet.delieve.data.repository.DeliveryRequestRepository;
+import com.ultraviolet.delieve.data.repository.DeliveryRepository;
+import com.ultraviolet.delieve.data.repository.EnrollRepository;
 import com.ultraviolet.delieve.data.repository.UserRepository;
 import com.ultraviolet.delieve.data.repository.impl.AuthRepositoryImpl;
-import com.ultraviolet.delieve.data.repository.impl.DeliveryRequestRepositoryImpl;
+import com.ultraviolet.delieve.data.repository.impl.DeliveryRepositoryImpl;
+import com.ultraviolet.delieve.data.repository.impl.EnrollRepositoryImpl;
 import com.ultraviolet.delieve.data.repository.impl.UserRepositoryImpl;
 import com.ultraviolet.delieve.data.service.AuthService;
-import com.ultraviolet.delieve.data.service.DeliveryRequestService;
+import com.ultraviolet.delieve.data.service.DeliveryService;
+import com.ultraviolet.delieve.data.service.EnrollService;
 
 import dagger.Module;
 import dagger.Provides;
@@ -19,12 +22,20 @@ public class RepositoryModule {
     AuthRepository provideAuthRepository(AuthService service) {
         return new AuthRepositoryImpl(service);
     }
+
     @Provides
-    UserRepository provideUserRepository(){
+    UserRepository provideUserRepository() {
         return new UserRepositoryImpl();
     }
 
     @Provides
-    DeliveryRequestRepository provideDeliveryRequestRepository(DeliveryRequestService service)
-    {return new DeliveryRequestRepositoryImpl(service); }
+    DeliveryRepository provideDeliveryRequestRepository(DeliveryService service) {
+        return new DeliveryRepositoryImpl(service);
+    }
+
+    @Provides
+    EnrollRepository provideEnrollRepository(EnrollService service) {
+        return new EnrollRepositoryImpl(service);
+    }
+
 }

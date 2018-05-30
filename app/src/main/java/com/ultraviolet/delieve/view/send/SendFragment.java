@@ -42,11 +42,9 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 import com.ultraviolet.delieve.R;
-import com.ultraviolet.delieve.data.dto.DelieveryRequestDto;
-import com.ultraviolet.delieve.data.repository.DeliveryRequestRepository;
+import com.ultraviolet.delieve.data.dto.DeliveryRequestDto;
+import com.ultraviolet.delieve.data.repository.DeliveryRepository;
 import com.ultraviolet.delieve.view.base.BaseFragment;
-import com.ultraviolet.delieve.view.base.BaseSupportMapFragment;
-import com.ultraviolet.delieve.view.enroll.EvaluateDeliver1;
 
 import java.util.Calendar;
 import java.util.List;
@@ -76,7 +74,7 @@ public class SendFragment extends BaseFragment {
 
 
     @Inject
-    DeliveryRequestRepository mDeliveryRequestRepository;
+    DeliveryRepository mDeliveryRepository;
 
     @BindView(R.id.sliding_layout)
     SlidingUpPanelLayout slidingUpPanelLayout;
@@ -164,7 +162,7 @@ public class SendFragment extends BaseFragment {
         if (isRequestValid());
         {
             //  new LatLng(location.getLatitude(),location.getLongitude()),
-            mDeliveryRequestRepository.postRequest(new DelieveryRequestDto(
+            mDeliveryRepository.postDeliveryRequest(new DeliveryRequestDto(
                     "HYUNSU ZIP", 129, 33,
                     "SEOUL LAND", 111, 39,
                     "2018-05-29T20:05:10.780Z", "2018-05-29T20:05:13.002Z",

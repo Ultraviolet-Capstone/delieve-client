@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
+import android.os.StrictMode;
 import android.util.Base64;
 import android.util.Log;
 
@@ -32,6 +33,9 @@ public class MainApplication extends Application {
         // Kakao Sdk 초기화
         KakaoSDK.init(new KakaoSDKAdapter(this));
         Log.d("guri",getKeyHash(getApplicationContext()));
+
+
+
     }
 
     private void init() {
@@ -39,6 +43,8 @@ public class MainApplication extends Application {
                 .applicationModule(new ApplicationModule(this))
                 .networkModule(new NetworkModule(getString(R.string.BASE_URL)))
                 .build();
+
+
     }
 
     public static String getKeyHash(final Context context) {
