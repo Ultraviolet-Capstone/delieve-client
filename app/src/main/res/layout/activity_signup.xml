@@ -63,15 +63,30 @@
                 android:hint="Phone Number"/>
         </android.support.design.widget.TextInputLayout>
 
-        <com.tallan.android.customviews.DateDisplayPicker
-            android:id="@+id/clientEditCreate_BirthDateDayPicker"
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@android:style/Widget.Holo.Spinner"
-            android:hint="Date"/>
+            android:layout_marginTop="8dp"
+            >
+            <EditText
+                android:id="@+id/birthday"
+                android:layout_marginTop="8dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:textColor="@color/color_WHITE"
+                android:focusable="false"
+                android:hint="Birthday"
+                android:inputType="date" />
+        </android.support.design.widget.TextInputLayout>
+
+
+
+
 
         <RadioGroup
-            android:id="@+id/radiogroupFacetype"
+            android:layout_marginTop="8dp"
+            android:id="@+id/radiogroupGender"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal">

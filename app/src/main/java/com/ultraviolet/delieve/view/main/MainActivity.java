@@ -148,8 +148,8 @@ public class MainActivity extends BaseActivity
             case User.USER_WAITNG_FOR_JUDGE :
         }*/
 
-        //return mDelieverFragment;
-        return mBeforeEnrollFragment;
+        return mDelieverFragment;
+        //return mBeforeEnrollFragment;
 
     }
 

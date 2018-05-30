@@ -25,8 +25,6 @@ import okhttp3.MultipartBody;
 
 public class KakaoSignupActivity extends BaseActivity {
 
-    boolean isSignup=true;
-
     @Inject
     UserRepository mUserRepository;
 
@@ -80,9 +78,8 @@ public class KakaoSignupActivity extends BaseActivity {
                 Log.d("kakao", email);
                 Log.d("kakao", "==========================");
 
-                // 우선 서버를 login()
-                //  ip/auth/user/token?76~
-                mAuthRepository.login("123")//kakaoID
+
+                mAuthRepository.login(kakaoID)//kakaoID is token
                         .subscribe(res->{
                             LoginDto loginDto = res.body();
                             /*
@@ -97,15 +94,18 @@ public class KakaoSignupActivity extends BaseActivity {
                             mUserRepository.userSignIn(loginDto);
                         }, throwable -> {
                             Log.d("delieve", throwable.getMessage());
-                            redirectSignUpActivity(url, email);
+                            redirectSignUpActivity(url, email, kakaoID, kakaoNickname);
                         });
+
             }
         });
     }
-    private void redirectSignUpActivity(String url, String email) {
+    private void redirectSignUpActivity(String url, String email, String token, String nickname) {
         Intent intent = new Intent(KakaoSignupActivity.this, SignupActivity.class);
         intent.putExtra("url", url);
         intent.putExtra("email", email);
+        intent.putExtra("token", token);
+        intent.putExtra("nickname", nickname);
         startActivity(intent);
         finish();
     }
