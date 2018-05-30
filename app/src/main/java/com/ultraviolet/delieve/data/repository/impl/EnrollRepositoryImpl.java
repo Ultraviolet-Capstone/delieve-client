@@ -9,6 +9,7 @@ import java.util.Map;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Response;
 import rx.Observable;
@@ -26,16 +27,11 @@ public class EnrollRepositoryImpl implements EnrollRepository  {
     }
 
     @Override
-    public Observable<Response<Void>> requestEnroll(RequestBody selfie, RequestBody idCard, RequestBody id) {
+    public Observable<Response<Void>> requestEnroll(MultipartBody.Part selfie, MultipartBody.Part idCard, MultipartBody.Part id) {
 
-        Map<String, RequestBody> map = new HashMap<>();
-
-        map.put("userId", id);
-        map.put("selfi", selfie);
-        map.put("idCard", idCard);
 
         Observable<Response<Void>> res = service
-                .requestEnroll(map);
+                .requestEnroll(selfie, idCard, id);
         return res.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
 

@@ -18,6 +18,12 @@ import dagger.Provides;
 @Module
 public class RepositoryModule {
 
+    private UserRepository mUserRepository;
+
+    public RepositoryModule() {
+        this.mUserRepository = new UserRepositoryImpl();
+    }
+
     @Provides
     AuthRepository provideAuthRepository(AuthService service) {
         return new AuthRepositoryImpl(service);
@@ -25,7 +31,7 @@ public class RepositoryModule {
 
     @Provides
     UserRepository provideUserRepository() {
-        return new UserRepositoryImpl();
+        return mUserRepository;
     }
 
     @Provides

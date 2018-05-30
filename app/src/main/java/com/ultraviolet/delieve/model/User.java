@@ -14,14 +14,16 @@ public class User implements Serializable {
     private String phone;
     private String email;
     private String birthDay;
+    private int userId;
 
-    public User(String authToken, int delivable, String name, String phone, String email, String birthDay) {
+    public User(String authToken, int delivable, String name, String phone, String email, String birthDay, int userId) {
         this.authToken = authToken;
         this.delivable = delivable;
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.birthDay = birthDay;
+        this.userId = userId;
     }
 
     public String getAuthToken() {
@@ -70,5 +72,13 @@ public class User implements Serializable {
 
     public void setBirthDay(String birthDay) {
         this.birthDay = birthDay;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 }

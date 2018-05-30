@@ -10,4 +10,6 @@ public interface UserRepository {
 
     int getUserType();
 
+    int getUserId();
+
 }

@@ -8,6 +8,7 @@ public class LoginDto {
     public UserInfo userInfo;
 
     public class UserInfo{
+        public int id;
         public int Delivable;
         public String name;
         public String phone;

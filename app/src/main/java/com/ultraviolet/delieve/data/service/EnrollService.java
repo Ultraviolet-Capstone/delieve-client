@@ -16,8 +16,16 @@ import rx.Observable;
 
 public interface EnrollService {
 
+    /*
     @Multipart
-    @POST("http://192.168.0.28:3000/api/evaluate/deliver")
+    @POST("http://192.168.0.21:3000/api/evaluate/deliver")
     Observable<Response<Void>> requestEnroll (@PartMap Map<String, RequestBody> params);
+    */
+    @Multipart
+    @POST("http://192.168.0.21:3000/api/evaluate/deliver")
+    Observable<Response<Void>> requestEnroll(@Part MultipartBody.Part selfi,
+                                             @Part MultipartBody.Part idcard,
+                                             @Part MultipartBody.Part userId);
+
 
 }
