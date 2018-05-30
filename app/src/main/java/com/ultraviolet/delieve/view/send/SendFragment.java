@@ -162,6 +162,7 @@ public class SendFragment extends BaseFragment {
     public void onSubmitClicked(){
         if (isRequestValid());
         {
+            //  new LatLng(location.getLatitude(),location.getLongitude()),
             mDeliveryRequestRepository.postRequest(new DelieveryRequestDto(
                     "HYUNSU ZIP", 129, 33,
                     "SEOUL LAND", 111, 39,
@@ -183,8 +184,12 @@ public class SendFragment extends BaseFragment {
         super.onCreateView(layoutInflater, viewGroup, bundle);
         View rootView = layoutInflater.inflate(R.layout.fragment_send, viewGroup, false);
 
+        initMap();
+
         if (mSupportMapFragment == null){
-            initMap();
+        }
+        else {
+
         }
 
         return rootView;
@@ -204,7 +209,7 @@ public class SendFragment extends BaseFragment {
     public void onPause() {
         super.onPause();
         if (mFusedLocationClient != null) {
-            //mFusedLocationClient.removeLocationUpdates(locationCallback);
+            mFusedLocationClient.removeLocationUpdates(locationCallback);
         }
     }
 
@@ -270,7 +275,7 @@ public class SendFragment extends BaseFragment {
 
                 locationRequest = new LocationRequest();
                 locationRequest.setInterval(60000);
-                locationRequest.setFastestInterval(2000);
+                locationRequest.setFastestInterval(1000);
                 locationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
 
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {

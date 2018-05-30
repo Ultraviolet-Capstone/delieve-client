@@ -7,11 +7,68 @@ public class User implements Serializable {
     public static final int USER_WAITNG_FOR_JUDGE = 2;
     public static final int USER_DELIEVER = 3;
 
-    private String token;
+    private String authToken;
 
-    private int type;
+    private int delivable;
+    private String name;
+    private String phone;
+    private String email;
+    private String birthDay;
 
-    public int getType() {
-        return type;
+    public User(String authToken, int delivable, String name, String phone, String email, String birthDay) {
+        this.authToken = authToken;
+        this.delivable = delivable;
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+        this.birthDay = birthDay;
+    }
+
+    public String getAuthToken() {
+        return authToken;
+    }
+
+    public void setAuthToken(String authToken) {
+        this.authToken = authToken;
+    }
+
+    public int getDelivable() {
+        return delivable;
+    }
+
+    public void setDelivable(int delivable) {
+        this.delivable = delivable;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getBirthDay() {
+        return birthDay;
+    }
+
+    public void setBirthDay(String birthDay) {
+        this.birthDay = birthDay;
     }
 }

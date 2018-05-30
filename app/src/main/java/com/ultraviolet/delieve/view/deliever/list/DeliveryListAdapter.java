@@ -1,4 +1,4 @@
-package com.ultraviolet.delieve.view.deliever;
+package com.ultraviolet.delieve.view.deliever.list;
 
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;

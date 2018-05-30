@@ -1,5 +1,6 @@
 package com.ultraviolet.delieve.data.repository.impl;
 
+import com.ultraviolet.delieve.data.dto.LoginDto;
 import com.ultraviolet.delieve.data.dto.TokenDto;
 import com.ultraviolet.delieve.data.dto.UserDto;
 import com.ultraviolet.delieve.data.service.AuthService;
@@ -35,10 +36,10 @@ public class AuthRepositoryImpl implements AuthRepository {
     }
 
     @Override
-    public Observable<TokenDto> login(String token) {
-        Observable<TokenDto> tokenDto = service
+    public Observable<Response<LoginDto>> login(String token) {
+        Observable<Response<LoginDto>> loginDto = service
                 .login(token);
-        return tokenDto.subscribeOn(Schedulers.io())
+        return loginDto.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
 

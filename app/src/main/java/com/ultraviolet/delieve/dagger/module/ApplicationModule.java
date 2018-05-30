@@ -5,8 +5,10 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
 import com.ultraviolet.delieve.MainApplication;
-import com.ultraviolet.delieve.view.deliever.DeliveryListFragment;
-import com.ultraviolet.delieve.view.deliever.DeliveryListPresenter;
+import com.ultraviolet.delieve.model.DeliveryRequest;
+import com.ultraviolet.delieve.view.deliever.DelieverFragment;
+import com.ultraviolet.delieve.view.deliever.list.DeliveryListFragment;
+import com.ultraviolet.delieve.view.deliever.list.DeliveryListPresenter;
 import com.ultraviolet.delieve.view.enroll.BeforeEnrollFragment;
 import com.ultraviolet.delieve.view.send.SendFragment;
 
@@ -24,6 +26,7 @@ public class ApplicationModule {
 
     private DeliveryListFragment mDeliveryListFragment;
     private DeliveryListPresenter mDeliveryListPresenter;
+    private DelieverFragment mDelieverFragment;
 
     public ApplicationModule(MainApplication mainApplication) {
         this.mMainApplication = mainApplication;
@@ -32,6 +35,7 @@ public class ApplicationModule {
 
         mDeliveryListFragment = new DeliveryListFragment();
         mDeliveryListPresenter = new DeliveryListPresenter();
+        mDelieverFragment = new DelieverFragment();
 
     }
 
@@ -57,6 +61,9 @@ public class ApplicationModule {
     @Singleton
     DeliveryListPresenter provideDeliveryListPresenter() { return mDeliveryListPresenter;}
 
+    @Provides
+    @Singleton
+    DelieverFragment provideDelieverFragment() {return mDelieverFragment; }
 
     @Provides
     @Singleton

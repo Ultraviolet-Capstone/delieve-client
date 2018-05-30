@@ -19,4 +19,10 @@
     <string name="field_required">This field is required</string>
     <string name="title_activity_waiting_for_matching">WaitingForMatchingActivity</string>
 
+    <string name="title_activity_deliever_waiting_for_matching">
+        Deliever_waitingForMatchingActivity
+    </string>
+
+    <string name="title_activity_send_waiting">SendWaitingActivity</string>
+
 </resources>

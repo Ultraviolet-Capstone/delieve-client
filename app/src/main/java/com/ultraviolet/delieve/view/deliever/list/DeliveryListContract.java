@@ -1,4 +1,4 @@
-package com.ultraviolet.delieve.view.deliever;
+package com.ultraviolet.delieve.view.deliever.list;
 
 public interface DeliveryListContract {
 

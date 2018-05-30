@@ -12,17 +12,31 @@ import com.kakao.usermgmt.callback.MeResponseCallback;
 import com.kakao.usermgmt.response.model.UserProfile;
 
 import com.kakao.util.helper.log.Logger;
+import com.ultraviolet.delieve.data.dto.LoginDto;
+import com.ultraviolet.delieve.data.repository.AuthRepository;
+import com.ultraviolet.delieve.data.repository.UserRepository;
+import com.ultraviolet.delieve.view.base.BaseActivity;
 import com.ultraviolet.delieve.view.main.MainActivity;
 
+import javax.inject.Inject;
+
+import okhttp3.MultipartBody;
 
 
-public class KakaoSignupActivity extends Activity {
+public class KakaoSignupActivity extends BaseActivity {
 
     boolean isSignup=true;
+
+    @Inject
+    UserRepository mUserRepository;
+
+    @Inject
+    AuthRepository mAuthRepository;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getDiComponent().inject(this);
         requestMe();
     }
     /**
@@ -66,17 +80,25 @@ public class KakaoSignupActivity extends Activity {
                 Log.d("kakao", email);
                 Log.d("kakao", "==========================");
 
-
                 // 우선 서버를 login()
                 //  ip/auth/user/token?76~
-
-                if (isSignup==false) {
-                    redirectSignUpActivity(url, email);
-
-                } else {
-                    redirectMainActivity(url, kakaoNickname); // 로그인 성공시 MainActivity로
-                }
-
+                mAuthRepository.login("123")//kakaoID
+                        .subscribe(res->{
+                            LoginDto loginDto = res.body();
+                            /*
+                            if (res.code() == 200){
+                                redirectMainActivity(url, kakaoNickname); // 로그인 성공시 MainActivity
+                            }
+                            else if(res.code() == 404){
+                                redirectSignUpActivity(url, email);
+                            }
+                            */
+                            redirectMainActivity(url, kakaoNickname); // 로그인 성공시 MainActivity
+                            mUserRepository.userSignIn(loginDto);
+                        }, throwable -> {
+                            Log.d("delieve", throwable.getMessage());
+                            redirectSignUpActivity(url, email);
+                        });
 
                 // 없으 => sig
                 // 있어1 ->

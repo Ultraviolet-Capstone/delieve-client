@@ -6,17 +6,15 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.util.Log;
 import android.view.MenuItem;
-import android.widget.TextView;
 
 import com.ultraviolet.delieve.R;
-import com.ultraviolet.delieve.data.dto.DelieveryRequestDto;
 import com.ultraviolet.delieve.data.repository.AuthRepository;
 import com.ultraviolet.delieve.data.repository.DeliveryRequestRepository;
 import com.ultraviolet.delieve.data.repository.UserRepository;
 import com.ultraviolet.delieve.view.base.BaseActivity;
-import com.ultraviolet.delieve.view.deliever.DeliveryListFragment;
+import com.ultraviolet.delieve.view.deliever.DelieverFragment;
+import com.ultraviolet.delieve.view.deliever.list.DeliveryListFragment;
 import com.ultraviolet.delieve.view.enroll.BeforeEnrollFragment;
 import com.ultraviolet.delieve.view.send.SendFragment;
 
@@ -46,6 +44,10 @@ public class MainActivity extends BaseActivity
 
     @Inject
     DeliveryListFragment mDeliveryListFragment;
+
+    @Inject
+    DelieverFragment mDelieverFragment;
+
 
     @BindView(R.id.navigation)
     BottomNavigationView mBottomNavigationView;
@@ -124,7 +126,16 @@ public class MainActivity extends BaseActivity
 
         mBottomNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
-        replaceFragment(mSendFragment);
+        setupUi();
+
+        //replaceFragment(mSendFragment);
+    }
+
+    private void setupUi() {
+        getSupportFragmentManager()
+                .beginTransaction()
+                .add(R.id.main_fragment_container, mSendFragment)
+                .commit();
     }
 
     Fragment getDelieverFragment(){
@@ -135,7 +146,7 @@ public class MainActivity extends BaseActivity
             case User.USER_WAITNG_FOR_JUDGE :
         }*/
 
-        return mBeforeEnrollFragment;
+        return mDelieverFragment;
 
     }
 
@@ -149,10 +160,10 @@ public class MainActivity extends BaseActivity
 
     @Override
     public void onBackPressed() {
-        /*
+
         while (getSupportFragmentManager().getBackStackEntryCount()!= 0) {
             getSupportFragmentManager().popBackStackImmediate();
-        }*/
+        }
         super.onBackPressed();
     }
 

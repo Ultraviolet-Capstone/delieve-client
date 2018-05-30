@@ -1,6 +1,7 @@
 package com.ultraviolet.delieve.data.service;
 
 
+import com.ultraviolet.delieve.data.dto.LoginDto;
 import com.ultraviolet.delieve.data.dto.TokenDto;
 import com.ultraviolet.delieve.data.dto.UserDto;
 
@@ -19,7 +20,7 @@ public interface AuthService {
                                   @Query("grantType") String grantType);
 
     @GET("/auth/user/login")
-    Observable<TokenDto> login(@Query("token") String token);
+    Observable<Response<LoginDto>> login(@Query("token") String kakaoToken);
 
 
     @POST("/auth/user/register")
