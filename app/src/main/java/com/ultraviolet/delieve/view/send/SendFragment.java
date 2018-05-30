@@ -46,6 +46,7 @@ import com.ultraviolet.delieve.data.dto.DelieveryRequestDto;
 import com.ultraviolet.delieve.data.repository.DeliveryRequestRepository;
 import com.ultraviolet.delieve.view.base.BaseFragment;
 import com.ultraviolet.delieve.view.base.BaseSupportMapFragment;
+import com.ultraviolet.delieve.view.enroll.EvaluateDeliver1;
 
 import java.util.Calendar;
 import java.util.List;
@@ -173,6 +174,10 @@ public class SendFragment extends BaseFragment {
                         Log.d("credt", String.valueOf(res.message()));
                         Toast.makeText(getContext(),String.valueOf(res.message()),
                                 Toast.LENGTH_SHORT).show();
+
+                        // start waiting activity
+                        Intent intent = new Intent(getActivity(), SendWaitingActivity.class);
+                        startActivity(intent);
                     }, throwable -> {
                         throwable.printStackTrace();
                     });
@@ -184,14 +189,9 @@ public class SendFragment extends BaseFragment {
         super.onCreateView(layoutInflater, viewGroup, bundle);
         View rootView = layoutInflater.inflate(R.layout.fragment_send, viewGroup, false);
 
-        initMap();
-
         if (mSupportMapFragment == null){
+            initMap();
         }
-        else {
-
-        }
-
         return rootView;
 
     }
@@ -202,8 +202,9 @@ public class SendFragment extends BaseFragment {
         getDiComponent().inject(this);
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(getActivity());
 
+        if(mSupportMapFragment != null)
+            initMap();
     }
-
 
     @Override
     public void onPause() {
@@ -214,11 +215,16 @@ public class SendFragment extends BaseFragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+
+    }
+
+    @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
         setupSlidingUpPanel();
-    }
+        }
 
     public boolean isRequestValid(){
         return true;
