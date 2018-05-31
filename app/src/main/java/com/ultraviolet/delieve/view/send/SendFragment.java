@@ -50,8 +50,6 @@ import com.ultraviolet.delieve.data.repository.DeliveryRepository;
 import com.ultraviolet.delieve.data.repository.UserRepository;
 import com.ultraviolet.delieve.view.base.BaseFragment;
 
-import org.w3c.dom.Text;
-
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -234,6 +232,8 @@ public class SendFragment extends BaseFragment {
 
                         // start waiting activity
                         Intent intent = new Intent(getActivity(), SendWaitingActivity.class);
+                        Log.d("credt", "" + res.body().requestId);
+                        intent.putExtra("requestId", res.body().requestId);
                         startActivity(intent);
                     }, throwable -> {
                         throwable.printStackTrace();
@@ -250,7 +250,7 @@ public class SendFragment extends BaseFragment {
 
         Id=mUserRepository.getUserId();
 
-        Spinner mTypeSpinner=(Spinner)rootView.findViewById(R.id.Typespinner);
+        Spinner mTypeSpinner= rootView.findViewById(R.id.Typespinner);
         mTypeSpinner.setPrompt("Select the stuff type.");
         mTypeSpinner.setAdapter(adapter);
         type = mTypeSpinner.getSelectedItem().toString();
@@ -266,8 +266,8 @@ public class SendFragment extends BaseFragment {
             typeC=2;
         }
 
-        SeekBar mSeekBar=(SeekBar)rootView.findViewById(R.id.seekBar);
-        TextView weightText=(TextView)rootView.findViewById(R.id.weight);
+        SeekBar mSeekBar= rootView.findViewById(R.id.seekBar);
+        TextView weightText= rootView.findViewById(R.id.weight);
 
         mSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             int seekBarProgress = 0;
@@ -299,7 +299,7 @@ public class SendFragment extends BaseFragment {
 
         ArrayAdapter<String> adapter2=new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_activated_1, sizeList);
 
-        Spinner mSizeSpinner=(Spinner)rootView.findViewById(R.id.Sizespinner);
+        Spinner mSizeSpinner= rootView.findViewById(R.id.Sizespinner);
         mSizeSpinner.setPrompt("Select the stuff type.");
         mSizeSpinner.setAdapter(adapter2);
         size = mSizeSpinner.getSelectedItem().toString();
@@ -451,7 +451,6 @@ public class SendFragment extends BaseFragment {
                 if (currentLocationMaker != null) {
                     currentLocationMaker.remove();
                 }
-
             }
         }
     };

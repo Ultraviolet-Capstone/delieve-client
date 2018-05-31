@@ -23,7 +23,9 @@ public class DelieverFragment extends Fragment {
     }
     public DelieverFragment() {
         // Required empty public constructor
+
     }
+
 
 
     @Override

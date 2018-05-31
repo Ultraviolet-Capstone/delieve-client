@@ -10,6 +10,9 @@ import android.view.ViewGroup;
 import com.ultraviolet.delieve.R;
 import com.ultraviolet.delieve.view.base.BaseDialogFragment;
 
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 public class SendMatchedFragmentDialog extends BaseDialogFragment {
 
     public static final String TAG = "Delieve";
@@ -36,8 +39,9 @@ public class SendMatchedFragmentDialog extends BaseDialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle state) {
         super.onCreateView(inflater, parent, state);
-
+        getDiComponent().inject(this);
         View view = getActivity().getLayoutInflater().inflate(R.layout.fragment_send_matched_dialog, parent, false);
+        ButterKnife.bind(this, view);
         return view;
     }
 

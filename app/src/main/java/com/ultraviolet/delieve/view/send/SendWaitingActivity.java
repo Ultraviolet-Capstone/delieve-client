@@ -32,6 +32,8 @@ import rx.schedulers.Schedulers;
  */
 public class SendWaitingActivity extends BaseActivity {
 
+    int requestId;
+
     @Inject
     UserRepository mUserRepository;
 
@@ -120,7 +122,7 @@ public class SendWaitingActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_send_waiting_for_matching);
-
+        requestId = getIntent().getIntExtra("requestId", 0);
         mVisible = true;
         mControlsView = findViewById(R.id.fullscreen_content_controls);
         mContentView = findViewById(R.id.fullscreen_content);
@@ -136,34 +138,49 @@ public class SendWaitingActivity extends BaseActivity {
 
         });
 
-        // Timer
-        subscription = Observable.interval(5000, 5000, TimeUnit.MILLISECONDS)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Action1<Long>() {
-                    public void call(Long aLong) {
-                        mDeliveryRepository.getDeliveryMatchingForSender(37.284377,
-                                127.044373,
-                                String.valueOf(mUserRepository.getUserId()))
-                                .subscribe(res->{
-                                    if (res.code() == 200){
-                                        //new DelieverMatchedDialogFragment(res.body());
-                                        Log.d("credt", res.body().stuffName);
-                                    }
-                                    else{
-                                        Log.d("credt", "" + res.code());
+        setPolling(true);
 
-                                    }
-                                },throwable -> {
-                                    throwable.printStackTrace();
-                                });
-                    }
-                });
 
         // Upon interacting with UI controls, delay any scheduled hide()
         // operations to prevent the jarring behavior of controls going away
         // while interacting with the UI.
         findViewById(R.id.dummy_button).setOnTouchListener(mDelayHideTouchListener);
+    }
+
+    private void setPolling(boolean b) {
+        if (b) {
+            // Timer
+            subscription = Observable.interval(5000, 5000, TimeUnit.MILLISECONDS)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Action1<Long>() {
+                        public void call(Long aLong) {
+                            mDeliveryRepository.getDeliveryMatchingForSender(String.valueOf(requestId))
+                                    .subscribe(res -> {
+                                        if (res.code() == 200) {
+                                            DelieverMatchedDialogFragment dialog = DelieverMatchedDialogFragment.newInstance();
+                                            dialog.setBeginAddress(res.body().beginAddress);
+                                            dialog.setFinishAddress(res.body().finishAddress);
+                                            dialog.setSize(res.body().stuffSize);
+                                            dialog.setType(res.body().type);
+                                            dialog.setRequestTime(res.body().beginTime);
+                                            dialog.setRequestMaxTime(res.body().finishTime);
+                                            dialog.show(getSupportFragmentManager(), "MyDialogFragment");
+                                        } else {
+                                            Log.d("credt", "" + res.code());
+
+                                        }
+                                    }, throwable -> {
+                                        throwable.printStackTrace();
+                                    });
+                        }
+                    });
+        }
+        else
+        {
+            if (subscription != null)
+                subscription.unsubscribe();
+        }
     }
 
     @Override

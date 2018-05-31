@@ -46,14 +46,18 @@
         android:layout_width="match_parent"
         android:orientation="horizontal"
         android:layout_height="wrap_content">
+
         <Button
-            android:text="Accept"
+            android:id="@+id/btn_deliever_accpted"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:text="Accept" />
+
         <Button
-            android:text="Reject"
+            android:id="@+id/btn_deliever_reject"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:text="Reject" />
     </LinearLayout>
 
 
