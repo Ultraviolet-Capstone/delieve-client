@@ -2,6 +2,7 @@ package com.ultraviolet.delieve.view.deliever;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
@@ -49,6 +50,13 @@ public class DelieverMatchedDialogFragment extends BaseDialogFragment {
         )).subscribe(res -> {
             if(res.code() == 200 && res.body().delivererId == mUserRepository.getUserId())
                 Log.d("credt", "successfully accepted request");
+            Intent intent = new Intent(getActivity(), DelieverMatchedActivity.class);
+            intent.putExtra("from", beginAddress);
+            intent.putExtra("to", finishAddress);
+            intent.putExtra("weight", weight);
+            intent.putExtra("max", requestMaxTime);
+
+            startActivity(intent);
         }, throwable -> {
 
         });
@@ -135,8 +143,8 @@ public class DelieverMatchedDialogFragment extends BaseDialogFragment {
         return weight;
     }
 
-    public void setWeight(String weight) {
-        this.weight = weight;
+    public void setWeight(double weight) {
+        this.weight = String.valueOf(weight);
     }
 
     public String getRequestTime() {
@@ -186,7 +194,6 @@ public class DelieverMatchedDialogFragment extends BaseDialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle state) {
         super.onCreateView(inflater, parent, state);
-
 
         View view = getActivity().getLayoutInflater().inflate(R.layout.fragment_deliever_matched_dialog, parent, false);
 

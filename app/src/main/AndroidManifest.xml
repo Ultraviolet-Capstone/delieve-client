@@ -47,7 +47,8 @@
             android:name=".view.send.SendWaitingActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_send_waiting"
-            android:theme="@style/FullscreenTheme"></activity>
+            android:theme="@style/FullscreenTheme" />
+        <activity android:name=".view.deliever.DelieverMatchedActivity"></activity>
     </application>
 
 </manifest>

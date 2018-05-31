@@ -193,7 +193,7 @@ public class MainActivity extends BaseActivity
 
         Log.d("credt", "user state : " + mUserRepository.getUserType());
         //return mDelieverFragment;
-        return targetFragment;
+        return mDelieverFragment; //targetFragment;
     }
 
     void replaceFragment(Fragment fragment){
