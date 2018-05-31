@@ -37,7 +37,6 @@ public class EvaluateDeliver2 extends AppCompatActivity implements View.OnClickL
     Bitmap selfie;
 
 
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

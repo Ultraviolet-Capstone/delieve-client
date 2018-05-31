@@ -7,37 +7,51 @@
     tools:context=".view.send.SendMatchedFragmentDialog">
 
     <TextView
+        android:textSize="25dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/requestName"
+        />
+
+    <TextView
+        android:textSize="25dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/beginAddress"
          />
     <TextView
+        android:textSize="25dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/finishAddress"
          />
     <TextView
+        android:textSize="25dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/requestSize"
          />
     <TextView
+        android:textSize="25dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/requestType"
          />
     <TextView
+        android:textSize="25dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/requestWeight"
         />
 
     <TextView
+        android:textSize="25dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/requestBeginTime"
          />
     <TextView
+        android:textSize="25dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/requestFinishTime"
@@ -56,8 +70,7 @@
         <Button
             android:id="@+id/btn_deliever_reject"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Reject" />
+            android:layout_height="wrap_content" />
     </LinearLayout>
 
 

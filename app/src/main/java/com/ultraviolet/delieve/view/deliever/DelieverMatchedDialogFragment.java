@@ -79,13 +79,18 @@ public class DelieverMatchedDialogFragment extends BaseDialogFragment {
                 );
     }
 
-
+    String name;
     String beginAddress;
     String finishAddress;
     String size;
     int type;
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     String code;
-    String weight;
+    Double weight;
     String requestTime;
     String requestMaxTime;
     int requestId;
@@ -139,12 +144,12 @@ public class DelieverMatchedDialogFragment extends BaseDialogFragment {
         }
     }
 
-    public String getWeight() {
+    public Double getWeight() {
         return weight;
     }
 
-    public void setWeight(double weight) {
-        this.weight = String.valueOf(weight);
+    public void setWeight(Double weight) {
+        this.weight = weight;
     }
 
     public String getRequestTime() {
@@ -195,6 +200,7 @@ public class DelieverMatchedDialogFragment extends BaseDialogFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle state) {
         super.onCreateView(inflater, parent, state);
 
+
         View view = getActivity().getLayoutInflater().inflate(R.layout.fragment_deliever_matched_dialog, parent, false);
 
         getDiComponent().inject(this);
@@ -207,13 +213,13 @@ public class DelieverMatchedDialogFragment extends BaseDialogFragment {
         TextView tx_beginTime= view.findViewById(R.id.requestBeginTime);
         TextView tx_finishTime= view.findViewById(R.id.requestFinishTime);
 
-        tx_beginAddress.setText(beginAddress);
-        tx_finishAddress.setText(finishAddress);
-        tx_size.setText(size);
-        tx_type.setText(code);
-        tx_weight.setText(weight);
-        tx_beginTime.setText(requestTime);
-        tx_finishTime.setText(requestMaxTime);
+        tx_beginAddress.setText("시작주소: "+ beginAddress);
+        tx_finishAddress.setText("도착주소: "+finishAddress);
+        tx_size.setText("물품크기: "+size);
+        tx_type.setText("물품 특징: "+code);
+        tx_weight.setText("물품 무게: "+ weight.toString()+"kg");
+        tx_beginTime.setText("요청시간: "+requestTime);
+        tx_finishTime.setText("바라는 도착 시간: "+requestMaxTime);
 
         ButterKnife.bind(this, view);
 

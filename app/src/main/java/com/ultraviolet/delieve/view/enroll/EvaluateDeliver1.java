@@ -163,7 +163,7 @@ public class EvaluateDeliver1 extends AppCompatActivity implements View.OnClickL
             };
 
             new AlertDialog.Builder(this)
-                    .setTitle("업로드할 신분증 선택")
+                    .setTitle("업로드할 프로필")
                     .setPositiveButton("사진촬영", cameraListener)
                     .setNegativeButton("취소", cancelListener)
                     .show();

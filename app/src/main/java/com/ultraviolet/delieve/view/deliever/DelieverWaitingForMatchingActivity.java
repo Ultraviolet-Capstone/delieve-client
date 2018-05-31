@@ -147,17 +147,19 @@ public class DelieverWaitingForMatchingActivity extends BaseActivity {
                                 .subscribe(res->{
                                     if (res.code() == 200){
                                         DelieverMatchedDialogFragment dialog = DelieverMatchedDialogFragment.newInstance();
+                                        dialog.setName(res.body().senderName);
                                         dialog.setBeginAddress(res.body().beginAddress);
                                         dialog.setFinishAddress(res.body().finishAddress);
                                         dialog.setSize(res.body().stuffSize);
                                         dialog.setType(res.body().type);
+                                        dialog.setWeight(res.body().stuffWeight);
                                         dialog.setRequestTime(res.body().beginTime);
                                         dialog.setRequestMaxTime(res.body().finishTime);
                                         dialog.show(getSupportFragmentManager(), "MyDialogFragment");
                                         dialog.setWeight(res.body().stuffWeight);
                                         Log.d("credt", res.body().beginTime);
                                     }
-                                    else{
+                                    else {
                                         Log.d("credt", "" + res.code());
 
                                     }
