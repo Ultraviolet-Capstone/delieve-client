@@ -33,6 +33,8 @@ public class DelieverMatchedActivity extends AppCompatActivity {
         from.setText(getIntent().getStringExtra("from"));
         to.setText(getIntent().getStringExtra("to"));
         weigth.setText(getIntent().getStringExtra("weight" ) + " Kg");
+        until.setText("until " + getIntent().getStringExtra("max"));
+
 
     }
 }

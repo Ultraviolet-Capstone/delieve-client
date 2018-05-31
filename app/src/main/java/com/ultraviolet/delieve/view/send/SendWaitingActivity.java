@@ -165,6 +165,7 @@ public class SendWaitingActivity extends BaseActivity {
                                             dialog.setType(res.body().type);
                                             dialog.setRequestTime(res.body().beginTime);
                                             dialog.setRequestMaxTime(res.body().finishTime);
+                                            dialog.setWeight(res.body().stuffWeight);
                                             dialog.show(getSupportFragmentManager(), "MyDialogFragment");
                                         } else {
                                             Log.d("credt", "" + res.code());

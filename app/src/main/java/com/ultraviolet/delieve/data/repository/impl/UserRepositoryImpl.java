@@ -39,6 +39,11 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
+    public void setUserType(int i) {
+        user.setDelivable(i);
+    }
+
+    @Override
     public int getUserId() {
         return user.getUserId();
     }

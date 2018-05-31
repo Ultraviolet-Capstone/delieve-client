@@ -9,6 +9,7 @@ public interface UserRepository {
     void userSignIn(LoginDto loginDto);
 
     int getUserType();
+    void setUserType(int i);
 
     int getUserId();
 

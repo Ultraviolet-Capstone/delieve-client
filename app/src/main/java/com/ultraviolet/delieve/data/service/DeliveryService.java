@@ -23,13 +23,13 @@ public interface DeliveryService {
                                                                   @Query("long") double lng ,
                                                                   @Query("userId") String id);
 
-    @GET("/matching")
+    @GET("/api/matching")
     Observable<Response<DeliveryMatchingDto>> getDeliveryMatchingForSender(@Query("requestId") String id);
 
-    @POST("api/matching")
+    @POST("/api/matching")
     Observable<Response<DelieverAcceptResDto>> delieverAccept(@Body DelieverAcceptDto dto);
 
-    @GET("matching/flush")
+    @GET("/matching/flush")
     Observable<Response<Void>> delieverFlush(@Query("delivererId") int delieverId);
 
 

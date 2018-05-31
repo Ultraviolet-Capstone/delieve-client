@@ -55,6 +55,8 @@ public class DelieverMatchedDialogFragment extends BaseDialogFragment {
             intent.putExtra("to", finishAddress);
             intent.putExtra("weight", weight);
             intent.putExtra("max", requestMaxTime);
+            intent.putExtra("name", name);
+
 
             startActivity(intent);
         }, throwable -> {
@@ -217,7 +219,7 @@ public class DelieverMatchedDialogFragment extends BaseDialogFragment {
         tx_finishAddress.setText("도착주소: "+finishAddress);
         tx_size.setText("물품크기: "+size);
         tx_type.setText("물품 특징: "+code);
-        tx_weight.setText("물품 무게: "+ weight.toString()+"kg");
+        tx_weight.setText("물품 무게: "+ 2 +"kg");
         tx_beginTime.setText("요청시간: "+requestTime);
         tx_finishTime.setText("바라는 도착 시간: "+requestMaxTime);
 

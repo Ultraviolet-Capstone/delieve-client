@@ -155,8 +155,10 @@ public class DelieverWaitingForMatchingActivity extends BaseActivity {
                                         dialog.setWeight(res.body().stuffWeight);
                                         dialog.setRequestTime(res.body().beginTime);
                                         dialog.setRequestMaxTime(res.body().finishTime);
-                                        dialog.show(getSupportFragmentManager(), "MyDialogFragment");
                                         dialog.setWeight(res.body().stuffWeight);
+                                        dialog.setName(res.body().stuffName);
+                                        dialog.setRequestId(res.body().requestId);
+                                        dialog.show(getSupportFragmentManager(), "MyDialogFragment");
                                         Log.d("credt", res.body().beginTime);
                                     }
                                     else {
