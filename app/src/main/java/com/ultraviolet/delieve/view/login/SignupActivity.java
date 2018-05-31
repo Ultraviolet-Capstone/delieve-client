@@ -45,38 +45,8 @@ public class SignupActivity extends BaseActivity {
 
     @OnClick(R.id.btn_signup)
     void onSignUpClicked(){
-        String name=_nameText.getText().toString();
-        String phone=_passwordText.getText().toString();
-        String email=_emailText.getText().toString();
-        String birthday=mBirthdayPicker.getText().toString();
-        String token=getIntent().getStringExtra("token");
-        String url=getIntent().getStringExtra("url");
-        String providerNickname=getIntent().getStringExtra("nickname");
-        String gender=new String();
+        signup();
 
-        int genderID = genderRG.getCheckedRadioButtonId();
-        RadioButton genderRB = findViewById(genderID);
-        if(genderRB.getResources().getResourceEntryName(genderID).equals("male")) {
-            gender="male";
-        }
-        else if(genderRB.getResources().getResourceEntryName(genderID).equals("female")){
-            gender="female";
-        }
-
-        mAuthRepository.register(new UserDto(name, phone, email,birthday, token, "kakao", url,
-                providerNickname, gender))
-                .subscribe(res -> {
-                    Log.d("credt2", String.valueOf(res.code()));
-                    if(res.code()==500){
-                        Toast.makeText( getApplicationContext(),"회원가입을 할 수 없습니다.",Toast.LENGTH_LONG).show();
-                    }
-                    else if(res.code()==200){
-                        redirectMainActivity();
-                    }
-                }, throwable -> {
-                    throwable.printStackTrace();
-
-                });
     }
 
     @OnClick(R.id.link_login)
@@ -129,20 +99,11 @@ public class SignupActivity extends BaseActivity {
             onSignupFailed();
             return;
         }
-
-        _signupButton.setEnabled(false);
-
         final ProgressDialog progressDialog = new ProgressDialog(SignupActivity.this,
                 R.style.AppTheme_Dark_Dialog);
         progressDialog.setIndeterminate(true);
         progressDialog.setMessage("Creating Account...");
         progressDialog.show();
-
-        String name = _nameText.getText().toString();
-
-        String password = _passwordText.getText().toString();
-
-        // TODO: Implement your own signup logic here.
 
         new android.os.Handler().postDelayed(
                 new Runnable() {
@@ -154,6 +115,39 @@ public class SignupActivity extends BaseActivity {
                         progressDialog.dismiss();
                     }
                 }, 3000);
+        String name=_nameText.getText().toString();
+        String phone=_passwordText.getText().toString();
+        String email=_emailText.getText().toString();
+        String birthday=mBirthdayPicker.getText().toString();
+        String token=getIntent().getStringExtra("token");
+        String url=getIntent().getStringExtra("url");
+        String providerNickname=getIntent().getStringExtra("nickname");
+        String gender=new String();
+
+        int genderID = genderRG.getCheckedRadioButtonId();
+        RadioButton genderRB = findViewById(genderID);
+        if(genderRB.getResources().getResourceEntryName(genderID).equals("male")) {
+            gender="male";
+        }
+        else if(genderRB.getResources().getResourceEntryName(genderID).equals("female")){
+            gender="female";
+        }
+
+        mAuthRepository.register(new UserDto(name, phone, email,birthday, token, "kakao", url,
+                providerNickname, gender))
+                .subscribe(res -> {
+                    Log.d("credt2", String.valueOf(res.code()));
+                    if(res.code()==500){
+                        Toast.makeText( getApplicationContext(),"회원가입을 할 수 없습니다.",Toast.LENGTH_LONG).show();
+                    }
+                    else if(res.code()==200){
+                        redirectMainActivity();
+                    }
+                }, throwable -> {
+                    throwable.printStackTrace();
+
+                });
+
     }
 
 
@@ -177,8 +171,8 @@ public class SignupActivity extends BaseActivity {
         String password = _passwordText.getText().toString();
         String birthday = mBirthdayPicker.getText().toString();
 
-        if (name.isEmpty() || name.length() < 3) {
-            _nameText.setError("at least 3 characters");
+        if (name.isEmpty() || name.length() < 2) {
+            _nameText.setError("at least 2 characters");
             valid = false;
         } else {
             _nameText.setError(null);

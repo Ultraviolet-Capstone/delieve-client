@@ -90,7 +90,7 @@ public class KakaoSignupActivity extends BaseActivity {
                                 redirectSignUpActivity(url, email);
                             }
                             */
-                            redirectMainActivity(url, kakaoNickname); // 로그인 성공시 MainActivity
+                            redirectMainActivity(url, kakaoNickname, kakaoID); // 로그인 성공시 MainActivity
                             mUserRepository.userSignIn(loginDto);
                         }, throwable -> {
                             Log.d("delieve", throwable.getMessage());
@@ -109,10 +109,11 @@ public class KakaoSignupActivity extends BaseActivity {
         startActivity(intent);
         finish();
     }
-    private void redirectMainActivity(String url, String nickname) {
+    private void redirectMainActivity(String url, String nickname, String kakaoID) {
         Intent intent = new Intent(KakaoSignupActivity.this, MainActivity.class);
         intent.putExtra("url", url);
         intent.putExtra("nickname", nickname);
+        intent.putExtra("kakaoId", kakaoID);
         startActivity(intent);
         finish();
     }

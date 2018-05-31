@@ -12,6 +12,7 @@ public class DeliveryMatchingDto {
     public double stuffWeight;
     public double distance;
     public String beginTime;
+    public int type;
     public String finishTime;
     public String delivererSelfiURL;
 }

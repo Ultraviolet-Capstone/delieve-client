@@ -13,6 +13,7 @@ import com.ultraviolet.delieve.R;
 import com.ultraviolet.delieve.data.repository.DeliveryRepository;
 import com.ultraviolet.delieve.data.repository.UserRepository;
 import com.ultraviolet.delieve.view.base.BaseActivity;
+import com.ultraviolet.delieve.view.deliever.DelieverMatchedDialogFragment;
 
 import java.util.concurrent.TimeUnit;
 
@@ -141,8 +142,8 @@ public class SendWaitingActivity extends BaseActivity {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<Long>() {
                     public void call(Long aLong) {
-                        mDeliveryRepository.getDeliveryMatchingForSender(127.045,
-                                37.2842,
+                        mDeliveryRepository.getDeliveryMatchingForSender(37.284377,
+                                127.044373,
                                 String.valueOf(mUserRepository.getUserId()))
                                 .subscribe(res->{
                                     if (res.code() == 200){

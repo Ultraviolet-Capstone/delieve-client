@@ -141,13 +141,21 @@ public class DelieverWaitingForMatchingActivity extends BaseActivity {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<Long>() {
                     public void call(Long aLong) {
-                        mDeliveryRepository.getDeliveryMatching(127.045,
-                                37.2842,
+                        mDeliveryRepository.getDeliveryMatching(37.284377,
+                                127.044373,
                                 String.valueOf(mUserRepository.getUserId()))
                                 .subscribe(res->{
                                     if (res.code() == 200){
-                                        //new DelieverMatchedDialogFragment(res.body());
-                                        Log.d("credt", res.body().stuffName);
+                                        DelieverMatchedDialogFragment dialog = DelieverMatchedDialogFragment.newInstance();
+                                        dialog.setBeginAddress(res.body().beginAddress);
+                                        dialog.setFinishAddress(res.body().finishAddress);
+                                        dialog.setSize(res.body().stuffSize);
+                                        dialog.setType(res.body().type);
+                                        dialog.setRequestTime(res.body().beginTime);
+                                        dialog.setRequestMaxTime(res.body().finishTime);
+                                        dialog.show(getSupportFragmentManager(), "MyDialogFragment");
+
+                                        Log.d("credt", res.body().beginTime);
                                     }
                                     else{
                                         Log.d("credt", "" + res.code());

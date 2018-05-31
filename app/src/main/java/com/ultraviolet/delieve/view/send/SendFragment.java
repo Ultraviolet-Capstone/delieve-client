@@ -18,9 +18,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.SeekBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -44,9 +47,14 @@ import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 import com.ultraviolet.delieve.R;
 import com.ultraviolet.delieve.data.dto.DeliveryRequestDto;
 import com.ultraviolet.delieve.data.repository.DeliveryRepository;
+import com.ultraviolet.delieve.data.repository.UserRepository;
 import com.ultraviolet.delieve.view.base.BaseFragment;
 
+import org.w3c.dom.Text;
+
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -74,6 +82,9 @@ public class SendFragment extends BaseFragment {
 
 
     @Inject
+    UserRepository mUserRepository;
+
+    @Inject
     DeliveryRepository mDeliveryRepository;
 
     @BindView(R.id.sliding_layout)
@@ -94,8 +105,41 @@ public class SendFragment extends BaseFragment {
     @BindView(R.id.send_textbox_to)
     TextView mToTextBox;
 
+    @BindView(R.id.phoneNumberEdit)
+    TextView editNumber;
+
+    @BindView(R.id.nameEdit)
+    TextView editName;
+
+
+
     private final int PLACE_PICKER_REQUEST = 1;
     private int selectedTextbox = 0;
+    private final String[] stuffTypeList={"특징 없음","깨지기 쉬움", "액체"};
+    private float stuffWeight=(float)0.0;
+    private final String[] sizeList={"S", "M","L"};
+
+    private String type;
+    private int typeC;
+    private String size;
+    private double bax;
+    private double bay;
+    private double fax;
+    private double fay;
+    private String beginTime;
+    private String bdate;
+    private String btime;
+    private int Id;
+
+    private String finishTime;
+    private String fdate;
+    private String ftime;
+
+    private String phoneNumber;
+    private String beginAddress;
+    private String finishAdderes;
+    private String name;
+
 
     @OnClick({R.id.send_textbox_to, R.id.send_textbox_from})
     public void onSendTextBoxClicked(View textbox) {
@@ -134,6 +178,7 @@ public class SendFragment extends BaseFragment {
             @Override
             public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
                 mTimePickerTextEdit.setText( selectedHour + ":" + selectedMinute);
+                ftime=String.valueOf(selectedHour) + ":" + String.valueOf(selectedMinute)+":00";
             }
         }, hour, minute, true);//Yes 24 hour time
         mTimePicker.setTitle("Select Time");
@@ -150,7 +195,8 @@ public class SendFragment extends BaseFragment {
         mDatePicker = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                mDatePickerTextEdit.setText(year + "/" + month + "/" +  dayOfMonth);
+                mDatePickerTextEdit.setText(year + "-" + (month+1) + "-" +  dayOfMonth);
+                fdate=String.valueOf(year) + "-" + String.valueOf(month+1) + "-" +  String.valueOf(dayOfMonth);
             }
         }, year, month,date );
         mDatePicker.setTitle("Select Date");
@@ -159,15 +205,28 @@ public class SendFragment extends BaseFragment {
 
     @OnClick(R.id.submit)
     public void onSubmitClicked(){
+        long now = System.currentTimeMillis();
+        Date date = new Date(now);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+        beginTime= sdf.format(date);
+        finishTime=fdate+" "+ ftime;
+
+        phoneNumber=editNumber.getText().toString();
+        name=editName.getText().toString();
+
+
         if (isRequestValid());
         {
+
+            //'yyyy-mm-dd hh:mm:ss'
             //  new LatLng(location.getLatitude(),location.getLongitude()),
             mDeliveryRepository.postDeliveryRequest(new DeliveryRequestDto(
-                    "HYUNSU ZIP", 129, 33,
-                    "SEOUL LAND", 111, 39,
-                    "2018-05-29T20:05:10.780Z", "2018-05-29T20:05:13.002Z",
-                    22, "010-8510-7976",
-                    "credtiger", "S", 0.22, 1))
+                    beginAddress, bax, bay,
+                    finishAdderes, fax, fay,
+                    beginTime, finishTime,
+                    Id, phoneNumber,
+                    name, size, stuffWeight, typeC))
                     .subscribe(res -> {
                         Log.d("credt", String.valueOf(res.message()));
                         Toast.makeText(getContext(),String.valueOf(res.message()),
@@ -186,6 +245,67 @@ public class SendFragment extends BaseFragment {
     public View onCreateView(LayoutInflater layoutInflater, ViewGroup viewGroup, Bundle bundle) {
         super.onCreateView(layoutInflater, viewGroup, bundle);
         View rootView = layoutInflater.inflate(R.layout.fragment_send, viewGroup, false);
+
+        ArrayAdapter<String> adapter=new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_activated_1, stuffTypeList);
+
+        Id=mUserRepository.getUserId();
+
+        Spinner mTypeSpinner=(Spinner)rootView.findViewById(R.id.Typespinner);
+        mTypeSpinner.setPrompt("Select the stuff type.");
+        mTypeSpinner.setAdapter(adapter);
+        type = mTypeSpinner.getSelectedItem().toString();
+
+        if(type.equals("특징 없음")){
+            typeC=0;
+        }
+        else if(type.equals("깨지기 쉬움")){
+
+            typeC=1;
+        }
+        else if(type.equals("액체")){
+            typeC=2;
+        }
+
+        SeekBar mSeekBar=(SeekBar)rootView.findViewById(R.id.seekBar);
+        TextView weightText=(TextView)rootView.findViewById(R.id.weight);
+
+        mSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            int seekBarProgress = 0;
+
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                seekBarProgress = progress;
+                stuffWeight=getConvertedValue(seekBarProgress);
+
+                stuffWeight = Math.round(stuffWeight*100f) / 100f;
+                weightText.setText(Float.toString(stuffWeight));
+
+            }
+            public float getConvertedValue(int intVal){
+                float floatVal = (float) 0.0;
+                floatVal = .1f * intVal;
+                return floatVal;
+            }
+
+            public void onStartTrackingTouch(SeekBar seekBar) {
+                //Toast.makeText(getContext(),"SeekBar Touch Started",Toast.LENGTH_SHORT).show();
+            }
+
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                //textView.setText("Progress: " + seekBarProgress + " / " + seekBar.getMax());
+                //Toast.makeText(getApplicationContext(), "SeekBar Touch Stop ", Toast.LENGTH_SHORT).show();
+            }
+
+        });
+
+        ArrayAdapter<String> adapter2=new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_activated_1, sizeList);
+
+        Spinner mSizeSpinner=(Spinner)rootView.findViewById(R.id.Sizespinner);
+        mSizeSpinner.setPrompt("Select the stuff type.");
+        mSizeSpinner.setAdapter(adapter2);
+        size = mSizeSpinner.getSelectedItem().toString();
+
+
+
 
         if (mSupportMapFragment == null){
             initMap();
@@ -232,15 +352,23 @@ public class SendFragment extends BaseFragment {
         if (requestCode == PLACE_PICKER_REQUEST) {
             if (resultCode == RESULT_OK) {
                 Place place = PlacePicker.getPlace(data, getActivity());
+
                 String text = place.getName().toString();
+
                 if (text.startsWith(String.valueOf(place.getLatLng().latitude).substring(0,2))){
                     text = place.getAddress().toString();
                 }
                 if (selectedTextbox == 1){
                     mFromTextBox.setText(text);
+                    bay=place.getLatLng().longitude;
+                    bax=place.getLatLng().latitude;
+                    beginAddress=text;
                 }
                 else if (selectedTextbox == 2){
                     mToTextBox.setText(text);
+                    fay=place.getLatLng().longitude;
+                    fax=place.getLatLng().latitude;
+                    finishAdderes=text;
                 }
             }
         }

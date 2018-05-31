@@ -97,9 +97,15 @@ public class MainActivity extends BaseActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        String kakaoId=getIntent().getStringExtra("kakaoId");
         ButterKnife.bind(this);
         getDiComponent().inject(this);
         getSupportFragmentManager().addOnBackStackChangedListener(this);
+
+        Bundle bundle = new Bundle();
+        bundle.putString("kakaoId", kakaoId);
+// set Fragmentclass Arguments
+        mSendFragment.setArguments(bundle);
 
 
         if(mAuthRepository != null){
@@ -215,6 +221,7 @@ public class MainActivity extends BaseActivity
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
 
