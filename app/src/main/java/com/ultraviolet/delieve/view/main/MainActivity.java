@@ -1,5 +1,6 @@
 package com.ultraviolet.delieve.view.main;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -93,6 +94,8 @@ public class MainActivity extends BaseActivity
                     UserManagement.getInstance().requestLogout(new LogoutResponseCallback() {
                         @Override
                         public void onCompleteLogout() {
+                            getSharedPreferences("auto", Activity.MODE_PRIVATE).edit()
+                                    .remove("accessToken").commit();
                             finish();
                         }
                     });

@@ -94,6 +94,9 @@ public class KakaoSignupActivity extends BaseActivity {
                                 Log.d("session", "KakaoSignupActivity.requestMe.onSuccess.code200");
                                 Log.d("session", "KakaoSignupActivity.requestMe.onSuccess.login.subscribe");
                                 mUserRepository.userSignIn(loginDto);
+                                getSharedPreferences("auto", Activity.MODE_PRIVATE).edit()
+                                        .putString("accessToken", res.body().accessToken)
+                                        .commit();
                                 redirectMainActivity(url, kakaoNickname, kakaoID); // 로그인 성공시 MainActivity
                             }
                             else if(res.code() == 404){
