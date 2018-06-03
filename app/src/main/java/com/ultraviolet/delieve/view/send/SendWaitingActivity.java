@@ -13,14 +13,12 @@ import com.ultraviolet.delieve.R;
 import com.ultraviolet.delieve.data.repository.DeliveryRepository;
 import com.ultraviolet.delieve.data.repository.UserRepository;
 import com.ultraviolet.delieve.view.base.BaseActivity;
-import com.ultraviolet.delieve.view.deliever.DelieverMatchedDialogFragment;
 
 import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
 import rx.Observable;
-import rx.Subscriber;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
@@ -158,6 +156,7 @@ public class SendWaitingActivity extends BaseActivity {
                             mDeliveryRepository.getDeliveryMatchingForSender(String.valueOf(requestId))
                                     .subscribe(res -> {
                                         if (res.code() == 200) {
+                                            /*
                                             DelieverMatchedDialogFragment dialog = DelieverMatchedDialogFragment.newInstance();
                                             dialog.setBeginAddress(res.body().beginAddress);
                                             dialog.setFinishAddress(res.body().finishAddress);
@@ -167,6 +166,7 @@ public class SendWaitingActivity extends BaseActivity {
                                             dialog.setRequestMaxTime(res.body().finishTime);
                                             dialog.setWeight(res.body().stuffWeight);
                                             dialog.show(getSupportFragmentManager(), "MyDialogFragment");
+                                            */
                                         } else {
                                             Log.d("credt", "" + res.code());
 

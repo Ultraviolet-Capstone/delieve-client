@@ -259,7 +259,6 @@ public class SendFragment extends BaseFragment {
             typeC=0;
         }
         else if(type.equals("깨지기 쉬움")){
-
             typeC=1;
         }
         else if(type.equals("액체")){

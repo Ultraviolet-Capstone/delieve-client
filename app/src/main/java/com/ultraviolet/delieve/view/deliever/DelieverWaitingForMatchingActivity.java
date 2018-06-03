@@ -1,8 +1,9 @@
 package com.ultraviolet.delieve.view.deliever;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.content.Intent;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -12,6 +13,7 @@ import android.view.View;
 import com.ultraviolet.delieve.R;
 import com.ultraviolet.delieve.data.repository.DeliveryRepository;
 import com.ultraviolet.delieve.data.repository.UserRepository;
+import com.ultraviolet.delieve.model.DeliveryMatching;
 import com.ultraviolet.delieve.view.base.BaseActivity;
 
 import java.util.concurrent.TimeUnit;
@@ -136,7 +138,7 @@ public class DelieverWaitingForMatchingActivity extends BaseActivity {
         findViewById(R.id.dummy_button).setOnTouchListener(mDelayHideTouchListener);
 
         // Timer
-        subscription = Observable.interval(5000, 5000, TimeUnit.MILLISECONDS)
+        subscription = Observable.interval(0, 5000, TimeUnit.MILLISECONDS)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<Long>() {
@@ -146,20 +148,12 @@ public class DelieverWaitingForMatchingActivity extends BaseActivity {
                                 String.valueOf(mUserRepository.getUserId()))
                                 .subscribe(res->{
                                     if (res.code() == 200){
-                                        DelieverMatchedDialogFragment dialog = DelieverMatchedDialogFragment.newInstance();
-                                        dialog.setName(res.body().senderName);
-                                        dialog.setBeginAddress(res.body().beginAddress);
-                                        dialog.setFinishAddress(res.body().finishAddress);
-                                        dialog.setSize(res.body().stuffSize);
-                                        dialog.setType(res.body().type);
-                                        dialog.setWeight(res.body().stuffWeight);
-                                        dialog.setRequestTime(res.body().beginTime);
-                                        dialog.setRequestMaxTime(res.body().finishTime);
-                                        dialog.setWeight(res.body().stuffWeight);
-                                        dialog.setName(res.body().stuffName);
-                                        dialog.setRequestId(res.body().requestId);
-                                        dialog.show(getSupportFragmentManager(), "MyDialogFragment");
-                                        Log.d("credt", res.body().beginTime);
+
+                                        finishActivity(1);
+                                        Intent intent = new Intent(getApplicationContext(), DelieverMatchedDialogActivity.class);
+                                        DeliveryMatching matching = new DeliveryMatching(res.body());
+                                        intent.putExtra("Matching",matching);
+                                        startActivityForResult(intent, 1);
                                     }
                                     else {
                                         Log.d("credt", "" + res.code());

@@ -2,7 +2,7 @@ package com.ultraviolet.delieve.dagger;
 
 import com.ultraviolet.delieve.dagger.module.RepositoryModule;
 import com.ultraviolet.delieve.dagger.module.ServiceModule;
-import com.ultraviolet.delieve.view.deliever.DelieverMatchedDialogFragment;
+import com.ultraviolet.delieve.view.deliever.DelieverMatchedDialogActivity;
 import com.ultraviolet.delieve.view.deliever.DelieverWaitingForMatchingActivity;
 import com.ultraviolet.delieve.view.deliever.list.DeliveryListFragment;
 import com.ultraviolet.delieve.view.enroll.BeforeEnrollFragment;
@@ -49,6 +49,6 @@ public interface DiComponent {
 
     void inject(SendMatchedFragmentDialog fragment);
 
-    void inject(DelieverMatchedDialogFragment fragment); 
+    void inject(DelieverMatchedDialogActivity activity);
 
 }

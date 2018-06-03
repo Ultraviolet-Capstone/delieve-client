@@ -5,7 +5,6 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
 import com.ultraviolet.delieve.MainApplication;
-import com.ultraviolet.delieve.model.DeliveryRequest;
 import com.ultraviolet.delieve.view.deliever.DelieverFragment;
 import com.ultraviolet.delieve.view.deliever.list.DeliveryListFragment;
 import com.ultraviolet.delieve.view.deliever.list.DeliveryListPresenter;

@@ -24,5 +24,6 @@
     </string>
 
     <string name="title_activity_send_waiting">SendWaitingActivity</string>
+    <string name="googlemap_api_key" translatable="false">AIzaSyB489H8eZfN0LtIyaJftQVxwz1NyBYpwkI</string>
 
 </resources>

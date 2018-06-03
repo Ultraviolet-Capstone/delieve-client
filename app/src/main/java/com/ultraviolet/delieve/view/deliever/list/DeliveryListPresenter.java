@@ -1,7 +1,6 @@
 package com.ultraviolet.delieve.view.deliever.list;
 
-import com.ultraviolet.delieve.model.DeliveryRequest;
-import com.ultraviolet.delieve.view.deliever.list.DeliveryListContract;
+import com.ultraviolet.delieve.model.DeliveryMatching;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,7 +8,7 @@ import java.util.List;
 public class DeliveryListPresenter implements DeliveryListContract.Presenter {
 
     private DeliveryListContract.View view;
-    private List<DeliveryRequest> mDeliveryRequestList;
+    private List<DeliveryMatching> mDeliveryRequestList;
 
     // @Inject
     // DeliveryListRepository

@@ -5,7 +5,7 @@ public class DeliveryMatchingDto {
     public int requestId;
     public String beginAddress;
     public double beginLatitude;
-    public double beginLongitide;
+    public double beginLongitude;
     public String finishAddress;
     public double finishLatitude;
     public double finishLongitude;
@@ -16,7 +16,7 @@ public class DeliveryMatchingDto {
     public String beginTime;
     public int type;
     public String finishTime;
-    public String delivererSelfiURL;
+    public String senderSelfiURL;
 
     public String senderName;
     public String senderPhone;

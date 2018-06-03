@@ -35,6 +35,5 @@ public class DelieverMatchedActivity extends AppCompatActivity {
         weigth.setText(getIntent().getStringExtra("weight" ) + " Kg");
         until.setText("until " + getIntent().getStringExtra("max"));
 
-
     }
 }

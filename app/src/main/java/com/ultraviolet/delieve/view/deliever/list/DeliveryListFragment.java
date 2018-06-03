@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 
 import com.baoyz.widget.PullRefreshLayout;
 import com.ultraviolet.delieve.R;
-import com.ultraviolet.delieve.model.DeliveryRequest;
+import com.ultraviolet.delieve.model.DeliveryMatching;
 import com.ultraviolet.delieve.view.base.ContractFragment;
 
 import javax.inject.Inject;
@@ -97,7 +97,7 @@ public class DeliveryListFragment extends ContractFragment<DeliveryListFragment.
     }
 
     public interface Contract {
-        void onItemSelected(DeliveryRequest dr);
+        void onItemSelected(DeliveryMatching dr);
     }
 
 }
