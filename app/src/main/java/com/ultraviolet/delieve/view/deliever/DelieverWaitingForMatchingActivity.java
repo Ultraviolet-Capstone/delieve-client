@@ -113,6 +113,7 @@ public class DelieverWaitingForMatchingActivity extends BaseActivity {
     };
 
     Subscription subscription;
+    private DeliveryMatching mDeliveryMatching;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -153,8 +154,8 @@ public class DelieverWaitingForMatchingActivity extends BaseActivity {
 
                                         finishActivity(1);
                                         Intent intent = new Intent(getApplicationContext(), DelieverMatchedDialogActivity.class);
-                                        DeliveryMatching matching = new DeliveryMatching(res.body());
-                                        intent.putExtra("Matching",matching);
+                                        mDeliveryMatching = new DeliveryMatching(res.body());
+                                        intent.putExtra("Matching", mDeliveryMatching);
                                         startActivityForResult(intent, 1);
                                     }
                                     else {
@@ -221,7 +222,16 @@ public class DelieverWaitingForMatchingActivity extends BaseActivity {
         mHideHandler.postDelayed(mHideRunnable, delayMillis);
     }
 
-    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == RESULT_OK){
+            Intent intent = new Intent(getApplicationContext(), DelieverMatchedActivity.class);
+            intent.putExtra("Matching", mDeliveryMatching);
+            startActivity(intent);
+            finish();
+        }
+    }
+
+        @Override
     protected void onDestroy() {
         super.onDestroy();
         subscription.unsubscribe();

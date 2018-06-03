@@ -120,7 +120,7 @@ public class SendWaitingActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_send_waiting_for_matching);
-        requestId = getIntent().getIntExtra("requestId", 0);
+        requestId = getIntent().getIntExtra("matchingId", 0);
         mVisible = true;
         mControlsView = findViewById(R.id.fullscreen_content_controls);
         mContentView = findViewById(R.id.fullscreen_content);

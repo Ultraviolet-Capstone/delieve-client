@@ -24,7 +24,7 @@ public interface DeliveryService {
                                                                   @Query("userId") String id);
 
     @GET("/api/matching")
-    Observable<Response<DeliveryMatchingDto>> getDeliveryMatchingForSender(@Query("requestId") String id);
+    Observable<Response<DeliveryMatchingDto>> getDeliveryMatchingForSender(@Query("matchingId") String id);
 
     @POST("/api/matching")
     Observable<Response<DelieverAcceptResDto>> delieverAccept(@Body DelieverAcceptDto dto);

@@ -27,7 +27,7 @@ public class DeliveryMatching implements Serializable {
     public String recieverPhone;
 
     public DeliveryMatching(DeliveryMatchingDto dto){
-        requestId = dto.requestId;
+        requestId = dto.matchingId;
         beginAddress = dto.beginAddress;
         beginLatitude = dto.beginLatitude;
         beginLongitude = dto.beginLongitude;

@@ -2,7 +2,7 @@ package com.ultraviolet.delieve.data.dto;
 
 public class DeliveryMatchingDto {
 
-    public int requestId;
+    public int matchingId;
     public String beginAddress;
     public double beginLatitude;
     public double beginLongitude;

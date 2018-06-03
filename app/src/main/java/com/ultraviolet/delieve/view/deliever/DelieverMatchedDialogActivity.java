@@ -12,7 +12,7 @@ import com.ultraviolet.delieve.data.dto.DelieverAcceptDto;
 import com.ultraviolet.delieve.data.repository.DeliveryRepository;
 import com.ultraviolet.delieve.data.repository.UserRepository;
 import com.ultraviolet.delieve.model.DeliveryMatching;
-import com.ultraviolet.delieve.util.StaticMapHelper;
+import com.ultraviolet.delieve.util.ImageLoadHelper;
 import com.ultraviolet.delieve.view.base.BaseActivity;
 
 import java.io.IOException;
@@ -59,13 +59,14 @@ public class DelieverMatchedDialogActivity extends BaseActivity {
         )).subscribe(res -> {
             if(res.code() == 200 && res.body().delivererId == mUserRepository.getUserId())
                 Log.d("credt", "successfully accepted request");
-            Intent intent = new Intent(getApplicationContext(), DelieverMatchedActivity.class);
-            startActivity(intent);
+            setResult(RESULT_OK);
+            finish();
         }, throwable -> {
         });
     }
     @OnClick(R.id.matched_decline)
     public void onDeclineClicked(){
+        setResult(RESULT_CANCELED);
         finish();
     }
 
@@ -80,46 +81,17 @@ public class DelieverMatchedDialogActivity extends BaseActivity {
     }
 
     void setupUi(){
-        loadProfileImage();
-        loadMapImage();
+        ImageLoadHelper.loadMapImage(mMapImageView, mDeliveryMatching.beginLatitude,
+                mDeliveryMatching.beginLongitude,
+                mDeliveryMatching.finishLatitude,
+                mDeliveryMatching.finishLongitude,
+                getString(R.string.googlemap_api_key));
+        ImageLoadHelper.loadProfileImage(mMatchedProfileImageView,
+                mDeliveryMatching.senderSelfiURL);
         mMatchedUsername.setText(mDeliveryMatching.senderName);
         mMatchedStartAddress.setText(mDeliveryMatching.beginAddress);
         mMatchedFinishAddress.setText(mDeliveryMatching.finishAddress);
 
     }
 
-    public void loadProfileImage () {
-        Log.d("credt", "image url : " + mDeliveryMatching.senderSelfiURL);
-        //start a background thread for networking
-        new Thread(() -> {
-            try {
-                //download the drawable
-                final Drawable drawable =
-                        Drawable.createFromStream(
-                                (InputStream) new URL(mDeliveryMatching.senderSelfiURL).getContent(), "kakao_profile_src");
-                //edit the view in the UI thread
-                mMatchedProfileImageView.post(() -> mMatchedProfileImageView.setImageDrawable(drawable));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }).start();
-    }
-
-    public void loadMapImage(){
-        String mapURL = StaticMapHelper.buildURL(mDeliveryMatching.beginLatitude,
-                mDeliveryMatching.beginLongitude,
-                getString(R.string.googlemap_api_key));
-        new Thread(() -> {
-            try {
-                //download the drawable
-                final Drawable drawable =
-                        Drawable.createFromStream(
-                                (InputStream) new URL(mapURL).getContent(), "map_image_src");
-                //edit the view in the UI thread
-                mMapImageView.post(() -> mMapImageView.setImageDrawable(drawable));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }).start();
-    }
 }
