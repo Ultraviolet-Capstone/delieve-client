@@ -16,11 +16,11 @@ import javax.inject.Inject;
 
 public class KakaoSDKAdapter extends KakaoAdapter{
 
-    MainApplication mMainApplication;
+    Context mContext;
 
-    public KakaoSDKAdapter(MainApplication app) {
+    public KakaoSDKAdapter(Context context) {
         super();
-         mMainApplication= app;
+         mContext= context;
     }
 
     @Override
@@ -76,7 +76,7 @@ public class KakaoSDKAdapter extends KakaoAdapter{
         return new IApplicationConfig() {
             @Override
             public Context getApplicationContext() {
-                return mMainApplication;
+                return mContext;
             }
         };
     }

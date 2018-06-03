@@ -11,6 +11,8 @@ import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.MenuItem;
 
+import com.kakao.usermgmt.UserManagement;
+import com.kakao.usermgmt.callback.LogoutResponseCallback;
 import com.ultraviolet.delieve.R;
 import com.ultraviolet.delieve.data.dto.DeliveryMatchingDto;
 import com.ultraviolet.delieve.data.repository.AuthRepository;
@@ -86,6 +88,13 @@ public class MainActivity extends BaseActivity
                     replaceFragment(getDelieverFragment());
                     return true;
                 case R.id.navigation_myPage:
+                    // TODO(dogfooter): logout 임시
+                    UserManagement.getInstance().requestLogout(new LogoutResponseCallback() {
+                        @Override
+                        public void onCompleteLogout() {
+                            finish();
+                        }
+                    });
                     return true;
             }
             return false;

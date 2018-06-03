@@ -31,7 +31,7 @@ public class MainApplication extends Application {
         super.onCreate();
         init();
         // Kakao Sdk 초기화
-        KakaoSDK.init(new KakaoSDKAdapter(this));
+        KakaoSDK.init(new KakaoSDKAdapter(getApplicationContext()));
         Log.d("guri",getKeyHash(getApplicationContext()));
 
 
