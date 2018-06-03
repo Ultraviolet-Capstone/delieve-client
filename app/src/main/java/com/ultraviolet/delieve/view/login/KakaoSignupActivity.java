@@ -90,10 +90,19 @@ public class KakaoSignupActivity extends BaseActivity {
                                 redirectSignUpActivity(url, email);
                             }
                             */
-                            redirectMainActivity(url, kakaoNickname, kakaoID); // 로그인 성공시 MainActivity
-                            mUserRepository.userSignIn(loginDto);
+                            if (res.code() == 200){
+                                Log.d("session", "KakaoSignupActivity.requestMe.onSuccess.code200");
+                                Log.d("session", "KakaoSignupActivity.requestMe.onSuccess.login.subscribe");
+                                mUserRepository.userSignIn(loginDto);
+                                redirectMainActivity(url, kakaoNickname, kakaoID); // 로그인 성공시 MainActivity
+                            }
+                            else if(res.code() == 404){
+                                Log.d("session", "KakaoSignupActivity.requestMe.onSuccess.code404");
+                                redirectSignUpActivity(url, email, kakaoID, kakaoNickname);
+                            }
                         }, throwable -> {
                             Log.d("delieve", throwable.getMessage());
+                            Log.d("session", "KakaoSignupActivity.requestMe.onSuccess.login.throwable");
                             redirectSignUpActivity(url, email, kakaoID, kakaoNickname);
                         });
 
@@ -101,7 +110,8 @@ public class KakaoSignupActivity extends BaseActivity {
         });
     }
     private void redirectSignUpActivity(String url, String email, String token, String nickname) {
-        Intent intent = new Intent(KakaoSignupActivity.this, SignupActivity.class);
+        Intent intent = new Intent(this, SignupActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
         intent.putExtra("url", url);
         intent.putExtra("email", email);
         intent.putExtra("token", token);
@@ -110,7 +120,8 @@ public class KakaoSignupActivity extends BaseActivity {
         finish();
     }
     private void redirectMainActivity(String url, String nickname, String kakaoID) {
-        Intent intent = new Intent(KakaoSignupActivity.this, MainActivity.class);
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
         intent.putExtra("url", url);
         intent.putExtra("nickname", nickname);
         intent.putExtra("kakaoId", kakaoID);
@@ -119,7 +130,7 @@ public class KakaoSignupActivity extends BaseActivity {
     }
     protected void redirectLoginActivity() {
         final Intent intent = new Intent(this, LoginActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
         startActivity(intent);
         finish();
     }

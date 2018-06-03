@@ -60,10 +60,9 @@ public class LoginActivity extends AppCompatActivity {
     }
     protected void redirectSignupActivity() {
         final Intent intent = new Intent(this, KakaoSignupActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
         startActivity(intent);
-        Log.d("session", "redirect");
-        finish();
+        Log.d("session", "LoginActivity.redirectSignupActivity...");
+//        finish();
     }
 
     private class SessionCallback implements ISessionCallback {

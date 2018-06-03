@@ -106,6 +106,8 @@ public class MainActivity extends BaseActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Log.d("session", "MainActivity.onCreate");
+
         String kakaoId=getIntent().getStringExtra("kakaoId");
         ButterKnife.bind(this);
         getDiComponent().inject(this);

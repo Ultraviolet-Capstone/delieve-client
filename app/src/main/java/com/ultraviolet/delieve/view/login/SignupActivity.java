@@ -59,6 +59,13 @@ public class SignupActivity extends BaseActivity {
         finish();
     }
 
+    private void redirectKakaoSignupActivity() {
+        Intent intent = new Intent(this, KakaoSignupActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+        startActivity(intent);
+        finish();
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -94,6 +101,7 @@ public class SignupActivity extends BaseActivity {
     }
 
     public void signup() {
+        Log.d("session","SignupActivity.signup");
 
         if (!validate()) {
             onSignupFailed();
@@ -136,14 +144,16 @@ public class SignupActivity extends BaseActivity {
         mAuthRepository.register(new UserDto(name, phone, email,birthday, token, "kakao", url,
                 providerNickname, gender))
                 .subscribe(res -> {
+                    progressDialog.dismiss();
                     Log.d("credt2", String.valueOf(res.code()));
                     if(res.code()==500){
                         Toast.makeText( getApplicationContext(),"회원가입을 할 수 없습니다.",Toast.LENGTH_LONG).show();
                     }
                     else if(res.code()==200){
-                        redirectMainActivity();
+                        redirectKakaoSignupActivity();
                     }
                 }, throwable -> {
+                    progressDialog.dismiss();
                     throwable.printStackTrace();
 
                 });
@@ -203,9 +213,15 @@ public class SignupActivity extends BaseActivity {
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
+    protected void onPause() {
+        Log.d("session", "SignupActivity.onPause");
+        super.onPause();
+    }
 
+    @Override
+    protected void onDestroy() {
+        Log.d("session", "SignupActivity.onDestroy");
+        super.onDestroy();
     }
 }
 
