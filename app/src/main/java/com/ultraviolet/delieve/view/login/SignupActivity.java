@@ -201,6 +201,12 @@ public class SignupActivity extends BaseActivity {
 
         return valid;
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+    }
 }
 
 

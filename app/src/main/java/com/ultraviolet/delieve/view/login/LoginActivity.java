@@ -40,7 +40,7 @@ public class LoginActivity extends AppCompatActivity {
         callback=new SessionCallback();
         Log.d("session", "2");
         Session.getCurrentSession().addCallback(callback);
-        Session.getCurrentSession().checkAndImplicitOpen();
+//        Session.getCurrentSession().checkAndImplicitOpen();
 
     }
 
