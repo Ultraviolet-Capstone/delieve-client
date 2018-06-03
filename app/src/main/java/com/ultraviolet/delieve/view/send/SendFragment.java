@@ -106,6 +106,12 @@ public class SendFragment extends BaseFragment {
     @BindView(R.id.phoneNumberEdit)
     TextView editNumber;
 
+    @BindView(R.id.seekBar)
+    SeekBar mSeekBar;
+
+    @BindView(R.id.weight)
+    TextView weightText;
+
     @BindView(R.id.nameEdit)
     TextView editName;
 
@@ -266,7 +272,7 @@ public class SendFragment extends BaseFragment {
         }
 
         SeekBar mSeekBar= rootView.findViewById(R.id.seekBar);
-        TextView weightText= rootView.findViewById(R.id.weight);
+        //TextView weightText= rootView.findViewById(R.id.weight);
 
         mSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             int seekBarProgress = 0;

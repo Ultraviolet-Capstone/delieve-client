@@ -14,12 +14,13 @@
         android:id="@+id/send_map"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
     </FrameLayout>
 
     <include
-        layout="@layout/view_slidinguppanel"
+        layout="@layout/view_send_slidinguppanel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
 
-    </com.sothree.slidinguppanel.SlidingUpPanelLayout>
+</com.sothree.slidinguppanel.SlidingUpPanelLayout>
