@@ -11,6 +11,7 @@ import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -27,6 +28,7 @@ public class EvaluateDeliver2 extends AppCompatActivity implements View.OnClickL
 
     private static final int PICK_FROM_CAMERA=0;
     private static final int CROP_FROM_IMAGE=2;
+    private final int ENROLL_ACTIVITY_CODE = 90;
 
     private Uri mImageCaptureUri;
     private ImageView iv_UserPhoto;
@@ -114,6 +116,12 @@ public class EvaluateDeliver2 extends AppCompatActivity implements View.OnClickL
                     f.delete();
                 }
             }
+            case ENROLL_ACTIVITY_CODE:
+            {
+                Log.d("session", "EvaluateDeliver2.activityResult:" + requestCode);
+                setResult(resultCode);
+                finish();
+            }
         }
     }
 
@@ -122,9 +130,7 @@ public class EvaluateDeliver2 extends AppCompatActivity implements View.OnClickL
         id_view= v.getId();
         if(v.getId()==R.id.btn_evaluatefinish){
 
-            startActivity(mainIntent);
-            finish();
-
+            startActivityForResult(mainIntent, ENROLL_ACTIVITY_CODE);
         }
         else if(v.getId()==R.id.btn_UpladId){
             DialogInterface.OnClickListener cameraListener=new DialogInterface.OnClickListener(){

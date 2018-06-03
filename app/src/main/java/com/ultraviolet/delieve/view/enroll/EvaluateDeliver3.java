@@ -112,7 +112,7 @@ public class EvaluateDeliver3 extends BaseActivity{
                         throwable.printStackTrace();
                     });
 
-            setResult(1);
+            setResult(RESULT_OK);
             finish();
     }
 

@@ -121,7 +121,6 @@ public class KakaoSignupActivity extends BaseActivity {
     }
     private void redirectMainActivity(String url, String nickname, String kakaoID) {
         Intent intent = new Intent(this, MainActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
         intent.putExtra("url", url);
         intent.putExtra("nickname", nickname);
         intent.putExtra("kakaoId", kakaoID);

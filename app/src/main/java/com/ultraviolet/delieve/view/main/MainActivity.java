@@ -45,6 +45,7 @@ import okhttp3.RequestBody;
 public class MainActivity extends BaseActivity
         implements FragmentManager.OnBackStackChangedListener  {
 
+    private final int ENROLL_ACTIVITY_CODE = 90;
     @Inject
     AuthRepository mAuthRepository;
 
@@ -204,7 +205,8 @@ public class MainActivity extends BaseActivity
 
         Log.d("credt", "user state : " + mUserRepository.getUserType());
         //return mDelieverFragment;
-        return mDelieverFragment; //targetFragment;
+//        return mDelieverFragment; //targetFragment;
+        return targetFragment;
     }
 
     void replaceFragment(Fragment fragment){
@@ -213,6 +215,7 @@ public class MainActivity extends BaseActivity
                 .replace(R.id.main_fragment_container, fragment)
                 .addToBackStack(null)
                 .commit();
+        Log.d("session", "MainActivity.replaceFragment to :" + fragment.toString());
     }
 
     @Override
@@ -232,9 +235,21 @@ public class MainActivity extends BaseActivity
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Log.d("session", "adfjalksdjflajsdklfjlaksdj");
         super.onActivityResult(requestCode, resultCode, data);
+        Log.d("session", "MainActivity.onActivityResult, Reseult CODE : " + resultCode);
+        if (requestCode == ENROLL_ACTIVITY_CODE){
+            if(resultCode == RESULT_OK){
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.main_fragment_container,mEnrollWaitingFragment)
+                        .commit();
+            }
+        }
     }
 
-
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.d("session", "MainActivity.onDestory");
+    }
 }

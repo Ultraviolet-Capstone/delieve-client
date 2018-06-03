@@ -18,18 +18,24 @@ import javax.inject.Inject;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+import static android.app.Activity.RESULT_OK;
+
 public class BeforeEnrollFragment extends BaseFragment {
 
     private final int ENROLL_ACTIVITY_CODE = 90;
     private View rootView;
+
+    Intent mainIntent;
 
     @Inject
     EnrollWaitingFragment mEnrollWaitingFragment;
 
     @OnClick(R.id.be_a_deliever_button)
     void onClick(){
-        Intent intent = new Intent(getActivity(), EvaluateDeliver1.class);
-        startActivityForResult(intent, ENROLL_ACTIVITY_CODE);
+        mainIntent = new Intent(getContext(), EvaluateDeliver1.class);
+        Log.d("session", "BeforeEnroleFrag before start Activity:" );
+        startActivityForResult(mainIntent, ENROLL_ACTIVITY_CODE);
+        Log.d("session", "BeforeEnroleFrag after start Activity:" );
     }
 
     public BeforeEnrollFragment() {
@@ -41,17 +47,9 @@ public class BeforeEnrollFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_before_enroll, container, false);
+        Log.d("session", "BeforeEnroleFrag getActivity:" + getActivity().toString());
+
         return rootView;
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == ENROLL_ACTIVITY_CODE){
-            if(resultCode == 1){
-                getFragmentManager().beginTransaction()
-                        .replace(R.id.main_fragment_container,mEnrollWaitingFragment)
-                        .commit();
-            }
-        }
-    }
 }
