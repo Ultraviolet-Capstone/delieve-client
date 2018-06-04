@@ -105,7 +105,6 @@ public class DelieverWaitingForMatchingActivity extends BaseActivity {
         public boolean onTouch(View view, MotionEvent motionEvent) {
             if (AUTO_HIDE) {
                 delayedHide(AUTO_HIDE_DELAY_MILLIS);
-            }
             mDeliveryRepository.delieverFlush(mUserRepository.getUserId());
             subscription.unsubscribe();
             finish();
