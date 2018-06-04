@@ -2,7 +2,8 @@ package com.ultraviolet.delieve.data.service;
 
 import com.ultraviolet.delieve.data.dto.DelieverAcceptDto;
 import com.ultraviolet.delieve.data.dto.DelieverAcceptResDto;
-import com.ultraviolet.delieve.data.dto.DeliveryMatchingDto;
+import com.ultraviolet.delieve.data.dto.DeliveryMatchingForDelieverDto;
+import com.ultraviolet.delieve.data.dto.DeliveryMatchingForSenderDto;
 import com.ultraviolet.delieve.data.dto.DeliveryRequestDto;
 import com.ultraviolet.delieve.data.dto.DeliveryRequestResDto;
 
@@ -19,12 +20,12 @@ public interface DeliveryService {
     Observable<Response<DeliveryRequestResDto>> postRequest(@Body DeliveryRequestDto dto);
 
     @GET("http://13.125.124.127/matching")
-    Observable<Response<DeliveryMatchingDto>> getDeliveryMatching(@Query("lat") double lat,
-                                                                  @Query("long") double lng ,
-                                                                  @Query("userId") String id);
+    Observable<Response<DeliveryMatchingForDelieverDto>> getDeliveryMatchingForDeliever(@Query("lat") double lat,
+                                                                                        @Query("long") double lng ,
+                                                                                        @Query("userId") String id);
 
     @GET("/api/matching")
-    Observable<Response<DeliveryMatchingDto>> getDeliveryMatchingForSender(@Query("matchingId") String id);
+    Observable<Response<DeliveryMatchingForSenderDto>> getDeliveryMatchingForSender(@Query("requestId") String id);
 
     @POST("/api/matching")
     Observable<Response<DelieverAcceptResDto>> delieverAccept(@Body DelieverAcceptDto dto);

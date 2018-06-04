@@ -1,20 +1,14 @@
 package com.ultraviolet.delieve.view.deliever;
 
-import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ultraviolet.delieve.R;
-import com.ultraviolet.delieve.model.DeliveryMatching;
+import com.ultraviolet.delieve.model.DeliveryMatchingForDeliever;
 import com.ultraviolet.delieve.util.ImageLoadHelper;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -45,29 +39,29 @@ public class DelieverMatchedActivity extends AppCompatActivity {
 
     }
 
-    DeliveryMatching mDeliveryMatching;
+    DeliveryMatchingForDeliever mDeliveryMatchingForDeliever;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_deliever_matched);
         ButterKnife.bind(this);
-        mDeliveryMatching = (DeliveryMatching)getIntent().getSerializableExtra("Matching");
+        mDeliveryMatchingForDeliever = (DeliveryMatchingForDeliever)getIntent().getSerializableExtra("Matching");
 
         setupUi();
     }
 
     private void setupUi() {
-        mMatchedUsername.setText(mDeliveryMatching.senderName);
-        mMatchedStartAddress.setText(mDeliveryMatching.beginAddress);
-        mMatchedFinishAddress.setText(mDeliveryMatching.finishAddress);
-        ImageLoadHelper.loadMapImage(mMatchedMapImageView, mDeliveryMatching.beginLatitude,
-                mDeliveryMatching.beginLongitude,
-                mDeliveryMatching.finishLatitude,
-                mDeliveryMatching.finishLongitude,
+        mMatchedUsername.setText(mDeliveryMatchingForDeliever.senderName);
+        mMatchedStartAddress.setText(mDeliveryMatchingForDeliever.beginAddress);
+        mMatchedFinishAddress.setText(mDeliveryMatchingForDeliever.finishAddress);
+        ImageLoadHelper.loadMapImage(mMatchedMapImageView, mDeliveryMatchingForDeliever.beginLatitude,
+                mDeliveryMatchingForDeliever.beginLongitude,
+                mDeliveryMatchingForDeliever.finishLatitude,
+                mDeliveryMatchingForDeliever.finishLongitude,
                 getString(R.string.googlemap_api_key));
         ImageLoadHelper.loadProfileImage(mMatchedProfileImageView,
-                mDeliveryMatching.senderSelfiURL);
+                mDeliveryMatchingForDeliever.senderSelfiURL);
     }
 
 }

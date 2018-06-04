@@ -10,6 +10,7 @@ import com.ultraviolet.delieve.view.deliever.list.DeliveryListFragment;
 import com.ultraviolet.delieve.view.deliever.list.DeliveryListPresenter;
 import com.ultraviolet.delieve.view.enroll.BeforeEnrollFragment;
 import com.ultraviolet.delieve.view.enroll.EnrollWaitingFragment;
+import com.ultraviolet.delieve.view.mypage.MyPageFragment;
 import com.ultraviolet.delieve.view.send.SendFragment;
 
 import javax.inject.Singleton;
@@ -28,6 +29,7 @@ public class ApplicationModule {
     private DeliveryListPresenter mDeliveryListPresenter;
     private DelieverFragment mDelieverFragment;
     private EnrollWaitingFragment mEnrollWaitingFragment;
+    private MyPageFragment mMyPageFragment;
 
 
     public ApplicationModule(MainApplication mainApplication) {
@@ -39,6 +41,7 @@ public class ApplicationModule {
         mDeliveryListPresenter = new DeliveryListPresenter();
         mDelieverFragment = new DelieverFragment();
         mEnrollWaitingFragment = new EnrollWaitingFragment();
+        mMyPageFragment = new MyPageFragment();
 
     }
 
@@ -71,6 +74,10 @@ public class ApplicationModule {
     @Provides
     @Singleton
     EnrollWaitingFragment provideEnrollWaitingFragment() { return mEnrollWaitingFragment; }
+
+    @Provides
+    @Singleton
+    MyPageFragment provideMyPageFragment() {return mMyPageFragment; }
 
     @Provides
     @Singleton

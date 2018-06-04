@@ -77,4 +77,9 @@ dependencies {
     implementation group: project.KAKAO_SDK_GROUP, name: 'usermgmt',
             version: project.KAKAO_SDK_VERSION
 
+    /**
+     * QR code
+     */
+
+    implementation 'com.journeyapps:zxing-android-embedded:3.5.0'
 }

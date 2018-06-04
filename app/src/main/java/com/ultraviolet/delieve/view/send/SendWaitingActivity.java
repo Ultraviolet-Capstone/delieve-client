@@ -1,6 +1,7 @@
 package com.ultraviolet.delieve.view.send;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.os.Bundle;
@@ -10,9 +11,12 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import com.ultraviolet.delieve.R;
+import com.ultraviolet.delieve.data.dto.DeliveryMatchingForSenderDto;
 import com.ultraviolet.delieve.data.repository.DeliveryRepository;
 import com.ultraviolet.delieve.data.repository.UserRepository;
+import com.ultraviolet.delieve.model.DeliveryMatchingForSender;
 import com.ultraviolet.delieve.view.base.BaseActivity;
+import com.ultraviolet.delieve.view.deliever.DelieverMatchedDialogActivity;
 
 import java.util.concurrent.TimeUnit;
 
@@ -120,7 +124,7 @@ public class SendWaitingActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_send_waiting_for_matching);
-        requestId = getIntent().getIntExtra("matchingId", 0);
+        requestId = getIntent().getIntExtra("requestId", 0);
         mVisible = true;
         mControlsView = findViewById(R.id.fullscreen_content_controls);
         mContentView = findViewById(R.id.fullscreen_content);
@@ -156,20 +160,13 @@ public class SendWaitingActivity extends BaseActivity {
                             mDeliveryRepository.getDeliveryMatchingForSender(String.valueOf(requestId))
                                     .subscribe(res -> {
                                         if (res.code() == 200) {
-                                            /*
-                                            DelieverMatchedDialogFragment dialog = DelieverMatchedDialogFragment.newInstance();
-                                            dialog.setBeginAddress(res.body().beginAddress);
-                                            dialog.setFinishAddress(res.body().finishAddress);
-                                            dialog.setSize(res.body().stuffSize);
-                                            dialog.setType(res.body().type);
-                                            dialog.setRequestTime(res.body().beginTime);
-                                            dialog.setRequestMaxTime(res.body().finishTime);
-                                            dialog.setWeight(res.body().stuffWeight);
-                                            dialog.show(getSupportFragmentManager(), "MyDialogFragment");
-                                            */
-                                        } else {
                                             Log.d("credt", "" + res.code());
-
+                                            DeliveryMatchingForSender deliveryMatchingForSender
+                                                    = new DeliveryMatchingForSender(res.body());
+                                            Intent intent = new Intent(getApplicationContext(), SendMatchedActivity.class);
+                                            intent.putExtra("Matching",deliveryMatchingForSender);
+                                            startActivity(intent);
+                                            finish();
                                         }
                                     }, throwable -> {
                                         throwable.printStackTrace();

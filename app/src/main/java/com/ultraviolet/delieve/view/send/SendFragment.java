@@ -239,7 +239,7 @@ public class SendFragment extends BaseFragment {
                         // start waiting activity
                         Intent intent = new Intent(getActivity(), SendWaitingActivity.class);
                         Log.d("credt", "" + res.body().requestId);
-                        intent.putExtra("matchingId", res.body().requestId);
+                        intent.putExtra("requestId", res.body().requestId);
                         startActivity(intent);
                     }, throwable -> {
                         throwable.printStackTrace();

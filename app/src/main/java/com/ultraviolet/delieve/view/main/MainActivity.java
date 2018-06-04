@@ -2,9 +2,7 @@ package com.ultraviolet.delieve.view.main;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.os.StrictMode;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
@@ -15,33 +13,24 @@ import android.view.MenuItem;
 import com.kakao.usermgmt.UserManagement;
 import com.kakao.usermgmt.callback.LogoutResponseCallback;
 import com.ultraviolet.delieve.R;
-import com.ultraviolet.delieve.data.dto.DeliveryMatchingDto;
 import com.ultraviolet.delieve.data.repository.AuthRepository;
 import com.ultraviolet.delieve.data.repository.DeliveryRepository;
 import com.ultraviolet.delieve.data.repository.EnrollRepository;
 import com.ultraviolet.delieve.data.repository.UserRepository;
-import com.ultraviolet.delieve.data.service.EnrollService;
 import com.ultraviolet.delieve.model.User;
 import com.ultraviolet.delieve.view.base.BaseActivity;
 import com.ultraviolet.delieve.view.deliever.DelieverFragment;
 import com.ultraviolet.delieve.view.deliever.list.DeliveryListFragment;
 import com.ultraviolet.delieve.view.enroll.BeforeEnrollFragment;
 import com.ultraviolet.delieve.view.enroll.EnrollWaitingFragment;
+import com.ultraviolet.delieve.view.mypage.MyPageFragment;
 import com.ultraviolet.delieve.view.send.SendFragment;
 
-
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.OutputStream;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import okhttp3.MediaType;
-import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
 
 public class MainActivity extends BaseActivity
         implements FragmentManager.OnBackStackChangedListener  {
@@ -74,6 +63,9 @@ public class MainActivity extends BaseActivity
     @Inject
     EnrollWaitingFragment mEnrollWaitingFragment;
 
+    @Inject
+    MyPageFragment mMyPageFragment;
+
 
     @BindView(R.id.navigation)
     BottomNavigationView mBottomNavigationView;
@@ -90,7 +82,9 @@ public class MainActivity extends BaseActivity
                     replaceFragment(getDelieverFragment());
                     return true;
                 case R.id.navigation_myPage:
+                    replaceFragment(mMyPageFragment);
                     // TODO(dogfooter): logout 임시
+                    /*
                     UserManagement.getInstance().requestLogout(new LogoutResponseCallback() {
                         @Override
                         public void onCompleteLogout() {
@@ -98,7 +92,7 @@ public class MainActivity extends BaseActivity
                                     .remove("accessToken").commit();
                             finish();
                         }
-                    });
+                    });*/
                     return true;
             }
             return false;
@@ -161,7 +155,7 @@ public class MainActivity extends BaseActivity
                         throwable.printStackTrace();
                     });*/
             /*
-            mDeliveryRepository.getDeliveryMatching(37.279173,
+            mDeliveryRepository.getDeliveryMatchingForDeliever(37.279173,
                     127.043332,
                     "77")
                     .subscribe(res -> {

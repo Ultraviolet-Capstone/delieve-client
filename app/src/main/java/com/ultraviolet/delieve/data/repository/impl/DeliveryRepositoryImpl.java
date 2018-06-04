@@ -2,7 +2,8 @@ package com.ultraviolet.delieve.data.repository.impl;
 
 import com.ultraviolet.delieve.data.dto.DelieverAcceptDto;
 import com.ultraviolet.delieve.data.dto.DelieverAcceptResDto;
-import com.ultraviolet.delieve.data.dto.DeliveryMatchingDto;
+import com.ultraviolet.delieve.data.dto.DeliveryMatchingForDelieverDto;
+import com.ultraviolet.delieve.data.dto.DeliveryMatchingForSenderDto;
 import com.ultraviolet.delieve.data.dto.DeliveryRequestDto;
 
 import com.ultraviolet.delieve.data.dto.DeliveryRequestResDto;
@@ -37,16 +38,16 @@ public class DeliveryRepositoryImpl implements DeliveryRepository {
     }
 
     @Override
-    public Observable<Response<DeliveryMatchingDto>> getDeliveryMatching(double lat, double lng, String id) {
-        Observable<Response<DeliveryMatchingDto>> res = service
-                .getDeliveryMatching(lat, lng, id);
+    public Observable<Response<DeliveryMatchingForDelieverDto>> getDeliveryMatchingForDeliever(double lat, double lng, String id) {
+        Observable<Response<DeliveryMatchingForDelieverDto>> res = service
+                .getDeliveryMatchingForDeliever(lat, lng, id);
         return res.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
     @Override
-    public Observable<Response<DeliveryMatchingDto>> getDeliveryMatchingForSender(String id) {
-        Observable<Response<DeliveryMatchingDto>> res = service
+    public Observable<Response<DeliveryMatchingForSenderDto>> getDeliveryMatchingForSender(String id) {
+        Observable<Response<DeliveryMatchingForSenderDto>> res = service
                 .getDeliveryMatchingForSender(id);
 
         return res.subscribeOn(Schedulers.io())

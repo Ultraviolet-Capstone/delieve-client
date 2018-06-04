@@ -1,11 +1,12 @@
 package com.ultraviolet.delieve.model;
 
-import com.ultraviolet.delieve.data.dto.DeliveryMatchingDto;
+import com.ultraviolet.delieve.data.dto.DeliveryMatchingForDelieverDto;
+import com.ultraviolet.delieve.data.dto.DeliveryMatchingForSenderDto;
 
 import java.io.Serializable;
 
-public class DeliveryMatching implements Serializable {
-    public int requestId;
+public class DeliveryMatchingForSender implements Serializable {
+    public int matchingId;
     public String beginAddress;
     public double beginLatitude;
     public double beginLongitude;
@@ -26,8 +27,8 @@ public class DeliveryMatching implements Serializable {
     public String senderBirthday;
     public String recieverPhone;
 
-    public DeliveryMatching(DeliveryMatchingDto dto){
-        requestId = dto.matchingId;
+    public DeliveryMatchingForSender(DeliveryMatchingForSenderDto dto){
+        matchingId = dto.matchingId;
         beginAddress = dto.beginAddress;
         beginLatitude = dto.beginLatitude;
         beginLongitude = dto.beginLongitude;

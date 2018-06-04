@@ -1,6 +1,6 @@
 package com.ultraviolet.delieve.data.dto;
 
-public class DeliveryMatchingDto {
+public class DeliveryMatchingForSenderDto {
 
     public int matchingId;
     public String beginAddress;

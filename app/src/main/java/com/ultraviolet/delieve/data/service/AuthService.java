@@ -14,14 +14,15 @@ import rx.Observable;
 
 public interface AuthService {
 
+
     @GET("/auth/admin/token")
     Observable<TokenDto> getToken(@Query("userName") String username,
                                   @Query("password") String password,
                                   @Query("grantType") String grantType);
 
+
     @GET("/auth/user/login")
     Observable<Response<LoginDto>> login(@Query("token") String kakaoToken);
-
 
     @POST("/auth/user/register")
     Observable<Response<Void>> register(@Body UserDto userDto);

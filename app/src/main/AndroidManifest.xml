@@ -51,7 +51,8 @@
             android:label="@string/title_activity_send_waiting"
             android:theme="@style/FullscreenTheme" />
         <activity android:name=".view.deliever.DelieverMatchedActivity" />
-        <activity android:name=".view.deliever.DelieverMatchedDialogActivity"></activity>
+        <activity android:name=".view.deliever.DelieverMatchedDialogActivity" />
+        <activity android:name=".view.send.SendMatchedActivity"></activity>
     </application>
 
 </manifest>

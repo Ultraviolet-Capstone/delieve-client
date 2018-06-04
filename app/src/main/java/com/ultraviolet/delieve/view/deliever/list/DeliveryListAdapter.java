@@ -9,7 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.ultraviolet.delieve.R;
-import com.ultraviolet.delieve.model.DeliveryMatching;
+import com.ultraviolet.delieve.model.DeliveryMatchingForDeliever;
 
 public class DeliveryListAdapter extends RecyclerView.Adapter<DeliveryListAdapter.ViewHolder> {
 
@@ -64,7 +64,7 @@ public class DeliveryListAdapter extends RecyclerView.Adapter<DeliveryListAdapte
     }
 
     interface DeliveryClickListener {
-        void onDelieryClick(DeliveryMatching city);
+        void onDelieryClick(DeliveryMatchingForDeliever city);
     }
 
 }
