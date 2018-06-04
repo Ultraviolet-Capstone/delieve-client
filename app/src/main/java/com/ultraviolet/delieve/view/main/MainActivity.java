@@ -87,6 +87,13 @@ public class MainActivity extends BaseActivity
                     replaceFragment(mSendFragment);
                     return true;
                 case R.id.navigation_deliever:
+                    mUserInfoRepository.fetchUserDelivable(mUserRepository.getUserId())
+                            .subscribe(res->{
+                              mUserRepository.setUserType(res.body().status);
+
+                            }, throwable -> {
+
+                            });
                     replaceFragment(getDelieverFragment());
                     return true;
                 case R.id.navigation_myPage:
