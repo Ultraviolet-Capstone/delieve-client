@@ -4,6 +4,7 @@ import com.ultraviolet.delieve.data.service.AuthService;
 import com.ultraviolet.delieve.data.service.DeliveryService;
 import com.ultraviolet.delieve.data.service.EnrollService;
 import com.ultraviolet.delieve.data.service.QRApiService;
+import com.ultraviolet.delieve.data.service.UserInfoService;
 
 import dagger.Module;
 import dagger.Provides;
@@ -32,5 +33,9 @@ public class ServiceModule {
         return retrofit.create(QRApiService.class);
     }
 
+    @Provides
+    UserInfoService provideUserInfoService(Retrofit retrofit){
+        return retrofit.create(UserInfoService.class);
+    }
 
 }

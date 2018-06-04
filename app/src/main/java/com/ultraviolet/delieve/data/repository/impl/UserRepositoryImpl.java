@@ -4,8 +4,10 @@ import android.util.Log;
 
 import com.ultraviolet.delieve.data.dto.LoginDto;
 import com.ultraviolet.delieve.data.repository.UserRepository;
+import com.ultraviolet.delieve.data.service.UserInfoService;
 import com.ultraviolet.delieve.model.User;
 
+import javax.inject.Inject;
 import javax.inject.Singleton;
 
 @Singleton
@@ -47,4 +49,5 @@ public class UserRepositoryImpl implements UserRepository {
     public int getUserId() {
         return user.getUserId();
     }
+
 }

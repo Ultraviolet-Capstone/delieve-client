@@ -16,6 +16,7 @@ import com.ultraviolet.delieve.R;
 import com.ultraviolet.delieve.data.repository.AuthRepository;
 import com.ultraviolet.delieve.data.repository.DeliveryRepository;
 import com.ultraviolet.delieve.data.repository.EnrollRepository;
+import com.ultraviolet.delieve.data.repository.UserInfoRepository;
 import com.ultraviolet.delieve.data.repository.UserRepository;
 import com.ultraviolet.delieve.model.User;
 import com.ultraviolet.delieve.view.base.BaseActivity;
@@ -36,6 +37,9 @@ public class MainActivity extends BaseActivity
         implements FragmentManager.OnBackStackChangedListener  {
 
     private final int ENROLL_ACTIVITY_CODE = 90;
+    @Inject
+    UserInfoRepository mUserInfoRepository;
+
     @Inject
     AuthRepository mAuthRepository;
 
@@ -113,58 +117,11 @@ public class MainActivity extends BaseActivity
 
         Bundle bundle = new Bundle();
         bundle.putString("kakaoId", kakaoId);
-// set Fragmentclass Arguments
+
+        // set Fragmentclass Arguments
         mSendFragment.setArguments(bundle);
 
 
-        if(mAuthRepository != null){
-            /*
-            mAuthRepository.getToken("admin", "admin", "password")
-                    .subscribe(dto -> {
-                        TokenDto authDto = dto;
-                        Log.d("credt", authDto.getAccessToken());
-                    }, throwable -> {
-                        throwable.printStackTrace();
-                        Log.d("credt",throwable.getMessage());
-                    });*/
-/*
-            mAuthRepository.register(new UserDto("test", "1234", "cred@naver.com","321", "111111115", "kakao", "fd",
-                    "fd","male"))
-                    .subscribe(res -> {
-                        Log.d("credt2", String.valueOf(res.code()));
-                    }, throwable -> {
-                        throwable.printStackTrace();
-                    });*/
-            /*
-            mAuthRepository.login("123")
-                    .subscribe(dto -> {
-                        Log.d("credt", dto.getAccessToken());
-                    }, throwable -> {
-                        Log.d("credt", throwable.getMessage());
-                    });*/
-            /*
-            mDeliveryRepository.postDeliveryRequest(new DeliveryRequestDto(
-                    "HYUNSU ZIP", 129,33,
-                    "SEOUL LAND", 111, 39,
-                    "2018-05-29T20:05:10.780Z","2018-05-29T20:05:13.002Z",
-                    "22", "010-8510-7976",
-                    "credtiger", "S", 0.22, 1))
-                    .subscribe(res -> {
-                        Log.d("credt", String.valueOf(res.message()));
-                    }, throwable -> {
-                        throwable.printStackTrace();
-                    });*/
-            /*
-            mDeliveryRepository.getDeliveryMatchingForDeliever(37.279173,
-                    127.043332,
-                    "77")
-                    .subscribe(res -> {
-
-                    }, throwable -> {
-
-                    });
-                    */
-        }
         init();
     }
 
