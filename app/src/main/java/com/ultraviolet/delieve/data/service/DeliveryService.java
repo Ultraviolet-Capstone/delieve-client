@@ -29,7 +29,7 @@ public interface DeliveryService {
     @POST("/api/matching")
     Observable<Response<DelieverAcceptResDto>> delieverAccept(@Body DelieverAcceptDto dto);
 
-    @GET("/matching/flush")
+    @GET("http://13.125.124.127/matching/flush")
     Observable<Response<Void>> delieverFlush(@Query("delivererId") int delieverId);
 
 
