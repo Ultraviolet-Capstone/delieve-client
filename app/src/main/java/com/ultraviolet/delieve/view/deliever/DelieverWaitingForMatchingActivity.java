@@ -108,9 +108,14 @@ public class DelieverWaitingForMatchingActivity extends BaseActivity {
             if (AUTO_HIDE) {
                 delayedHide(AUTO_HIDE_DELAY_MILLIS);
             }
-            mDeliveryRepository.delieverFlush(mUserRepository.getUserId());
-            subscription.unsubscribe();
-            finish();
+            mDeliveryRepository.delieverFlush(mUserRepository.getUserId()).
+                    subscribe(res->{
+                        Log.d("credt", "successfully flushed code : " + res.code());
+                        subscription.unsubscribe();
+                        finish();
+                    }, throwable -> {
+
+                    });
             return false;
         }
     };
