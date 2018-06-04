@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.kakao.usermgmt.UserManagement;
 import com.kakao.usermgmt.callback.LogoutResponseCallback;
@@ -37,6 +38,9 @@ public class MainActivity extends BaseActivity
         implements FragmentManager.OnBackStackChangedListener  {
 
     private final int ENROLL_ACTIVITY_CODE = 90;
+    private final long FINISH_INTERVAL_TIME=2000;
+    private long backPressedTime=0;
+
     @Inject
     UserInfoRepository mUserInfoRepository;
 
@@ -172,12 +176,23 @@ public class MainActivity extends BaseActivity
 
     @Override
     public void onBackPressed() {
+        long tempTime=System.currentTimeMillis();
+        long intervalTime = tempTime - backPressedTime;
 
-        while (getSupportFragmentManager().getBackStackEntryCount()!= 0) {
-            getSupportFragmentManager().popBackStackImmediate();
+        if (0 <= intervalTime && FINISH_INTERVAL_TIME >= intervalTime)
+        {
+            while (getSupportFragmentManager().getBackStackEntryCount()!= 0) {
+                getSupportFragmentManager().popBackStackImmediate();
+            }
+            super.onBackPressed();
         }
-        super.onBackPressed();
+        else
+        {
+            backPressedTime = tempTime;
+            Toast.makeText(getApplicationContext(), "한번 더 뒤로가기 누르면 꺼집니다.", Toast.LENGTH_SHORT).show();
+        }
     }
+
 
     @Override
     public void onBackStackChanged() {
