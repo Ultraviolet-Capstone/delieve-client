@@ -7,10 +7,13 @@ import com.ultraviolet.delieve.data.dto.DeliveryMatchingForSenderDto;
 import com.ultraviolet.delieve.data.dto.DeliveryRequestDto;
 import com.ultraviolet.delieve.data.dto.DeliveryRequestResDto;
 
+import java.util.List;
+
 import retrofit2.Response;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 import rx.Observable;
 
@@ -33,5 +36,7 @@ public interface DeliveryService {
     @GET("http://13.125.124.127/matching/flush")
     Observable<Response<Void>> delieverFlush(@Query("delivererId") int delieverId);
 
+    @GET("/api/matching/user/{userId}")
+    Observable<Response<List<DeliveryMatchingForSenderDto>>> getDeliveryMatchingList(@Path("userId")int id);
 
 }

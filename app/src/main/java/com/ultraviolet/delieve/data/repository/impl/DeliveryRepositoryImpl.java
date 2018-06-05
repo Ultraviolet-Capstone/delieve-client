@@ -10,6 +10,8 @@ import com.ultraviolet.delieve.data.dto.DeliveryRequestResDto;
 import com.ultraviolet.delieve.data.repository.DeliveryRepository;
 import com.ultraviolet.delieve.data.service.DeliveryService;
 
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
@@ -68,6 +70,14 @@ public class DeliveryRepositoryImpl implements DeliveryRepository {
         Observable<Response<Void>> res = service
                 .delieverFlush(delieverId);
 
+        return res.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    @Override
+    public Observable<Response<List<DeliveryMatchingForSenderDto>>> getDeliveryMatchingList(int id) {
+        Observable<Response<List<DeliveryMatchingForSenderDto>>> res = service
+                .getDeliveryMatchingList(id);
         return res.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }

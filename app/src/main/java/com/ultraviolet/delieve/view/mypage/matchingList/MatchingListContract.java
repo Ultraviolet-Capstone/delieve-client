@@ -1,6 +1,6 @@
-package com.ultraviolet.delieve.view.deliever.list;
+package com.ultraviolet.delieve.view.mypage.matchingList;
 
-public interface DeliveryListContract {
+public interface MatchingListContract {
 
     interface  View {
         void showLoadingLayout();

@@ -1,6 +1,5 @@
 package com.ultraviolet.delieve.view.main;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -11,8 +10,6 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.kakao.usermgmt.UserManagement;
-import com.kakao.usermgmt.callback.LogoutResponseCallback;
 import com.ultraviolet.delieve.R;
 import com.ultraviolet.delieve.data.repository.AuthRepository;
 import com.ultraviolet.delieve.data.repository.DeliveryRepository;
@@ -22,7 +19,7 @@ import com.ultraviolet.delieve.data.repository.UserRepository;
 import com.ultraviolet.delieve.model.User;
 import com.ultraviolet.delieve.view.base.BaseActivity;
 import com.ultraviolet.delieve.view.deliever.DelieverFragment;
-import com.ultraviolet.delieve.view.deliever.list.DeliveryListFragment;
+import com.ultraviolet.delieve.view.mypage.matchingList.MatchingListFragment;
 import com.ultraviolet.delieve.view.enroll.BeforeEnrollFragment;
 import com.ultraviolet.delieve.view.enroll.EnrollWaitingFragment;
 import com.ultraviolet.delieve.view.mypage.MyPageFragment;
@@ -63,7 +60,7 @@ public class MainActivity extends BaseActivity
     BeforeEnrollFragment mBeforeEnrollFragment;
 
     @Inject
-    DeliveryListFragment mDeliveryListFragment;
+    MatchingListFragment mDeliveryListFragment;
 
     @Inject
     DelieverFragment mDelieverFragment;
@@ -131,6 +128,7 @@ public class MainActivity extends BaseActivity
 
         // set Fragmentclass Arguments
         mSendFragment.setArguments(bundle);
+
 
 
         init();

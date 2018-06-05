@@ -1,6 +1,7 @@
 package com.ultraviolet.delieve.view.mypage;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -13,11 +14,13 @@ import com.ultraviolet.delieve.R;
 import com.ultraviolet.delieve.data.repository.UserRepository;
 import com.ultraviolet.delieve.util.ImageLoadHelper;
 import com.ultraviolet.delieve.view.base.BaseFragment;
+import com.ultraviolet.delieve.view.mypage.matchingList.MatchingListActivity;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -35,11 +38,16 @@ public class MyPageFragment extends BaseFragment {
     @BindView(R.id.mypage_username)
     TextView mMyPageUsername;
 
-
     public MyPageFragment() {
         // Required empty public constructor
     }
 
+
+    @OnClick(R.id.mypage_view_my_transacrion)
+    public void onClick(){
+        Intent intent = new Intent(getActivity(), MatchingListActivity.class);
+        startActivity(intent);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

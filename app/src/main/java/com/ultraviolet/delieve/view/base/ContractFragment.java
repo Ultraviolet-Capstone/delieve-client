@@ -37,6 +37,4 @@ public abstract class ContractFragment<T> extends BaseFragment{
         protected final T getContract() {
             return mContract;
         }
-
-
 }

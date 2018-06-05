@@ -31,6 +31,13 @@ public class DelieverMatchedActivity extends AppCompatActivity {
     @BindView(R.id.matched_finishaddress)
     TextView mMatchedFinishAddress;
 
+    /*
+    @BindView(R.id.matched_stuff_name)
+    TextView mMatchedStuffName;
+
+    @BindView(R.id.matched_stuff_weight)
+    TextView mMatchedStuffWeight;
+*/
     @BindView(R.id.button)
     Button button;
 
@@ -55,6 +62,11 @@ public class DelieverMatchedActivity extends AppCompatActivity {
         mMatchedUsername.setText(mDeliveryMatchingForDeliever.senderName);
         mMatchedStartAddress.setText(mDeliveryMatchingForDeliever.beginAddress);
         mMatchedFinishAddress.setText(mDeliveryMatchingForDeliever.finishAddress);
+        /*
+        mMatchedStuffName.setText(mDeliveryMatchingForDeliever.stuffName);
+        mMatchedStuffWeight.setText(mDeliveryMatchingForDeliever.stuffWeight + " Kg");
+        */
+
         ImageLoadHelper.loadMapImage(mMatchedMapImageView, mDeliveryMatchingForDeliever.beginLatitude,
                 mDeliveryMatchingForDeliever.beginLongitude,
                 mDeliveryMatchingForDeliever.finishLatitude,

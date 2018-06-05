@@ -6,8 +6,8 @@ import android.preference.PreferenceManager;
 
 import com.ultraviolet.delieve.MainApplication;
 import com.ultraviolet.delieve.view.deliever.DelieverFragment;
-import com.ultraviolet.delieve.view.deliever.list.DeliveryListFragment;
-import com.ultraviolet.delieve.view.deliever.list.DeliveryListPresenter;
+import com.ultraviolet.delieve.view.mypage.matchingList.MatchingListFragment;
+import com.ultraviolet.delieve.view.mypage.matchingList.MatchingListPresenter;
 import com.ultraviolet.delieve.view.enroll.BeforeEnrollFragment;
 import com.ultraviolet.delieve.view.enroll.EnrollWaitingFragment;
 import com.ultraviolet.delieve.view.mypage.MyPageFragment;
@@ -25,8 +25,8 @@ public class ApplicationModule {
     private SendFragment mSendFragment;
     private BeforeEnrollFragment mBeforeEnrollFragment;
 
-    private DeliveryListFragment mDeliveryListFragment;
-    private DeliveryListPresenter mDeliveryListPresenter;
+    private MatchingListFragment mDeliveryListFragment;
+    private MatchingListPresenter mMatchingListPresenter;
     private DelieverFragment mDelieverFragment;
     private EnrollWaitingFragment mEnrollWaitingFragment;
     private MyPageFragment mMyPageFragment;
@@ -37,8 +37,8 @@ public class ApplicationModule {
         mSendFragment = new SendFragment();
         mBeforeEnrollFragment = new BeforeEnrollFragment();
 
-        mDeliveryListFragment = new DeliveryListFragment();
-        mDeliveryListPresenter = new DeliveryListPresenter();
+        mDeliveryListFragment = new MatchingListFragment();
+        mMatchingListPresenter = new MatchingListPresenter();
         mDelieverFragment = new DelieverFragment();
         mEnrollWaitingFragment = new EnrollWaitingFragment();
         mMyPageFragment = new MyPageFragment();
@@ -61,11 +61,11 @@ public class ApplicationModule {
 
     @Provides
     @Singleton
-    DeliveryListFragment provideDeliveryListFragment() {return mDeliveryListFragment; }
+    MatchingListFragment provideDeliveryListFragment() {return mDeliveryListFragment; }
 
     @Provides
     @Singleton
-    DeliveryListPresenter provideDeliveryListPresenter() { return mDeliveryListPresenter;}
+    MatchingListPresenter provideDeliveryListPresenter() { return mMatchingListPresenter;}
 
     @Provides
     @Singleton

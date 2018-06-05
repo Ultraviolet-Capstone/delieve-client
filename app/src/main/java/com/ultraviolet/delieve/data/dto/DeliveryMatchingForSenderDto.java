@@ -16,12 +16,12 @@ public class DeliveryMatchingForSenderDto {
     public String beginTime;
     public int type;
     public String finishTime;
-    public String senderSelfiURL;
+    public String delivererSelfiURL;
 
-    public String senderName;
-    public String senderPhone;
-    public String senderEmail;
-    public String senderBirthday;
+    public String delivererName;
+    public String delivererPhone;
+    public String delivererEmail;
+    public String delivererBirthday;
 
     public String recieverPhone;
 }

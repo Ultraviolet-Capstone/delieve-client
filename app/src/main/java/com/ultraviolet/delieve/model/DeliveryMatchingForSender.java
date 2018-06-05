@@ -1,6 +1,5 @@
 package com.ultraviolet.delieve.model;
 
-import com.ultraviolet.delieve.data.dto.DeliveryMatchingForDelieverDto;
 import com.ultraviolet.delieve.data.dto.DeliveryMatchingForSenderDto;
 
 import java.io.Serializable;
@@ -20,11 +19,11 @@ public class DeliveryMatchingForSender implements Serializable {
     public String beginTime;
     public int type;
     public String finishTime;
-    public String senderSelfiURL;
-    public String senderName;
-    public String senderPhone;
-    public String senderEmail;
-    public String senderBirthday;
+    public String delieverSelfiURL;
+    public String delieverName;
+    public String delieverPhone;
+    public String delieverEmail;
+    public String delieverBirthday;
     public String recieverPhone;
 
     public DeliveryMatchingForSender(DeliveryMatchingForSenderDto dto){
@@ -43,11 +42,11 @@ public class DeliveryMatchingForSender implements Serializable {
         type = dto.type;
         beginTime = dto.beginTime;
         finishTime = dto.finishTime;
-        senderSelfiURL = dto.senderSelfiURL;
-        senderBirthday = dto.senderBirthday;
-        senderEmail = dto.senderEmail;
-        senderName = dto.senderName;
-        senderPhone = dto.senderPhone;
+        delieverSelfiURL = dto.delivererSelfiURL;
+        delieverBirthday = dto.delivererBirthday;
+        delieverEmail = dto.delivererEmail;
+        delieverName = dto.delivererName;
+        delieverPhone = dto.delivererPhone;
         recieverPhone = dto.recieverPhone;
 
     }

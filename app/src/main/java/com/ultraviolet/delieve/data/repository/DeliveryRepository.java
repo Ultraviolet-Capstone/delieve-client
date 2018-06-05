@@ -7,7 +7,10 @@ import com.ultraviolet.delieve.data.dto.DeliveryMatchingForSenderDto;
 import com.ultraviolet.delieve.data.dto.DeliveryRequestDto;
 import com.ultraviolet.delieve.data.dto.DeliveryRequestResDto;
 
+import java.util.List;
+
 import retrofit2.Response;
+import retrofit2.http.Path;
 import rx.Observable;
 
 public interface DeliveryRepository {
@@ -21,4 +24,6 @@ public interface DeliveryRepository {
     Observable<Response<DelieverAcceptResDto>> delieverAccept(DelieverAcceptDto dto);
     Observable<Response<Void>> delieverFlush( int delieverId);
 
+
+    Observable<Response<List<DeliveryMatchingForSenderDto>>> getDeliveryMatchingList(int id);
 }
