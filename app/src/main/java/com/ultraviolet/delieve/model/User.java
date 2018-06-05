@@ -20,6 +20,10 @@ public class User implements Serializable {
     private String birthDay;
     private int userId;
 
+
+    private String profilePicURL;
+
+
     public User(String authToken, int delivable, String name, String phone, String email, String birthDay, int userId) {
         this.authToken = authToken;
         this.delivable = delivable;
@@ -85,4 +89,14 @@ public class User implements Serializable {
     public void setUserId(int userId) {
         this.userId = userId;
     }
+
+
+    public String getProfilePicURL() {
+        return profilePicURL;
+    }
+
+    public void setProfilePicURL(String profilePicURL) {
+        this.profilePicURL = profilePicURL;
+    }
+
 }

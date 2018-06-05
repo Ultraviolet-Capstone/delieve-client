@@ -45,6 +45,16 @@ public class DelieverMatchedDialogActivity extends BaseActivity {
     @BindView(R.id.matched_finishaddress)
     TextView mMatchedFinishAddress;
 
+    @BindView(R.id.matched_stuff_name)
+    TextView mMatchedStuffName;
+
+    @BindView(R.id.matched_stuff_weight)
+    TextView mMatchedStuffWeight;
+
+    @BindView(R.id.matched_stuff_size)
+    TextView mMatchedStuffSize;
+
+
     @OnClick(R.id.matched_accept)
     public void onAcceptClick(){
         mDeliveryRepository.delieverAccept(new DelieverAcceptDto(
@@ -76,6 +86,13 @@ public class DelieverMatchedDialogActivity extends BaseActivity {
     }
 
     void setupUi(){
+
+        mMatchedStuffName.setText(mDeliveryMatchingForDeliever.stuffName);
+        mMatchedUsername.setText(mDeliveryMatchingForDeliever.senderName);
+        mMatchedStartAddress.setText(mDeliveryMatchingForDeliever.beginAddress);
+        mMatchedFinishAddress.setText(mDeliveryMatchingForDeliever.finishAddress);
+        mMatchedStuffWeight.setText(mDeliveryMatchingForDeliever.stuffWeight + " Kg");
+        mMatchedStuffSize.setText(mDeliveryMatchingForDeliever.stuffSize);
         ImageLoadHelper.loadMapImage(mMapImageView, mDeliveryMatchingForDeliever.beginLatitude,
                 mDeliveryMatchingForDeliever.beginLongitude,
                 mDeliveryMatchingForDeliever.finishLatitude,
@@ -83,9 +100,6 @@ public class DelieverMatchedDialogActivity extends BaseActivity {
                 getString(R.string.googlemap_api_key));
         ImageLoadHelper.loadProfileImage(mMatchedProfileImageView,
                 mDeliveryMatchingForDeliever.senderSelfiURL);
-        mMatchedUsername.setText(mDeliveryMatchingForDeliever.senderName);
-        mMatchedStartAddress.setText(mDeliveryMatchingForDeliever.beginAddress);
-        mMatchedFinishAddress.setText(mDeliveryMatchingForDeliever.finishAddress);
 
     }
 

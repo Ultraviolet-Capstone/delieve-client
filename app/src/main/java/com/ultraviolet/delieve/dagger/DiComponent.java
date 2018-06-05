@@ -12,6 +12,7 @@ import com.ultraviolet.delieve.view.login.KakaoSignupActivity;
 import com.ultraviolet.delieve.view.main.MainActivity;
 import com.ultraviolet.delieve.dagger.module.ApplicationModule;
 import com.ultraviolet.delieve.dagger.module.NetworkModule;
+import com.ultraviolet.delieve.view.mypage.MyPageFragment;
 import com.ultraviolet.delieve.view.send.SendFragment;
 import com.ultraviolet.delieve.view.send.SendMatchedFragmentDialog;
 import com.ultraviolet.delieve.view.send.SendWaitingActivity;
@@ -51,4 +52,5 @@ public interface DiComponent {
 
     void inject(DelieverMatchedDialogActivity activity);
 
+    void inject(MyPageFragment fragment);
 }

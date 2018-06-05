@@ -13,9 +13,17 @@ public interface UserRepository {
 
     void userSignIn(LoginDto loginDto);
 
+
     int getUserType();
+
     void setUserType(int i);
 
+    String getUserProfilePicURL();
+    void setUserProfilePicURL(String url);
+
     int getUserId();
+
+    String getUsername();
+
 
 }

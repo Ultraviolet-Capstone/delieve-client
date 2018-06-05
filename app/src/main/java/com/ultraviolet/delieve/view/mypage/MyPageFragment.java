@@ -6,9 +6,18 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.ultraviolet.delieve.R;
+import com.ultraviolet.delieve.data.repository.UserRepository;
+import com.ultraviolet.delieve.util.ImageLoadHelper;
 import com.ultraviolet.delieve.view.base.BaseFragment;
+
+import javax.inject.Inject;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -16,6 +25,16 @@ import com.ultraviolet.delieve.view.base.BaseFragment;
 public class MyPageFragment extends BaseFragment {
 
     private View rootView;
+
+    @Inject
+    UserRepository mUserRepository;
+
+    @BindView(R.id.mypage_profilepic)
+    ImageView mProfilePicImageView;
+
+    @BindView(R.id.mypage_username)
+    TextView mMyPageUsername;
+
 
     public MyPageFragment() {
         // Required empty public constructor
@@ -27,8 +46,18 @@ public class MyPageFragment extends BaseFragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         rootView = inflater.inflate(R.layout.fragment_my_page, container, false);
+        getDiComponent().inject(this);
+        ButterKnife.bind(this, rootView);
+
+        setupUi();
+
         return rootView;
 
+    }
+
+    private void setupUi() {
+        mMyPageUsername.setText(mUserRepository.getUsername());
+        ImageLoadHelper.loadProfileImage(mProfilePicImageView, mUserRepository.getUserProfilePicURL());
     }
 
 }

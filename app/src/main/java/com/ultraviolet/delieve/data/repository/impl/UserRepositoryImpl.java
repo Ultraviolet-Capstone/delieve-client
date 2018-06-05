@@ -36,6 +36,16 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
+    public String getUserProfilePicURL() {
+        return user.getProfilePicURL();
+    }
+
+    @Override
+    public void setUserProfilePicURL(String url) {
+        user.setProfilePicURL(url);
+    }
+
+    @Override
     public int getUserType() {
         return user.getDelivable();
     }
@@ -50,4 +60,8 @@ public class UserRepositoryImpl implements UserRepository {
         return user.getUserId();
     }
 
+    @Override
+    public String getUsername() {
+        return user.getName();
+    }
 }
