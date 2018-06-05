@@ -80,6 +80,11 @@ dependencies {
     /**
      * QR code
      */
-
     implementation 'com.journeyapps:zxing-android-embedded:3.5.0'
+
+    /**
+     * animation
+     */
+    implementation 'com.airbnb.android:lottie:2.5.4'
+
 }

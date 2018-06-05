@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/color_WHITE"
     tools:context=".view.deliever.DelieverWaitingForMatchingActivity">
 
@@ -10,17 +11,20 @@
          is needed to present your content, e.g. VideoView, SurfaceView,
          TextureView, etc. -->
 
-    <TextView
-        android:id="@+id/fullscreen_content"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:keepScreenOn="true"
-        android:text="매칭 대기중"
-        android:textColor="@color/ultra_violet"
-        android:textSize="50sp"
-        android:textStyle="bold"
-     />
+    <LinearLayout
+        android:id="@+id/animation_vew"
+        android:orientation="vertical"
+        android:layout_gravity="center_horizontal|center_vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <com.airbnb.lottie.LottieAnimationView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:lottie_fileName="truck_running.json"
+            app:lottie_loop="true"
+            app:lottie_autoPlay="true"/>
+    </LinearLayout>
+
 
     <!-- This FrameLayout insets its children based on system windows using
          android:fitsSystemWindows. -->
@@ -50,5 +54,4 @@
 
         </LinearLayout>
     </FrameLayout>
-
 </FrameLayout>

@@ -3,22 +3,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/color_WHITE"
     tools:context=".view.send.SendWaitingActivity">
 
     <!-- The primary full-screen view. This can be replaced with whatever view
          is needed to present your content, e.g. VideoView, SurfaceView,
          TextureView, etc. -->
-    <TextView
+    <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/fullscreen_content"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:keepScreenOn="true"
-        android:text="매칭 대기중"
-        android:textColor="@color/ultra_violet"
-        android:textSize="50sp"
-        android:textStyle="bold" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:lottie_fileName="walking.json"
+        app:lottie_loop="true"
+        android:layout_gravity="center"
+        app:lottie_autoPlay="true"/>
+
 
     <!-- This FrameLayout insets its children based on system windows using
          android:fitsSystemWindows. -->

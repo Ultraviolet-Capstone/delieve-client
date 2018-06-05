@@ -131,7 +131,7 @@ public class DelieverWaitingForMatchingActivity extends BaseActivity {
 
             mVisible = true;
             mControlsView = findViewById(R.id.fullscreen_content_controls);
-            mContentView = findViewById(R.id.fullscreen_content);
+            mContentView = findViewById(R.id.animation_vew);
 
             getDiComponent().inject(this);
 
