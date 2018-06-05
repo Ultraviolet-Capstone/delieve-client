@@ -66,7 +66,7 @@
             app:layout_constraintStart_toStartOf="parent">
 
             <Button
-                android:id="@+id/button"
+                android:id="@+id/button_transfer_from_sender"
                 style="@android:style/Widget.Material.Button"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"

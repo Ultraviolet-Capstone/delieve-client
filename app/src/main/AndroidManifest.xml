@@ -25,7 +25,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".view.login.KakaoSignupActivity" />
-        <activity android:name=".view.login.SignupActivity" />
         <activity android:name=".view.enroll.EvaluateDeliver1" />
         <activity android:name=".view.enroll.EvaluateDeliver2" />
         <activity android:name=".view.enroll.EvaluateDeliver3" />
