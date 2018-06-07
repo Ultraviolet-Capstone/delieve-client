@@ -3,12 +3,14 @@ package com.ultraviolet.delieve.view.deliever;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.support.v7.app.ActionBar;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.TextView;
 
 import com.ultraviolet.delieve.R;
 import com.ultraviolet.delieve.data.repository.DeliveryRepository;
@@ -143,6 +145,9 @@ public class DelieverWaitingForMatchingActivity extends BaseActivity {
                 }
             });
 
+            Typeface typeface=Typeface.createFromAsset(getAssets(),"BMJUA.ttf");
+            TextView tv=(TextView)findViewById(R.id.tv_wating_deliver);
+            tv.setTypeface(typeface);
             // Upon interacting with UI controls, delay any scheduled hide()
             // operations to prevent the jarring behavior of controls going away
             // while interacting with the UI.

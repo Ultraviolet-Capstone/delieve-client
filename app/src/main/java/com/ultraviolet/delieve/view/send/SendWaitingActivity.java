@@ -2,6 +2,7 @@ package com.ultraviolet.delieve.view.send;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.os.Bundle;
@@ -9,6 +10,8 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
+import android.widget.TextView;
 
 import com.ultraviolet.delieve.R;
 import com.ultraviolet.delieve.data.dto.DeliveryMatchingForSenderDto;
@@ -124,6 +127,13 @@ public class SendWaitingActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_send_waiting_for_matching);
+        Typeface typeface=Typeface.createFromAsset(getAssets(),"BMJUA.ttf");
+        TextView tv=(TextView)findViewById(R.id.tv_wating_sender);
+        tv.setTypeface(typeface);
+        getWindow().setFlags(
+                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
+        );
         requestId = getIntent().getIntExtra("requestId", 0);
         mVisible = true;
         mControlsView = findViewById(R.id.fullscreen_content_controls);

@@ -18,6 +18,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -47,6 +48,10 @@ public class EvaluateDeliver1 extends AppCompatActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_evaluate_deliever1);
         mainIntent=new Intent(getApplicationContext(), EvaluateDeliver2.class);
+        getWindow().setFlags(
+                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
+        );
 
         //iv_UserPhoto=(ImageView)this.findViewById(R.id.user_image);
         Button btn_agreeJoin= this.findViewById(R.id.btn_UpladPicture);

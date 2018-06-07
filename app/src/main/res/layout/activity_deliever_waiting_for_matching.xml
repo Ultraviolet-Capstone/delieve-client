@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -10,19 +10,28 @@
     <!-- The primary full-screen view. This can be replaced with whatever view
          is needed to present your content, e.g. VideoView, SurfaceView,
          TextureView, etc. -->
-
     <LinearLayout
         android:id="@+id/animation_vew"
         android:orientation="vertical"
-        android:layout_gravity="center_horizontal|center_vertical"
-        android:layout_width="wrap_content"
+        android:gravity="center"
+        android:layout_centerInParent="true"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <com.airbnb.lottie.LottieAnimationView
+            android:layout_width="180dp"
+            android:layout_height="180dp"
+            app:lottie_fileName="search_locate.json"
+            app:lottie_loop="true"
+            android:id="@+id/lottie"
+            app:lottie_autoPlay="true"/>
+        <TextView
+            android:textSize="20dp"
+            android:id="@+id/tv_wating_deliver"
+            android:layout_marginTop="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:lottie_fileName="truck_running.json"
-            app:lottie_loop="true"
-            app:lottie_autoPlay="true"/>
+            android:textColor="@color/ultra_violet"
+            android:text="배달할 물건을 찾는중.."/>
     </LinearLayout>
 
 
@@ -54,4 +63,4 @@
 
         </LinearLayout>
     </FrameLayout>
-</FrameLayout>
+</RelativeLayout>

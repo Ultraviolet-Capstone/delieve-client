@@ -54,6 +54,7 @@ public class MyPageFragment extends BaseFragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         rootView = inflater.inflate(R.layout.fragment_my_page, container, false);
+
         getDiComponent().inject(this);
         ButterKnife.bind(this, rootView);
 

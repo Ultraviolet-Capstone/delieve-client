@@ -18,6 +18,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -256,6 +257,7 @@ public class SendFragment extends BaseFragment {
 
         Id=mUserRepository.getUserId();
 
+
         Spinner mTypeSpinner= rootView.findViewById(R.id.Typespinner);
         mTypeSpinner.setPrompt("Select the stuff type.");
         mTypeSpinner.setAdapter(adapter);
@@ -324,6 +326,7 @@ public class SendFragment extends BaseFragment {
         super.onCreate(savedInstanceState);
         getDiComponent().inject(this);
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(getActivity());
+
 
         if(mSupportMapFragment != null)
             initMap();

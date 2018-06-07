@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.ultraviolet.delieve.R;
@@ -117,6 +118,10 @@ public class MainActivity extends BaseActivity
         setContentView(R.layout.activity_main);
 
         Log.d("session", "MainActivity.onCreate");
+        getWindow().setFlags(
+                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
+        );
 
         String kakaoId=getIntent().getStringExtra("kakaoId");
         ButterKnife.bind(this);
