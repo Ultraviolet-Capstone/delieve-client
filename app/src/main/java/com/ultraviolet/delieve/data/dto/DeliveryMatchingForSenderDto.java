@@ -24,4 +24,6 @@ public class DeliveryMatchingForSenderDto {
     public String delivererBirthday;
 
     public String recieverPhone;
+
+    public String matchingStatus;
 }

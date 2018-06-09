@@ -53,6 +53,16 @@
                     android:text="DeliverName"
                     card_view:layout_constraintStart_toEndOf="@+id/card_profilepic"
                     card_view:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/card_matching_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:text="TextView"
+                    card_view:layout_constraintStart_toEndOf="@+id/card_profilepic"
+                    card_view:layout_constraintTop_toBottomOf="@+id/card_delivername" />
             </android.support.constraint.ConstraintLayout>
 
             <android.support.constraint.ConstraintLayout

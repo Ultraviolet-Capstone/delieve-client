@@ -15,6 +15,7 @@ import com.ultraviolet.delieve.R;
 import com.ultraviolet.delieve.data.repository.AuthRepository;
 import com.ultraviolet.delieve.data.repository.DeliveryRepository;
 import com.ultraviolet.delieve.data.repository.EnrollRepository;
+import com.ultraviolet.delieve.data.repository.QRApiRepository;
 import com.ultraviolet.delieve.data.repository.UserInfoRepository;
 import com.ultraviolet.delieve.data.repository.UserRepository;
 import com.ultraviolet.delieve.model.User;
@@ -129,6 +130,7 @@ public class MainActivity extends BaseActivity
 
         // set Fragmentclass Arguments
         mSendFragment.setArguments(bundle);
+
 
 
 

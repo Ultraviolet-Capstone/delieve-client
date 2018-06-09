@@ -30,7 +30,7 @@ import rx.schedulers.Schedulers;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
- * status bar and navigation/system bar) with user interaction.
+ * matchingStatus bar and navigation/system bar) with user interaction.
  */
 public class DelieverWaitingForMatchingActivity extends BaseActivity {
 
@@ -55,7 +55,7 @@ public class DelieverWaitingForMatchingActivity extends BaseActivity {
 
     /**
      * Some older devices needs a small delay between UI widget updates
-     * and a change of the status and navigation bar.
+     * and a change of the matchingStatus and navigation bar.
      */
     private static final int UI_ANIMATION_DELAY = 300;
     private final Handler mHideHandler = new Handler();
@@ -64,7 +64,7 @@ public class DelieverWaitingForMatchingActivity extends BaseActivity {
         @SuppressLint("InlinedApi")
         @Override
         public void run() {
-            // Delayed removal of status and navigation bar
+            // Delayed removal of matchingStatus and navigation bar
 
             // Note that some of these constants are new as of API 16 (Jelly Bean)
             // and API 19 (KitKat). It is safe to use them, as they are inlined
@@ -208,7 +208,7 @@ public class DelieverWaitingForMatchingActivity extends BaseActivity {
             mControlsView.setVisibility(View.GONE);
             mVisible = false;
 
-            // Schedule a runnable to remove the status and navigation bar after a delay
+            // Schedule a runnable to remove the matchingStatus and navigation bar after a delay
             mHideHandler.removeCallbacks(mShowPart2Runnable);
             mHideHandler.postDelayed(mHidePart2Runnable, UI_ANIMATION_DELAY);
         }

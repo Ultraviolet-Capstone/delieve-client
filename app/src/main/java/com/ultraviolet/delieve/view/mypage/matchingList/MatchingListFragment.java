@@ -46,6 +46,7 @@ public class MatchingListFragment extends ContractFragment<MatchingListFragment.
 
     @BindView(R.id.pull_refresh_layout)
     PullRefreshLayout mPullRefreshLayout;
+
     private MatchingListAdapter mMatchingListAdapter;
 
     @Override
@@ -90,10 +91,6 @@ public class MatchingListFragment extends ContractFragment<MatchingListFragment.
     public void updateContent() {
         mDeliveryRepository.getDeliveryMatchingList(mUserRepository.getUserId())
                 .subscribe(res->{
-                    if(res.body()!=null){
-                        Log.d("credt", res.code() +"");
-                        Log.d("credt", res.body().size() + "");
-                    }
                     if (res.code() == 200 || res.code() == 304) {
                         if (res.body() == null){
                             showNoContentLayout();
@@ -102,6 +99,7 @@ public class MatchingListFragment extends ContractFragment<MatchingListFragment.
                         else {
                             matchingList.clear();
                             for (DeliveryMatchingForSenderDto E : res.body()) {
+                                Log.d("credt","matching status : " +  E.matchingStatus);
                                 matchingList.add(new DeliveryMatchingForSender(E));
                             }
                         }

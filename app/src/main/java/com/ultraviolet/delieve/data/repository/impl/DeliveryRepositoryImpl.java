@@ -9,6 +9,7 @@ import com.ultraviolet.delieve.data.dto.DeliveryRequestDto;
 import com.ultraviolet.delieve.data.dto.DeliveryRequestResDto;
 import com.ultraviolet.delieve.data.repository.DeliveryRepository;
 import com.ultraviolet.delieve.data.service.DeliveryService;
+import com.ultraviolet.delieve.model.DeliveryMatchingForSender;
 
 import java.util.List;
 
@@ -50,7 +51,7 @@ public class DeliveryRepositoryImpl implements DeliveryRepository {
     @Override
     public Observable<Response<DeliveryMatchingForSenderDto>> getDeliveryMatchingForSender(String id) {
         Observable<Response<DeliveryMatchingForSenderDto>> res = service
-                .getDeliveryMatchingForSender(id);
+                .getDeliveryMatchingForSenderByRequestId(id);
 
         return res.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
@@ -78,6 +79,14 @@ public class DeliveryRepositoryImpl implements DeliveryRepository {
     public Observable<Response<List<DeliveryMatchingForSenderDto>>> getDeliveryMatchingList(int id) {
         Observable<Response<List<DeliveryMatchingForSenderDto>>> res = service
                 .getDeliveryMatchingList(id);
+        return res.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    @Override
+    public Observable<Response<DeliveryMatchingForSenderDto>> getDeliveryMatchingInfoByMatchingId(int matchingId) {
+        Observable<Response<DeliveryMatchingForSenderDto>> res = service
+                .getDeliveryMatchingInfoByMatchingId(matchingId);
         return res.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }

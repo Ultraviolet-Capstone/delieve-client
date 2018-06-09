@@ -25,6 +25,8 @@ public class DeliveryMatchingForSender implements Serializable {
     public String delieverEmail;
     public String delieverBirthday;
     public String recieverPhone;
+    public String matchingStatus;
+
 
     public DeliveryMatchingForSender(DeliveryMatchingForSenderDto dto){
         matchingId = dto.matchingId;
@@ -48,6 +50,8 @@ public class DeliveryMatchingForSender implements Serializable {
         delieverName = dto.delivererName;
         delieverPhone = dto.delivererPhone;
         recieverPhone = dto.recieverPhone;
+
+        matchingStatus = dto.matchingStatus;
 
     }
 

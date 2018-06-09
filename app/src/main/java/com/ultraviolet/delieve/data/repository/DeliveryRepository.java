@@ -26,4 +26,7 @@ public interface DeliveryRepository {
 
 
     Observable<Response<List<DeliveryMatchingForSenderDto>>> getDeliveryMatchingList(int id);
+
+    Observable<Response<DeliveryMatchingForSenderDto>> getDeliveryMatchingInfoByMatchingId(@Path("matchingId")int id);
+
 }

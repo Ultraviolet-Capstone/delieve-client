@@ -29,6 +29,8 @@ public class ImageLoadHelper {
 
     public static void loadProfileImage(ImageView imageView, String URL){
 
+        if (URL == null)
+            return;
         Log.d("credt", "image url : " + URL);
         //start a background thread for networking
         new Thread(() -> {

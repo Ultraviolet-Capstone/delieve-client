@@ -15,6 +15,7 @@ import com.ultraviolet.delieve.dagger.module.NetworkModule;
 import com.ultraviolet.delieve.view.mypage.MyPageFragment;
 import com.ultraviolet.delieve.view.mypage.matchingList.MatchingListPresenter;
 import com.ultraviolet.delieve.view.send.SendFragment;
+import com.ultraviolet.delieve.view.send.SendMatchedActivity;
 import com.ultraviolet.delieve.view.send.SendMatchedFragmentDialog;
 import com.ultraviolet.delieve.view.send.SendWaitingActivity;
 
@@ -54,4 +55,7 @@ public interface DiComponent {
     void inject(DelieverMatchedDialogActivity activity);
 
     void inject(MyPageFragment fragment);
+
+    void inject(SendMatchedActivity activity);
+
 }
