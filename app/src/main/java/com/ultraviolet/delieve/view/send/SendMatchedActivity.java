@@ -12,7 +12,7 @@ import android.widget.ViewFlipper;
 import com.ultraviolet.delieve.R;
 import com.ultraviolet.delieve.data.repository.DeliveryRepository;
 import com.ultraviolet.delieve.data.repository.QRApiRepository;
-import com.ultraviolet.delieve.model.DeliveryMatchingForSender;
+import com.ultraviolet.delieve.model.DeliveryMatching;
 import com.ultraviolet.delieve.util.QRGenerator;
 import com.ultraviolet.delieve.view.base.BaseActivity;
 
@@ -24,7 +24,7 @@ import butterknife.OnClick;
 
 public class SendMatchedActivity extends BaseActivity {
 
-    DeliveryMatchingForSender mDeliveryMatchingForSender;
+    DeliveryMatching mDeliveryMatching;
 
     @Inject
     QRApiRepository mQrApiRepository;
@@ -37,7 +37,7 @@ public class SendMatchedActivity extends BaseActivity {
 
     @OnClick(R.id.send_matched_button)
     void onClick(){
-        mQrApiRepository.getQRHash(mDeliveryMatchingForSender.matchingId,
+        mQrApiRepository.getQRHash(mDeliveryMatching.matchingId,
             "READY")
             .subscribe(res-> {
                 Log.d("credt", res.code() + "");
@@ -58,7 +58,7 @@ public class SendMatchedActivity extends BaseActivity {
         b.setView(v);
         b.setPositiveButton("양도 확인", (dialog, which)-> {
             mDeliveryRepository
-                    .getDeliveryMatchingInfoByMatchingId(mDeliveryMatchingForSender.matchingId)
+                    .getDeliveryMatchingInfoByMatchingIdForSender(mDeliveryMatching.matchingId)
                     .subscribe(res -> {
                         if (res.body().matchingStatus.equals("READY")){
                             Log.d("credt", "QR code is not transfered.");
@@ -80,10 +80,10 @@ public class SendMatchedActivity extends BaseActivity {
         setContentView(R.layout.activity_send_matched);
         getDiComponent().inject(this);
         ButterKnife.bind(this);
-        mDeliveryMatchingForSender = (DeliveryMatchingForSender) getIntent()
+        mDeliveryMatching = (DeliveryMatching) getIntent()
                 .getSerializableExtra("Matching");
 
-        switch (mDeliveryMatchingForSender.matchingStatus){
+        switch (mDeliveryMatching.matchingStatus){
             case "READY":
                 setupReadyMode();
                 break;
@@ -92,8 +92,7 @@ public class SendMatchedActivity extends BaseActivity {
                 break;
             case "FINISH":
                 setupFinishMode();
-                break; 
-
+                break;
         }
     }
 

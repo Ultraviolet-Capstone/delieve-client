@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.ultraviolet.delieve.R;
 import com.ultraviolet.delieve.data.repository.DeliveryRepository;
 import com.ultraviolet.delieve.data.repository.UserRepository;
+import com.ultraviolet.delieve.model.DeliveryMatching;
 import com.ultraviolet.delieve.model.DeliveryMatchingForDeliever;
 import com.ultraviolet.delieve.view.base.BaseActivity;
 
@@ -237,7 +238,8 @@ public class DelieverWaitingForMatchingActivity extends BaseActivity {
         public void onActivityResult(int requestCode, int resultCode, Intent data) {
             if (resultCode == RESULT_OK) {
                 Intent intent = new Intent(getApplicationContext(), DelieverMatchedActivity.class);
-                intent.putExtra("Matching", mDeliveryMatchingForDeliever);
+
+                intent.putExtra("Matching", new DeliveryMatching(mDeliveryMatchingForDeliever));
                 startActivity(intent);
                 finish();
             }

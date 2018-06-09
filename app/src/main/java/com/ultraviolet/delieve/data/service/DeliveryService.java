@@ -3,7 +3,7 @@ package com.ultraviolet.delieve.data.service;
 import com.ultraviolet.delieve.data.dto.DelieverAcceptDto;
 import com.ultraviolet.delieve.data.dto.DelieverAcceptResDto;
 import com.ultraviolet.delieve.data.dto.DeliveryMatchingForDelieverDto;
-import com.ultraviolet.delieve.data.dto.DeliveryMatchingForSenderDto;
+import com.ultraviolet.delieve.data.dto.DeliveryMatchingDto;
 import com.ultraviolet.delieve.data.dto.DeliveryRequestDto;
 import com.ultraviolet.delieve.data.dto.DeliveryRequestResDto;
 
@@ -28,7 +28,7 @@ public interface DeliveryService {
                                                                                         @Query("userId") String id);
 
     @GET("/api/matching")
-    Observable<Response<DeliveryMatchingForSenderDto>> getDeliveryMatchingForSenderByRequestId(@Query("requestId") String id);
+    Observable<Response<DeliveryMatchingDto>> getDeliveryMatchingForSenderByRequestId(@Query("requestId") String id);
 
     @POST("/api/matching")
     Observable<Response<DelieverAcceptResDto>> delieverAccept(@Body DelieverAcceptDto dto);
@@ -37,8 +37,11 @@ public interface DeliveryService {
     Observable<Response<Void>> delieverFlush(@Query("delivererId") int delieverId);
 
     @GET("/api/matching/user/{userId}")
-    Observable<Response<List<DeliveryMatchingForSenderDto>>> getDeliveryMatchingList(@Path("userId")int id);
+    Observable<Response<List<DeliveryMatchingDto>>> getDeliveryMatchingList(@Path("userId")int id, @Query("isDeliverer") int isDeliever);
+
 
     @GET("/api/matching/{matchingId}")
-    Observable<Response<DeliveryMatchingForSenderDto>> getDeliveryMatchingInfoByMatchingId(@Path("matchingId")int id);
+    Observable<Response<DeliveryMatchingDto>> getDeliveryMatchingInfoByMatchingId(@Path("matchingId")int id);
+
+
 }

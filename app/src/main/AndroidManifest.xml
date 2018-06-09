@@ -60,10 +60,11 @@
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
-        <service
-            android:name=".firebase.MyFirebaseMessagingService"
+        <service android:name=".firebase.MyFirebaseMessagingService"
             android:enabled="true"
-            android:exported="true"></service>
+            android:exported="true"/>
+        <service android:enabled="true" android:name=".service.GPSService" />
+
     </application>
 
 </manifest>

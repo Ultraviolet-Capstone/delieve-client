@@ -3,23 +3,19 @@ package com.ultraviolet.delieve.view.send;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Typeface;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.ultraviolet.delieve.R;
-import com.ultraviolet.delieve.data.dto.DeliveryMatchingForSenderDto;
 import com.ultraviolet.delieve.data.repository.DeliveryRepository;
 import com.ultraviolet.delieve.data.repository.UserRepository;
-import com.ultraviolet.delieve.model.DeliveryMatchingForSender;
+import com.ultraviolet.delieve.model.DeliveryMatching;
 import com.ultraviolet.delieve.view.base.BaseActivity;
-import com.ultraviolet.delieve.view.deliever.DelieverMatchedDialogActivity;
 
 import java.util.concurrent.TimeUnit;
 
@@ -162,10 +158,10 @@ public class SendWaitingActivity extends BaseActivity {
                                     .subscribe(res -> {
                                         if (res.code() == 200) {
                                             Log.d("credt", "" + res.code());
-                                            DeliveryMatchingForSender deliveryMatchingForSender
-                                                    = new DeliveryMatchingForSender(res.body());
+                                            DeliveryMatching deliveryMatching
+                                                    = new DeliveryMatching(res.body());
                                             Intent intent = new Intent(getApplicationContext(), SendMatchedActivity.class);
-                                            intent.putExtra("Matching",deliveryMatchingForSender);
+                                            intent.putExtra("Matching", deliveryMatching);
                                             startActivity(intent);
                                             finish();
                                         }

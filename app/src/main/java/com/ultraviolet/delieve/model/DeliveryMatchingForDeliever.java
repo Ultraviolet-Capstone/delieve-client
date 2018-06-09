@@ -48,7 +48,9 @@ public class DeliveryMatchingForDeliever implements Serializable {
         senderName = dto.senderName;
         senderPhone = dto.senderPhone;
         recieverPhone = dto.recieverPhone;
-
     }
 
+    public DeliveryMatchingForDeliever(DeliveryMatching dto){
+
+    }
 }

@@ -4,19 +4,22 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import com.ultraviolet.delieve.R;
+import com.ultraviolet.delieve.model.DeliveryMatching;
 import com.ultraviolet.delieve.model.DeliveryMatchingForDeliever;
 import com.ultraviolet.delieve.util.ImageLoadHelper;
-import com.ultraviolet.delieve.view.enroll.EvaluateDeliver2;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -62,37 +65,36 @@ public class DelieverMatchedActivity extends AppCompatActivity {
 
     }
 
-    DeliveryMatchingForDeliever mDeliveryMatchingForDeliever;
+    DeliveryMatching mDeliveryMatching;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_deliever_matched);
         ButterKnife.bind(this);
-        mDeliveryMatchingForDeliever = (DeliveryMatchingForDeliever)getIntent().getSerializableExtra("Matching");
+        mDeliveryMatching = (DeliveryMatching)getIntent().getSerializableExtra("Matching");
+
+        EventBus.getDefault().register(this);
 
         setupUi();
-
-
-
     }
 
     private void setupUi() {
-        mMatchedUsername.setText(mDeliveryMatchingForDeliever.senderName);
-        mMatchedStartAddress.setText(mDeliveryMatchingForDeliever.beginAddress);
-        mMatchedFinishAddress.setText(mDeliveryMatchingForDeliever.finishAddress);
+        mMatchedUsername.setText(mDeliveryMatching.senderName);
+        mMatchedStartAddress.setText(mDeliveryMatching.beginAddress);
+        mMatchedFinishAddress.setText(mDeliveryMatching.finishAddress);
         /*
-        mMatchedStuffName.setText(mDeliveryMatchingForDeliever.stuffName);
-        mMatchedStuffWeight.setText(mDeliveryMatchingForDeliever.stuffWeight + " Kg");
+        mMatchedStuffName.setText(mDeliveryMatching.stuffName);
+        mMatchedStuffWeight.setText(mDeliveryMatching.stuffWeight + " Kg");
         */
 
-        ImageLoadHelper.loadMapImage(mMatchedMapImageView, mDeliveryMatchingForDeliever.beginLatitude,
-                mDeliveryMatchingForDeliever.beginLongitude,
-                mDeliveryMatchingForDeliever.finishLatitude,
-                mDeliveryMatchingForDeliever.finishLongitude,
+        ImageLoadHelper.loadMapImage(mMatchedMapImageView, mDeliveryMatching.beginLatitude,
+                mDeliveryMatching.beginLongitude,
+                mDeliveryMatching.finishLatitude,
+                mDeliveryMatching.finishLongitude,
                 getString(R.string.googlemap_api_key));
         ImageLoadHelper.loadProfileImage(mMatchedProfileImageView,
-                mDeliveryMatchingForDeliever.senderSelfiURL);
+                mDeliveryMatching.senderSelfiURL);
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
@@ -123,10 +125,14 @@ public class DelieverMatchedActivity extends AppCompatActivity {
 
                 }
             }
-
         } else {
             super.onActivityResult(requestCode, resultCode, data);
         }
     }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onGPSUpdated(LatLng event) {
+        Log.d("credt", event.latitude + ", " + event.longitude);
+    };
 
 }
