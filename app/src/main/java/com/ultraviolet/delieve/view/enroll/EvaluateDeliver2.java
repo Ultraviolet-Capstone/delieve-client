@@ -44,10 +44,7 @@ public class EvaluateDeliver2 extends AppCompatActivity implements View.OnClickL
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_evaluate_deliever2);
-        getWindow().setFlags(
-                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
-                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
-        );
+
         selfie= getIntent().getParcelableExtra("selfie");
         mainIntent=new Intent(getApplicationContext(), EvaluateDeliver3.class);
 

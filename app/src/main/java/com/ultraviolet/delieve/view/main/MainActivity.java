@@ -118,10 +118,6 @@ public class MainActivity extends BaseActivity
         setContentView(R.layout.activity_main);
 
         Log.d("session", "MainActivity.onCreate");
-        getWindow().setFlags(
-                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
-                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
-        );
 
         String kakaoId=getIntent().getStringExtra("kakaoId");
         ButterKnife.bind(this);

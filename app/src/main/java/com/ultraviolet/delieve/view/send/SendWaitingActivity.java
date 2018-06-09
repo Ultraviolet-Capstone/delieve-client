@@ -130,10 +130,6 @@ public class SendWaitingActivity extends BaseActivity {
         Typeface typeface=Typeface.createFromAsset(getAssets(),"BMJUA.ttf");
         TextView tv=(TextView)findViewById(R.id.tv_wating_sender);
         tv.setTypeface(typeface);
-        getWindow().setFlags(
-                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
-                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
-        );
         requestId = getIntent().getIntExtra("requestId", 0);
         mVisible = true;
         mControlsView = findViewById(R.id.fullscreen_content_controls);
