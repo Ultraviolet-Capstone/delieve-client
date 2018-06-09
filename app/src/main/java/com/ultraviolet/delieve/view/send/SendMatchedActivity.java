@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ViewFlipper;
 
 import com.ultraviolet.delieve.R;
 import com.ultraviolet.delieve.data.repository.DeliveryRepository;
@@ -17,6 +18,7 @@ import com.ultraviolet.delieve.view.base.BaseActivity;
 
 import javax.inject.Inject;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -30,6 +32,8 @@ public class SendMatchedActivity extends BaseActivity {
     @Inject
     DeliveryRepository mDeliveryRepository;
 
+    @BindView(R.id.matched_vf)
+    ViewFlipper mViewFlipper;
 
     @OnClick(R.id.send_matched_button)
     void onClick(){
@@ -81,8 +85,27 @@ public class SendMatchedActivity extends BaseActivity {
 
         switch (mDeliveryMatchingForSender.matchingStatus){
             case "READY":
+                setupReadyMode();
+                break;
             case "PROGRESS":
+                setupProgressMode();
+                break;
+            case "FINISH":
+                setupFinishMode();
+                break; 
 
         }
+    }
+
+    private void setupFinishMode() {
+
+    }
+
+    private void setupProgressMode() {
+        mViewFlipper.setDisplayedChild(1);
+    }
+
+    private void setupReadyMode() {
+        mViewFlipper.setDisplayedChild(0);
     }
 }

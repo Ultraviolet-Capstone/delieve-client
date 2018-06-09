@@ -13,10 +13,8 @@ import com.ultraviolet.delieve.view.main.MainActivity;
 import com.ultraviolet.delieve.dagger.module.ApplicationModule;
 import com.ultraviolet.delieve.dagger.module.NetworkModule;
 import com.ultraviolet.delieve.view.mypage.MyPageFragment;
-import com.ultraviolet.delieve.view.mypage.matchingList.MatchingListPresenter;
 import com.ultraviolet.delieve.view.send.SendFragment;
 import com.ultraviolet.delieve.view.send.SendMatchedActivity;
-import com.ultraviolet.delieve.view.send.SendMatchedFragmentDialog;
 import com.ultraviolet.delieve.view.send.SendWaitingActivity;
 
 import javax.inject.Singleton;
@@ -49,8 +47,6 @@ public interface DiComponent {
     void inject(DelieverWaitingForMatchingActivity activity);
 
     void inject(SendWaitingActivity activity);
-
-    void inject(SendMatchedFragmentDialog fragment);
 
     void inject(DelieverMatchedDialogActivity activity);
 

@@ -110,11 +110,6 @@ public class SendWaitingActivity extends BaseActivity {
             if (AUTO_HIDE) {
                 delayedHide(AUTO_HIDE_DELAY_MILLIS);
             }
-            SendMatchedFragmentDialog dialog = new SendMatchedFragmentDialog();
-            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            dialog.show(ft, SendMatchedFragmentDialog.TAG);
-
-
             return false;
         }
     };
