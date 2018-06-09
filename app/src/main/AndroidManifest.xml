@@ -53,7 +53,17 @@
         <activity android:name=".view.deliever.DelieverMatchedActivity" />
         <activity android:name=".view.deliever.DelieverMatchedDialogActivity" />
         <activity android:name=".view.send.SendMatchedActivity" />
-        <activity android:name=".view.mypage.matchingList.MatchingListActivity"></activity>
+        <activity android:name=".view.mypage.matchingList.MatchingListActivity" />
+
+        <service android:name=".firebase.MyFirebaseInstanceIDService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
+        <service
+            android:name=".firebase.MyFirebaseMessagingService"
+            android:enabled="true"
+            android:exported="true"></service>
     </application>
 
 </manifest>

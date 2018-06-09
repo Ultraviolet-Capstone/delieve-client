@@ -48,10 +48,7 @@ public class EvaluateDeliver1 extends AppCompatActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_evaluate_deliever1);
         mainIntent=new Intent(getApplicationContext(), EvaluateDeliver2.class);
-        getWindow().setFlags(
-                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
-                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
-        );
+
 
         //iv_UserPhoto=(ImageView)this.findViewById(R.id.user_image);
         Button btn_agreeJoin= this.findViewById(R.id.btn_UpladPicture);

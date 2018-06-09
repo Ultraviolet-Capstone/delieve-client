@@ -69,10 +69,6 @@ public class DelieverMatchedActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_deliever_matched);
         ButterKnife.bind(this);
-        getWindow().setFlags(
-                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
-                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
-        );
         mDeliveryMatchingForDeliever = (DeliveryMatchingForDeliever)getIntent().getSerializableExtra("Matching");
 
         setupUi();

@@ -6,7 +6,6 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">#FFCC00</item>
-        <item name="android:windowActionBarOverlay">true</item>
         <item name="android:textColorHint">#FFCC00</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>

@@ -82,10 +82,6 @@ public class DelieverMatchedDialogActivity extends BaseActivity {
         setContentView(R.layout.activity_deliever_matched_dialog);
         mDeliveryMatchingForDeliever = (DeliveryMatchingForDeliever)getIntent().getSerializableExtra("Matching");
         getDiComponent().inject(this);
-        getWindow().setFlags(
-                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
-                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
-        );
         ButterKnife.bind(this);
         setupUi();
     }

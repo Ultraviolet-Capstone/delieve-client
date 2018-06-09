@@ -18,10 +18,6 @@ public class SendMatchedActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_send_matched);
 
-        getWindow().setFlags(
-                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
-                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
-        );
 
         mDeliveryMatchingForSender = (DeliveryMatchingForSender) getIntent()
                 .getSerializableExtra("Matching");

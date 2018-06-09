@@ -122,11 +122,6 @@ public class EvaluateDeliver3 extends BaseActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_evaluate_deliever3);
         ButterKnife.bind(this);
-        getWindow().setFlags(
-                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
-                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
-        );
-
         selfie = getIntent().getParcelableExtra("selfie");
         idcard = getIntent().getParcelableExtra("id");
 
