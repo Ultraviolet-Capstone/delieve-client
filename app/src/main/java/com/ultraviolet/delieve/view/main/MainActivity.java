@@ -11,12 +11,14 @@ import android.view.MenuItem;
 import android.view.WindowManager;
 import android.widget.Toast;
 
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.ultraviolet.delieve.R;
 import com.ultraviolet.delieve.data.repository.AuthRepository;
 import com.ultraviolet.delieve.data.repository.DeliveryRepository;
 import com.ultraviolet.delieve.data.repository.EnrollRepository;
 import com.ultraviolet.delieve.data.repository.UserInfoRepository;
 import com.ultraviolet.delieve.data.repository.UserRepository;
+import com.ultraviolet.delieve.firebase.MyFirebaseInstanceIDService;
 import com.ultraviolet.delieve.model.User;
 import com.ultraviolet.delieve.view.base.BaseActivity;
 import com.ultraviolet.delieve.view.deliever.DelieverFragment;
@@ -76,6 +78,8 @@ public class MainActivity extends BaseActivity
     @BindView(R.id.navigation)
     BottomNavigationView mBottomNavigationView;
 
+    boolean notification=false;
+
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
@@ -128,9 +132,8 @@ public class MainActivity extends BaseActivity
         bundle.putString("kakaoId", kakaoId);
 
         // set Fragmentclass Arguments
-        mSendFragment.setArguments(bundle);
-
-
+      //  mSendFragment.setArguments(bundle);
+        Log.d("firebaseToken",FirebaseInstanceId.getInstance().getToken().toString());
 
         init();
     }
@@ -145,10 +148,21 @@ public class MainActivity extends BaseActivity
     }
 
     private void setupUi() {
-        getSupportFragmentManager()
-                .beginTransaction()
-                .add(R.id.main_fragment_container, mSendFragment)
-                .commit();
+        notification=getIntent().getBooleanExtra("noti", false);
+        Log.d("firebaseInent", String.valueOf(notification));
+        if(notification==false){
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .add(R.id.main_fragment_container, mSendFragment)
+                    .commit();
+        }
+        else{
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .add(R.id.main_fragment_container, mDelieverFragment)
+                    .commit();
+        }
+
     }
 
     Fragment getDelieverFragment(){
