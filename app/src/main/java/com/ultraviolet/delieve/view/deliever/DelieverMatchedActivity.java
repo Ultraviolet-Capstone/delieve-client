@@ -73,9 +73,6 @@ public class DelieverMatchedActivity extends AppCompatActivity {
         setContentView(R.layout.activity_deliever_matched);
         ButterKnife.bind(this);
         mDeliveryMatching = (DeliveryMatching)getIntent().getSerializableExtra("Matching");
-
-        EventBus.getDefault().register(this);
-
         setupUi();
     }
 
@@ -129,10 +126,5 @@ public class DelieverMatchedActivity extends AppCompatActivity {
             super.onActivityResult(requestCode, resultCode, data);
         }
     }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onGPSUpdated(LatLng event) {
-        Log.d("credt", event.latitude + ", " + event.longitude);
-    };
 
 }

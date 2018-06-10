@@ -1,36 +1,67 @@
 package com.ultraviolet.delieve.view.send;
 
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Camera;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ViewFlipper;
 
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.ultraviolet.delieve.R;
 import com.ultraviolet.delieve.data.repository.DeliveryRepository;
 import com.ultraviolet.delieve.data.repository.QRApiRepository;
 import com.ultraviolet.delieve.model.DeliveryMatching;
+import com.ultraviolet.delieve.model.DeliveryMatchingForDeliever;
 import com.ultraviolet.delieve.util.QRGenerator;
 import com.ultraviolet.delieve.view.base.BaseActivity;
+import com.ultraviolet.delieve.view.deliever.DelieverMatchedDialogActivity;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
+import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import rx.Observable;
+import rx.Subscription;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
+import rx.schedulers.Schedulers;
 
 public class SendMatchedActivity extends BaseActivity {
 
     DeliveryMatching mDeliveryMatching;
+
+    private GoogleMap mGoogleMap;
+    private Marker mMarker;
+    private SupportMapFragment mSupportMapFragment;
 
     @Inject
     QRApiRepository mQrApiRepository;
 
     @Inject
     DeliveryRepository mDeliveryRepository;
+
+    @BindView(R.id.map_frame)
+    FrameLayout mMapFrameLayout;
+
 
     @BindView(R.id.matched_vf)
     ViewFlipper mViewFlipper;
@@ -83,6 +114,7 @@ public class SendMatchedActivity extends BaseActivity {
         mDeliveryMatching = (DeliveryMatching) getIntent()
                 .getSerializableExtra("Matching");
 
+
         switch (mDeliveryMatching.matchingStatus){
             case "READY":
                 setupReadyMode();
@@ -94,6 +126,39 @@ public class SendMatchedActivity extends BaseActivity {
                 setupFinishMode();
                 break;
         }
+
+        EventBus.getDefault().register(this);
+
+        initMap();
+        initTracking();
+
+    }
+
+    Subscription subscription;
+    private void initTracking() {
+        subscription = Observable.interval(2000, 5000, TimeUnit.MILLISECONDS)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<Long>() {
+                    public void call(Long aLong) {
+                        mDeliveryMatching
+                    }
+                });
+
+    }
+
+    private void initMap() {
+    mSupportMapFragment = SupportMapFragment.newInstance();
+    mSupportMapFragment.getMapAsync(new OnMapReadyCallback() {
+                @Override
+                public void onMapReady(GoogleMap googleMap) {
+                    mGoogleMap = googleMap;
+                    mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
+                            new LatLng(37.284337, 127.044246), 15
+                    ));
+                    getSupportFragmentManager().beginTransaction().replace(R.id.map_frame, mSupportMapFragment).commit();
+                }
+            });
     }
 
     private void setupFinishMode() {

@@ -412,6 +412,8 @@ public class SendFragment extends BaseFragment {
 
                 mGoogleMap = googleMap;
                 mGoogleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+                mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
+                        new LatLng(37.284337, 127.044246), 15));
 
                 locationRequest = new LocationRequest();
                 locationRequest.setInterval(60000);

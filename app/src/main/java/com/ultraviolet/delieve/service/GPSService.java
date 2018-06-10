@@ -17,6 +17,8 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.model.LatLng;
+import com.ultraviolet.delieve.MainApplication;
+import com.ultraviolet.delieve.dagger.DiComponent;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -34,6 +36,7 @@ public class GPSService extends Service
         super.onCreate();
         buildGoogleApiClient();
         Log.i(LOGSERVICE, "onCreate");
+        ((MainApplication)getApplication()).getDiComponent().inject(this);
 
     }
 
@@ -100,8 +103,8 @@ public class GPSService extends Service
 
     private void initLocationRequest() {
         mLocationRequest = new LocationRequest();
-        mLocationRequest.setInterval(5000);
-        mLocationRequest.setFastestInterval(2000);
+        mLocationRequest.setInterval(10000);
+        mLocationRequest.setFastestInterval(5000);
         mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
 
     }
