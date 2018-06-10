@@ -10,6 +10,15 @@ public class User implements Serializable {
     public static final int USER_JUDGE_PENDING = 3;
     public static final int USER_JUDGE_DECLINE = 4;
 
+    public int getMatchingIdForDeliever() {
+        return matchingIdForDeliever;
+    }
+
+    public void setMatchingIdForDeliever(int matchingIdForDeliever) {
+        this.matchingIdForDeliever = matchingIdForDeliever;
+    }
+
+    private int matchingIdForDeliever;
 
     private String authToken;
 
@@ -25,6 +34,7 @@ public class User implements Serializable {
 
 
     public User(String authToken, int delivable, String name, String phone, String email, String birthDay, int userId) {
+        matchingIdForDeliever = -1;
         this.authToken = authToken;
         this.delivable = delivable;
         this.name = name;

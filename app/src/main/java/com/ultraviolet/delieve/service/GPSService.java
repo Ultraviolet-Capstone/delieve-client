@@ -19,8 +19,17 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.model.LatLng;
 import com.ultraviolet.delieve.MainApplication;
 import com.ultraviolet.delieve.dagger.DiComponent;
+import com.ultraviolet.delieve.data.dto.GPSSenderDto;
+import com.ultraviolet.delieve.data.repository.GPSTrackingRepository;
+import com.ultraviolet.delieve.data.repository.UserRepository;
+import com.ultraviolet.delieve.data.service.GPSTrackingService;
 
 import org.greenrobot.eventbus.EventBus;
+
+import java.time.LocalDate;
+import java.util.Date;
+
+import javax.inject.Inject;
 
 
 public class GPSService extends Service
@@ -30,6 +39,13 @@ public class GPSService extends Service
     private LocationRequest mLocationRequest;
     private GoogleApiClient mGoogleApiClient;
     private static final String LOGSERVICE = "#######";
+
+    @Inject
+    GPSTrackingRepository mGpsTrackingService;
+
+    @Inject
+    UserRepository mUserRepository;
+
 
     @Override
     public void onCreate() {
@@ -75,11 +91,19 @@ public class GPSService extends Service
 
     @Override
     public void onLocationChanged(Location location) {
-        Log.i(LOGSERVICE, "lat " + location.getLatitude());
-        Log.i(LOGSERVICE, "lng " + location.getLongitude());
-        LatLng mLocation = (new LatLng(location.getLatitude(), location.getLongitude()));
-        EventBus.getDefault().post(mLocation);
-
+        if (mUserRepository.isUserMatching()){
+            Log.i(LOGSERVICE, "lat " + location.getLatitude());
+            Log.i(LOGSERVICE, "lng " + location.getLongitude());
+            mGpsTrackingService.postGPS(new GPSSenderDto(
+                    location.getLatitude(),
+                    location.getLongitude(),
+                    (new Date()).toString(),
+                    mUserRepository.getUserMatchingId()
+            )).subscribe(res->{
+                Log.i("credt", "GPS is posted with code "
+                + res.code());
+            }, Throwable::printStackTrace);
+        }
     }
 
     @Override
@@ -105,7 +129,7 @@ public class GPSService extends Service
         mLocationRequest = new LocationRequest();
         mLocationRequest.setInterval(10000);
         mLocationRequest.setFastestInterval(5000);
-        mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+        mLocationRequest.setPriority(LocationRequest.PRIORITY_LOW_POWER);
 
     }
 
