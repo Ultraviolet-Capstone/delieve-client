@@ -409,7 +409,6 @@ public class SendFragment extends BaseFragment {
         mSupportMapFragment.getMapAsync(new OnMapReadyCallback() {
             @Override
             public void onMapReady(GoogleMap googleMap) {
-
                 mGoogleMap = googleMap;
                 mGoogleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
                 mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(

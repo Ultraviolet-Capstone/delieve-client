@@ -64,4 +64,27 @@ public class UserRepositoryImpl implements UserRepository {
     public String getUsername() {
         return user.getName();
     }
+
+    @Override
+    public boolean isUserMatching() {
+        if (user.getMatchingIdForDeliever() == -1){
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+
+    @Override
+    public int getUserMatchingId() {
+        return user.getMatchingIdForDeliever();
+    }
+
+    @Override
+    public void setUserMatching(int matchingId) {
+        if (matchingId != -1 ){
+            Log.i("credt", "user has matching id " + matchingId);
+        }
+        user.setMatchingIdForDeliever(matchingId);
+    }
 }

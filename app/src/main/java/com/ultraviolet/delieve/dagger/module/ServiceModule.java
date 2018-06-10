@@ -3,6 +3,7 @@ package com.ultraviolet.delieve.dagger.module;
 import com.ultraviolet.delieve.data.service.AuthService;
 import com.ultraviolet.delieve.data.service.DeliveryService;
 import com.ultraviolet.delieve.data.service.EnrollService;
+import com.ultraviolet.delieve.data.service.GPSTrackingService;
 import com.ultraviolet.delieve.data.service.QRApiService;
 import com.ultraviolet.delieve.data.service.UserInfoService;
 
@@ -36,6 +37,11 @@ public class ServiceModule {
     @Provides
     UserInfoService provideUserInfoService(Retrofit retrofit){
         return retrofit.create(UserInfoService.class);
+    }
+
+    @Provides
+    GPSTrackingService provideGPSTrackingService(Retrofit retrofit){
+        return retrofit.create(GPSTrackingService.class);
     }
 
 }
