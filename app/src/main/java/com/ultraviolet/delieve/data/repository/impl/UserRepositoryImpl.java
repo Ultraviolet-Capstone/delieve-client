@@ -67,7 +67,7 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public boolean isUserMatching() {
-        if (user.getMatchingIdForDeliever() == -1){
+        if (user == null || user.getMatchingIdForDeliever() == -1){
             return false;
         }
         else {

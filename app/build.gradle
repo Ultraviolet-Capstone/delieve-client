@@ -92,7 +92,12 @@ dependencies {
      */
     implementation 'com.airbnb.android:lottie:2.5.4'
 
+    /**
+     * etc
+     */
     implementation 'org.greenrobot:eventbus:3.1.1'
+
+    implementation 'com.github.jd-alexander:library:1.1.0'
 }
 
 apply plugin: 'com.google.gms.google-services'
