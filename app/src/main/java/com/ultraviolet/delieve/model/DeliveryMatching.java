@@ -1,10 +1,11 @@
 package com.ultraviolet.delieve.model;
 
-import com.ultraviolet.delieve.data.dto.DeliveryMatchingForSenderDto;
+import com.ultraviolet.delieve.data.dto.DeliveryMatchingDto;
+import com.ultraviolet.delieve.data.dto.DeliveryMatchingForDelieverDto;
 
 import java.io.Serializable;
 
-public class DeliveryMatchingForSender implements Serializable {
+public class DeliveryMatching implements Serializable {
     public int matchingId;
     public String beginAddress;
     public double beginLatitude;
@@ -27,8 +28,16 @@ public class DeliveryMatchingForSender implements Serializable {
     public String recieverPhone;
     public String matchingStatus;
 
+    public String senderSelfiURL;
+    public String senderName;
+    public String senderPhone;
+    public String senderEmail;
+    public String senderBirthday;
 
-    public DeliveryMatchingForSender(DeliveryMatchingForSenderDto dto){
+
+
+
+    public DeliveryMatching(DeliveryMatchingDto dto){
         matchingId = dto.matchingId;
         beginAddress = dto.beginAddress;
         beginLatitude = dto.beginLatitude;
@@ -50,9 +59,36 @@ public class DeliveryMatchingForSender implements Serializable {
         delieverName = dto.delivererName;
         delieverPhone = dto.delivererPhone;
         recieverPhone = dto.recieverPhone;
-
         matchingStatus = dto.matchingStatus;
 
+        senderSelfiURL = dto.senderSelfiURL;
+        senderBirthday = dto.senderBirthday;
+        senderEmail = dto.senderEmail;
+        senderName = dto.senderName;
+        senderPhone = dto.senderPhone;
+    }
+
+    public DeliveryMatching(DeliveryMatchingForDeliever data){
+        beginAddress = data.beginAddress;
+        beginLatitude = data.beginLatitude;
+        beginLongitude = data.beginLongitude;
+        finishAddress = data.finishAddress;
+        finishLatitude = data.finishLatitude;
+        finishLongitude = data.finishLongitude;
+        stuffName = data.stuffName;
+        stuffSize = data.stuffSize;
+        stuffWeight = data.stuffWeight;
+        distance = data.distance;
+        beginTime = data.beginTime;
+        type = data.type;
+        beginTime = data.beginTime;
+        finishTime = data.finishTime;
+        recieverPhone = data.recieverPhone;
+        senderSelfiURL = data.senderSelfiURL;
+        senderBirthday = data.senderBirthday;
+        senderEmail = data.senderEmail;
+        senderName = data.senderName;
+        senderPhone = data.senderPhone;
     }
 
 }

@@ -24,6 +24,4 @@ public interface UserRepository {
     int getUserId();
 
     String getUsername();
-
-
 }

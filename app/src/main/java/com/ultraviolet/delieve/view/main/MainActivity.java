@@ -19,6 +19,7 @@ import com.ultraviolet.delieve.data.repository.QRApiRepository;
 import com.ultraviolet.delieve.data.repository.UserInfoRepository;
 import com.ultraviolet.delieve.data.repository.UserRepository;
 import com.ultraviolet.delieve.model.User;
+import com.ultraviolet.delieve.service.GPSService;
 import com.ultraviolet.delieve.view.base.BaseActivity;
 import com.ultraviolet.delieve.view.deliever.DelieverFragment;
 import com.ultraviolet.delieve.view.mypage.matchingList.MatchingListFragment;
@@ -131,8 +132,7 @@ public class MainActivity extends BaseActivity
         // set Fragmentclass Arguments
         mSendFragment.setArguments(bundle);
 
-
-
+        startService(new Intent(this, GPSService.class));
 
         init();
     }

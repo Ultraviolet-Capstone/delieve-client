@@ -11,7 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.ultraviolet.delieve.R;
-import com.ultraviolet.delieve.model.DeliveryMatchingForSender;
+import com.ultraviolet.delieve.model.DeliveryMatching;
 import com.ultraviolet.delieve.util.ImageLoadHelper;
 import com.ultraviolet.delieve.view.send.SendMatchedActivity;
 
@@ -31,7 +31,7 @@ public class MatchingListAdapter extends RecyclerView.Adapter<MatchingListAdapte
 
 
 
-    private List<DeliveryMatchingForSender> mDataset;
+    private List<DeliveryMatching> mDataset;
     //private DeliveryClickListener deliveryClickListener;
     private View.OnClickListener onClickListener;
     private RecyclerView mRecyclerView;
@@ -51,7 +51,7 @@ public class MatchingListAdapter extends RecyclerView.Adapter<MatchingListAdapte
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public MatchingListAdapter(List<DeliveryMatchingForSender> myDataset, RecyclerView v) {
+    public MatchingListAdapter(List<DeliveryMatching> myDataset, RecyclerView v) {
         this.mRecyclerView = v;
         mDataset = myDataset;
         //this.deliveryClickListener = deliveryClickListener;
@@ -66,7 +66,7 @@ public class MatchingListAdapter extends RecyclerView.Adapter<MatchingListAdapte
                 .inflate(R.layout.view_cardview, parent, false);
         v.setOnClickListener(v1 -> {
             int position = mRecyclerView.getChildAdapterPosition(v1);
-            DeliveryMatchingForSender data = mDataset.get(position);
+            DeliveryMatching data = mDataset.get(position);
 
             Intent intent = new Intent(mRecyclerView.getContext(), SendMatchedActivity.class);
             intent.putExtra("Matching", data);
@@ -81,7 +81,7 @@ public class MatchingListAdapter extends RecyclerView.Adapter<MatchingListAdapte
     // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        DeliveryMatchingForSender item = mDataset.get(position);
+        DeliveryMatching item = mDataset.get(position);
 
         if (item.delieverSelfiURL != null)
             ImageLoadHelper.loadProfileImage(mCardProfilePicImageView, item.delieverSelfiURL);
@@ -117,7 +117,7 @@ public class MatchingListAdapter extends RecyclerView.Adapter<MatchingListAdapte
     }
 
     interface DeliveryClickListener {
-        void onDelieryClick(DeliveryMatchingForSender city);
+        void onDelieryClick(DeliveryMatching city);
     }
 
 }
