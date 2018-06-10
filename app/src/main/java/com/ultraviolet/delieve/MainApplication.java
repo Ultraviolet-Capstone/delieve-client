@@ -2,6 +2,7 @@ package com.ultraviolet.delieve;
 
 import android.app.Application;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
@@ -14,6 +15,7 @@ import com.ultraviolet.delieve.dagger.DaggerDiComponent;
 import com.ultraviolet.delieve.dagger.DiComponent;
 import com.ultraviolet.delieve.dagger.module.ApplicationModule;
 import com.ultraviolet.delieve.dagger.module.NetworkModule;
+import com.ultraviolet.delieve.service.GPSService;
 import com.ultraviolet.delieve.view.login.KakaoSDKAdapter;
 
 import java.security.MessageDigest;
@@ -34,6 +36,7 @@ public class MainApplication extends Application {
         KakaoSDK.init(new KakaoSDKAdapter(getApplicationContext()));
         Log.d("guri",getKeyHash(getApplicationContext()));
 
+        startService(new Intent(this, GPSService.class));
 
 
     }
@@ -43,7 +46,6 @@ public class MainApplication extends Application {
                 .applicationModule(new ApplicationModule(this))
                 .networkModule(new NetworkModule(getString(R.string.BASE_URL)))
                 .build();
-
 
     }
 

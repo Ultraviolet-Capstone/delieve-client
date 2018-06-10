@@ -52,7 +52,7 @@ public class GPSService extends Service
         super.onCreate();
         buildGoogleApiClient();
         Log.i(LOGSERVICE, "onCreate");
-        ((MainApplication)getApplication()).getDiComponent().inject(this);
+        ((MainApplication) getApplication()).getDiComponent().inject(this);
 
     }
 
@@ -76,7 +76,7 @@ public class GPSService extends Service
                 Log.i(LOGSERVICE, "lng " + l.getLongitude());
 
             }
-        }catch(SecurityException ex){
+        } catch (SecurityException ex) {
             ex.printStackTrace();
         }
 
@@ -91,7 +91,8 @@ public class GPSService extends Service
 
     @Override
     public void onLocationChanged(Location location) {
-        if (mUserRepository.isUserMatching()){
+        Log.i("credt", "sending GPS... ");
+        if (mUserRepository.isUserMatching()) {
             Log.i(LOGSERVICE, "lat " + location.getLatitude());
             Log.i(LOGSERVICE, "lng " + location.getLongitude());
             mGpsTrackingService.postGPS(new GPSSenderDto(
@@ -99,9 +100,9 @@ public class GPSService extends Service
                     location.getLongitude(),
                     (new Date()).toString(),
                     mUserRepository.getUserMatchingId()
-            )).subscribe(res->{
+            )).subscribe(res -> {
                 Log.i("credt", "GPS is posted with code "
-                + res.code());
+                        + res.code());
             }, Throwable::printStackTrace);
         }
     }
@@ -127,9 +128,9 @@ public class GPSService extends Service
 
     private void initLocationRequest() {
         mLocationRequest = new LocationRequest();
-        mLocationRequest.setInterval(10000);
-        mLocationRequest.setFastestInterval(5000);
-        mLocationRequest.setPriority(LocationRequest.PRIORITY_LOW_POWER);
+        mLocationRequest.setInterval(5000);
+        mLocationRequest.setFastestInterval(3000);
+        mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
 
     }
 
@@ -161,6 +162,5 @@ public class GPSService extends Service
                 .addApi(LocationServices.API)
                 .build();
     }
-
 
 }

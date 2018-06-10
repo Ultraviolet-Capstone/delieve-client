@@ -20,8 +20,10 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.ultraviolet.delieve.R;
 import com.ultraviolet.delieve.data.repository.DeliveryRepository;
+import com.ultraviolet.delieve.data.repository.GPSTrackingRepository;
 import com.ultraviolet.delieve.data.repository.QRApiRepository;
 import com.ultraviolet.delieve.model.DeliveryMatching;
 import com.ultraviolet.delieve.model.DeliveryMatchingForDeliever;
@@ -59,6 +61,9 @@ public class SendMatchedActivity extends BaseActivity {
 
     @Inject
     DeliveryRepository mDeliveryRepository;
+
+    @Inject
+    GPSTrackingRepository mGpsTrackingRepository;
 
     @BindView(R.id.send_matched_begin) TextView mBeginTextView;
     @BindView(R.id.send_matched_finish) TextView mFinishTextView;
@@ -142,12 +147,35 @@ public class SendMatchedActivity extends BaseActivity {
 
     Subscription subscription;
     private void initTracking() {
-        subscription = Observable.interval(1000, 5000, TimeUnit.MILLISECONDS)
+        subscription = Observable.interval(1000, 3000, TimeUnit.MILLISECONDS)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<Long>() {
                     public void call(Long aLong) {
-
+                        mGpsTrackingRepository.getGPS(mDeliveryMatching.matchingId)
+                                .subscribe(res->{
+                                    if (res.code() != 200 || res.body() == null){
+                                        Log.d("credt", "getting gps from server failed.");
+                                        return;
+                                    }
+                                    Log.i("credt",
+                                            "GPS tracking info : "
+                                                    + res.body().latitude + ", "
+                                                    + res.body().longitude);
+                                    LatLng latLng = new LatLng(
+                                            res.body().latitude,
+                                            res.body().longitude);
+                                    if (mMarker == null) {
+                                        MarkerOptions a = new MarkerOptions().position(latLng);
+                                        mMarker = mGoogleMap.addMarker(a);
+                                    }
+                                    else{
+                                        mMarker.setPosition(latLng);
+                                    }
+                                    mGoogleMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+                                }, throwable -> {
+                                    throwable.printStackTrace();
+                                });
                     }
                 });
     }
@@ -159,7 +187,7 @@ public class SendMatchedActivity extends BaseActivity {
                 public void onMapReady(GoogleMap googleMap) {
                     mGoogleMap = googleMap;
                     mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
-                            new LatLng(37.284337, 127.044246), 15
+                            new LatLng(37.284337, 127.044246), 13
                     ));
                 }
             });

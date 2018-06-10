@@ -134,11 +134,11 @@ public class MainActivity extends BaseActivity
 
         // set Fragmentclass Arguments
         mSendFragment.setArguments(bundle);
+        checkUserMatched();
+        init();
 
         startService(new Intent(this, GPSService.class));
 
-        checkUserMatched();
-        init();
     }
 
     private void checkUserMatched() {
