@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/color_WHITE"
+    tools:context=".view.send.SendWaitingActivity">
+
+    <!-- The primary full-screen view. This can be replaced with whatever view
+         is neededa to present your content, e.g. VideoView, SurfaceView,
+         TextureView, etc. -->
+    <LinearLayout
+        android:id="@+id/fullscreen_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_centerInParent="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:layout_width="180dp"
+            android:layout_height="180dp"
+            android:src="@drawable/ic_main_icon2"
+            android:id="@+id/lottie"
+            />
+        <TextView
+            android:textSize="30dp"
+            android:id="@+id/splash_tv"
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/ultra_violet"
+            android:text="딜리브"/>
+    </LinearLayout>
+</RelativeLayout>
