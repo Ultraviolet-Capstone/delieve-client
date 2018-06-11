@@ -148,7 +148,7 @@ public class MainActivity extends BaseActivity
     }
 
     private void setupUi() {
-        notification=getIntent().getBooleanExtra("noti", false);
+        /*notification=getIntent().getBooleanExtra("noti", false);
         Log.d("firebaseInent", String.valueOf(notification));
         if(notification==false){
             getSupportFragmentManager()
@@ -161,7 +161,11 @@ public class MainActivity extends BaseActivity
                     .beginTransaction()
                     .add(R.id.main_fragment_container, mDelieverFragment)
                     .commit();
-        }
+        }*/
+        getSupportFragmentManager()
+                .beginTransaction()
+                .add(R.id.main_fragment_container, mSendFragment)
+                .commit();
 
     }
 

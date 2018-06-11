@@ -52,7 +52,7 @@ public class LoginActivity extends AppCompatActivity {
 
         if (!Session.getCurrentSession().isClosed()) {
             // session 있음
-            Log.d("account-set", "session o");
+            Log.d("account-set  ", "session o");
             if (AUTO_ACCESS_TOKEN == null) {
                 // if no logged in data
                 // then  remove the session
