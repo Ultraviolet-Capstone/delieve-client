@@ -456,7 +456,10 @@ public class SendFragment extends BaseFragment {
         }
     }
     private void setBeginAddressMarker() {
-        if (mPathPolyLine != null) mPathPolyLine.remove();
+        if (mPathPolyLine != null) {
+            Log.d("credt", "mPath is removed");
+            mPathPolyLine.remove();
+        }
         if (currentLocationMaker != null) currentLocationMaker.remove();
         if (beginLocationMarker == null){
             beginLocationMarker = mGoogleMap.addMarker(new MarkerOptions()

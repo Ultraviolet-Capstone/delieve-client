@@ -101,6 +101,10 @@ public class SendMatchedActivity extends BaseActivity {
                         if (res.body().matchingStatus.equals("READY")){
                             Log.d("credt", "QR code is not transfered.");
                         }
+                        else if (res.body().matchingStatus.equals("PROGRESS")){
+                            Log.d("credt","package is transfered.");
+                            setupProgressMode();
+                        }
                     }, throwable -> {
                         throwable.printStackTrace();
                     });
@@ -194,7 +198,6 @@ public class SendMatchedActivity extends BaseActivity {
     }
 
     private void setupFinishMode() {
-
     }
 
     private void setupProgressMode() {
