@@ -22,7 +22,8 @@ public interface AuthService {
 
 
     @GET("/auth/user/login")
-    Observable<Response<LoginDto>> login(@Query("token") String kakaoToken);
+    Observable<Response<LoginDto>> login(@Query("token") String kakaoToken,
+                                         @Query("pushToken") String pushToken);
 
     @POST("/auth/user/register")
     Observable<Response<Void>> register(@Body UserDto userDto);

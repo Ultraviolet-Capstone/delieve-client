@@ -36,9 +36,9 @@ public class AuthRepositoryImpl implements AuthRepository {
     }
 
     @Override
-    public Observable<Response<LoginDto>> login(String token) {
+    public Observable<Response<LoginDto>> login(String token, String pushToken) {
         Observable<Response<LoginDto>> loginDto = service
-                .login(token);
+                .login(token, pushToken);
         return loginDto.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
