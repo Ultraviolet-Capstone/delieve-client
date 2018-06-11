@@ -54,6 +54,7 @@
         <activity android:name=".view.deliever.DelieverMatchedDialogActivity" />
         <activity android:name=".view.send.SendMatchedActivity" />
         <activity android:name=".view.mypage.matchingList.MatchingListActivity" />
+        <activity android:name=".view.login.SignupActivity"/>
 
         <service android:name=".firebase.MyFirebaseInstanceIDService">
             <intent-filter>
