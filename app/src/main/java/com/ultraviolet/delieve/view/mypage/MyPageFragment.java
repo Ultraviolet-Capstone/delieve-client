@@ -10,10 +10,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.kakao.usermgmt.UserManagement;
+import com.kakao.usermgmt.callback.LogoutResponseCallback;
 import com.ultraviolet.delieve.R;
 import com.ultraviolet.delieve.data.repository.UserRepository;
 import com.ultraviolet.delieve.util.ImageLoadHelper;
 import com.ultraviolet.delieve.view.base.BaseFragment;
+import com.ultraviolet.delieve.view.login.LoginActivity;
 import com.ultraviolet.delieve.view.mypage.matchingList.MatchingListActivity;
 
 import javax.inject.Inject;
@@ -49,11 +52,31 @@ public class MyPageFragment extends BaseFragment {
         startActivity(intent);
     }
 
+    private void onClickLogout() {
+        UserManagement.getInstance().requestLogout(new LogoutResponseCallback() {
+            @Override
+            public void onCompleteLogout() {
+                Intent intent = new Intent(getContext(), LoginActivity.class);
+                startActivity(intent);
+            }
+        });
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         rootView = inflater.inflate(R.layout.fragment_my_page, container, false);
+
+        TextView logout=(TextView)rootView.findViewById(R.id.logout);
+        logout.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view) {
+                onClickLogout();
+            }
+        });
+
 
         getDiComponent().inject(this);
         ButterKnife.bind(this, rootView);
