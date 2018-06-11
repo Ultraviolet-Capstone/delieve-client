@@ -13,9 +13,13 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import com.ultraviolet.delieve.R;
+import com.ultraviolet.delieve.data.dto.QRDto;
+import com.ultraviolet.delieve.data.repository.QRApiRepository;
 import com.ultraviolet.delieve.model.DeliveryMatching;
 import com.ultraviolet.delieve.model.DeliveryMatchingForDeliever;
 import com.ultraviolet.delieve.util.ImageLoadHelper;
+import com.ultraviolet.delieve.view.base.BaseActivity;
+import com.ultraviolet.delieve.view.base.BaseFragment;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -23,13 +27,17 @@ import org.greenrobot.eventbus.ThreadMode;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class DelieverMatchedActivity extends AppCompatActivity {
+public class DelieverMatchedActivity extends BaseActivity {
     private IntentIntegrator qrScan;
 
+    @Inject
+    QRApiRepository mQRApiRepository;
 
     @BindView(R.id.matched_map_image_view)
     ImageView mMatchedMapImageView;
@@ -75,6 +83,7 @@ public class DelieverMatchedActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getDiComponent().inject(this);
         setContentView(R.layout.activity_deliever_matched);
         ButterKnife.bind(this);
         mDeliveryMatching = (DeliveryMatching)getIntent().getSerializableExtra("Matching");
@@ -90,6 +99,17 @@ public class DelieverMatchedActivity extends AppCompatActivity {
         mMatchedStuffSize.setText(mDeliveryMatching.stuffSize);
         mMatchedDistance.setText(String.format("%.2f", mDeliveryMatching.distance) + "Km");
 
+        switch (mDeliveryMatching.matchingStatus){
+            case "READY" :
+                setupReadyMode();
+                break;
+            case "PROGRESS" :
+                setUpProgressMode();
+                break;
+            case "FINISH" :
+                setUpFinishMode();
+                break;
+        }
 
         /*
         mMatchedStuffName.setText(mDeliveryMatching.stuffName);
@@ -119,8 +139,6 @@ public class DelieverMatchedActivity extends AppCompatActivity {
                     JSONObject obj = new JSONObject(result.getContents());
                     Log.d("scanQR", obj.getString("name"));
                     Log.d("scanQR", obj.getString("address"));
-                    //textViewName.setText(obj.getString("name"));
-                    //textViewAddress.setText(obj.getString("address"));
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -128,14 +146,48 @@ public class DelieverMatchedActivity extends AppCompatActivity {
                     //that means the encoded format not matches
                     //in this case you can display whatever data is available on the qrcode
                     //to a toast
-                    Toast.makeText(this, result.getContents(), Toast.LENGTH_LONG).show();
                     //textViewResult.setText(result.getContents());
+                    mQRApiRepository.postQRHash(new QRDto(mDeliveryMatching.matchingId,
+                            result.getContents(),
+                            mDeliveryMatching.matchingStatus))
+                    .subscribe(res->{
+                        if (res.code() == 200 && res.body()!=null){
+                            if (mDeliveryMatching.matchingStatus.equals("READY") &&
+                                    res.body().status.equals("PROGRESS")){
+                                mDeliveryMatching.matchingStatus = "PROGRESS";
+                                Log.d("credt", "matching status is changed to PROGRESS");
+                                Toast.makeText(this, "물품 양도가 확인되었습니다.", Toast.LENGTH_LONG).show();
 
+                                setUpProgressMode();
+                            }
+                            else if (mDeliveryMatching.matchingStatus.equals("PROGRESS") &&
+                                    res.body().status.equals("FINISH")){
+                                Log.d("credt", "matching status is changed to FINISH");
+                                Toast.makeText(this, "물품 양도가 확인되었습니다.", Toast.LENGTH_LONG).show();
+                                setUpFinishMode();
+
+                            }
+                        }
+                    }, throwable -> {
+
+                    });
                 }
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data);
         }
+    }
+
+    void setupReadyMode(){
+        button.setText("물품 양도 받기");
+
+    }
+    void setUpProgressMode(){
+        button.setText("물품 양도 하기");
+    }
+    void setUpFinishMode(){
+        button.setText("배송 완료");
+        button.setEnabled(false);
     }
 
 }

@@ -4,6 +4,7 @@ import com.ultraviolet.delieve.dagger.module.RepositoryModule;
 import com.ultraviolet.delieve.dagger.module.ServiceModule;
 import com.ultraviolet.delieve.service.GPSService;
 import com.ultraviolet.delieve.view.deliever.DelieverFragment;
+import com.ultraviolet.delieve.view.deliever.DelieverMatchedActivity;
 import com.ultraviolet.delieve.view.deliever.DelieverMatchedDialogActivity;
 import com.ultraviolet.delieve.view.deliever.DelieverWaitingForMatchingActivity;
 import com.ultraviolet.delieve.view.mypage.matchingList.MatchingListFragment;
@@ -43,6 +44,8 @@ public interface DiComponent {
     void inject(MatchingListFragment fragment);
 
     void inject(EvaluateDeliver3 activity);
+
+    void inject(DelieverMatchedActivity activity);
 
     void inject(SignupActivity activity);
 
