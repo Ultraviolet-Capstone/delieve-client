@@ -53,6 +53,19 @@
                 android:textSize="18sp"
                 app:layout_constraintStart_toEndOf="@+id/matched_profile_image"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/deliever_matched_distance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:lineSpacingExtra="18sp"
+                android:text="TextView"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/matched_profile_image"
+                app:layout_constraintTop_toBottomOf="@+id/matched_username" />
         </android.support.constraint.ConstraintLayout>
 
         <android.support.constraint.ConstraintLayout

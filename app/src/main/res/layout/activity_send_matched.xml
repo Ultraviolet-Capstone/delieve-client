@@ -37,6 +37,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             app:layout_constraintEnd_toStartOf="@+id/constraintLayout16"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -68,7 +69,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="24dp"
                 android:text="도착"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/send_matched_begin" />
@@ -89,12 +90,12 @@
         <android.support.constraint.ConstraintLayout
             android:id="@+id/constraintLayout16"
             android:layout_width="0dp"
-            android:layout_height="131dp"
+            android:layout_height="0dp"
             android:layout_marginBottom="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            app:layout_constraintBottom_toTopOf="@+id/send_matched_button"
+            app:layout_constraintBottom_toTopOf="@+id/matched_vf"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/constraintLayout15"
             app:layout_constraintTop_toTopOf="parent"
@@ -181,6 +182,7 @@
                             app:layout_constraintStart_toEndOf="@+id/textView20" />
 
                     </android.support.constraint.ConstraintLayout>
+
                     <android.support.constraint.ConstraintLayout
                         android:id="@+id/constraintLayout555"
                         android:layout_width="match_parent"
@@ -208,6 +210,7 @@
                             app:layout_constraintStart_toEndOf="@+id/textView20" />
 
                     </android.support.constraint.ConstraintLayout>
+
                     <android.support.constraint.ConstraintLayout
                         android:id="@+id/constraintLayout555"
                         android:layout_width="match_parent"
@@ -226,6 +229,7 @@
                             app:layout_constraintTop_toTopOf="parent" />
 
                     </android.support.constraint.ConstraintLayout>
+
                     <android.support.constraint.ConstraintLayout
                         android:id="@+id/constraintLayout555"
                         android:layout_width="match_parent"
@@ -255,23 +259,34 @@
         <ViewFlipper
             android:id="@+id/matched_vf"
             android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/constraintLayout15"
-            app:layout_constraintVertical_bias="0.0">
+            app:layout_constraintStart_toStartOf="parent">
 
             <include
                 android:id="@+id/ready"
-                layout="@layout/view_send_matched_ready" />
+                layout="@layout/view_send_matched_ready"
+                android:layout_height="wrap_content" />
 
             <include
                 android:id="@+id/progress"
                 layout="@layout/view_send_matched_progress" />
 
         </ViewFlipper>
+
+        <TextView
+            android:id="@+id/send_matched_distance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:text="--"
+            android:textSize="30sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout15" />
 
     </android.support.constraint.ConstraintLayout>
 

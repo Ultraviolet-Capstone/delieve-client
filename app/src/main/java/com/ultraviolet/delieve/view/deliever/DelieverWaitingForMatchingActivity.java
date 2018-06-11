@@ -124,7 +124,12 @@ public class DelieverWaitingForMatchingActivity extends BaseActivity {
     };
 
         Subscription subscription;
-        private DeliveryMatchingForDeliever mDeliveryMatchingForDeliever;
+
+    public Subscription getSubscription() {
+        return subscription;
+    }
+
+    private DeliveryMatchingForDeliever mDeliveryMatchingForDeliever;
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {
@@ -165,7 +170,6 @@ public class DelieverWaitingForMatchingActivity extends BaseActivity {
                                     String.valueOf(mUserRepository.getUserId()))
                                     .subscribe(res -> {
                                         if (res.code() == 200) {
-
                                             finishActivity(1);
                                             Intent intent = new Intent(getApplicationContext(), DelieverMatchedDialogActivity.class);
                                             mDeliveryMatchingForDeliever = new DeliveryMatchingForDeliever(res.body());
@@ -237,8 +241,8 @@ public class DelieverWaitingForMatchingActivity extends BaseActivity {
 
         public void onActivityResult(int requestCode, int resultCode, Intent data) {
             if (resultCode == RESULT_OK) {
+                subscription.unsubscribe();
                 Intent intent = new Intent(getApplicationContext(), DelieverMatchedActivity.class);
-
                 intent.putExtra("Matching", new DeliveryMatching(mDeliveryMatchingForDeliever));
                 startActivity(intent);
                 finish();
@@ -248,7 +252,6 @@ public class DelieverWaitingForMatchingActivity extends BaseActivity {
         @Override
         protected void onDestroy() {
             super.onDestroy();
-            subscription.unsubscribe();
         }
 }
 

@@ -55,13 +55,9 @@ public class DelieverMatchedActivity extends AppCompatActivity {
     @BindView(R.id.matched_stuff_name)
     TextView mMatchedStuffName;
 
-    /*
-    @BindView(R.id.matched_stuff_name)
-    TextView mMatchedStuffName;
+    @BindView(R.id.deliever_matched_distance)
+    TextView mMatchedDistance;
 
-    @BindView(R.id.matched_stuff_weight)
-    TextView mMatchedStuffWeight;
-*/
     @BindView(R.id.button_transfer_from_sender)
     Button button;
 
@@ -91,7 +87,9 @@ public class DelieverMatchedActivity extends AppCompatActivity {
         mMatchedFinishAddress.setText(mDeliveryMatching.finishAddress);
         mMatchedStuffWeight.setText(mDeliveryMatching.stuffWeight + " Kg");
         mMatchedStuffName.setText(mDeliveryMatching.stuffName);
-        mMatchedStuffName.setText(mDeliveryMatching.stuffSize);
+        mMatchedStuffSize.setText(mDeliveryMatching.stuffSize);
+        mMatchedDistance.setText(String.format("%.2f", mDeliveryMatching.distance) + "Km");
+
 
         /*
         mMatchedStuffName.setText(mDeliveryMatching.stuffName);

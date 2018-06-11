@@ -55,6 +55,10 @@ public class DelieverMatchedDialogActivity extends BaseActivity {
     @BindView(R.id.matched_stuff_size)
     TextView mMatchedStuffSize;
 
+    @BindView(R.id.deliever_matched_distance)
+    TextView mMatchedDistance;
+
+
 
     @OnClick(R.id.matched_accept)
     public void onAcceptClick(){
@@ -65,6 +69,9 @@ public class DelieverMatchedDialogActivity extends BaseActivity {
         )).subscribe(res -> {
             if(res.code() == 200 && res.body().delivererId == mUserRepository.getUserId()) {
                 Log.d("credt", "successfully accepted request");
+                ((DelieverWaitingForMatchingActivity)getParent())
+                        .getSubscription()
+                        .unsubscribe();
                 setResult(RESULT_OK);
             }
             else {
@@ -97,6 +104,8 @@ public class DelieverMatchedDialogActivity extends BaseActivity {
         mMatchedFinishAddress.setText(mDeliveryMatchingForDeliever.finishAddress);
         mMatchedStuffWeight.setText(mDeliveryMatchingForDeliever.stuffWeight + " Kg");
         mMatchedStuffSize.setText(mDeliveryMatchingForDeliever.stuffSize);
+        mMatchedDistance.setText(String.format("%.2f", mDeliveryMatchingForDeliever.distance) + "Km");
+
         ImageLoadHelper.loadMapImage(mMapImageView, mDeliveryMatchingForDeliever.beginLatitude,
                 mDeliveryMatchingForDeliever.beginLongitude,
                 mDeliveryMatchingForDeliever.finishLatitude,

@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
 
@@ -72,6 +73,10 @@ public class SendMatchedActivity extends BaseActivity {
     @BindView(R.id.send_matched_weight) TextView mWeightTextView;
     @BindView(R.id.send_matched_stuff_name) TextView mNameTextView;
     @BindView(R.id.matched_vf) ViewFlipper mViewFlipper;
+    @BindView(R.id.send_match_percentage) TextView mPercentage;
+    @BindView(R.id.send_match_progressbar) ProgressBar mProgressBar;
+    @BindView(R.id.send_matched_distance) TextView mDistance;
+
 
     @OnClick(R.id.send_matched_button)
     void onClick(){
@@ -103,6 +108,7 @@ public class SendMatchedActivity extends BaseActivity {
                         }
                         else if (res.body().matchingStatus.equals("PROGRESS")){
                             Log.d("credt","package is transfered.");
+                            mDeliveryMatching.matchingStatus = "PROGRESS";
                             setupProgressMode();
                         }
                     }, throwable -> {
@@ -147,6 +153,7 @@ public class SendMatchedActivity extends BaseActivity {
         mWeightTextView.setText(mDeliveryMatching.stuffWeight + " Kg");
         mPhoneNumberTextView.setText(mDeliveryMatching.recieverPhone);
         mNameTextView.setText(mDeliveryMatching.stuffName);
+        mDistance.setText(String.format("%.2f", mDeliveryMatching.distance) + " Km");
     }
 
     Subscription subscription;
@@ -177,11 +184,64 @@ public class SendMatchedActivity extends BaseActivity {
                                         mMarker.setPosition(latLng);
                                     }
                                     mGoogleMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+                                    if (mDeliveryMatching.matchingStatus.equals("PROGRESS")){
+                                        updateProgressBar(res.body().latitude, res.body().longitude);
+                                    }
                                 }, throwable -> {
                                     throwable.printStackTrace();
                                 });
+
                     }
                 });
+    }
+
+    private void updateProgressBar(double lat, double lng) {
+        double totalDisrtance = mDeliveryMatching.distance;
+        Log.d("credt", "total distance percent : " +  totalDisrtance);
+
+        double remainedDistance;
+        remainedDistance = distanceGPS(lat,lng,
+                mDeliveryMatching.finishLatitude,
+                mDeliveryMatching.finishLongitude,
+        "K");
+
+        Log.d("credt", "remained distance percent : " +  remainedDistance);
+
+        int percent =(int)(remainedDistance / totalDisrtance * 100) ;
+        Log.d("credt", "distance percent : " +  percent);
+        if (percent > 100) percent = 100;
+        mPercentage.setText(String.format("%d", percent) + "%");
+
+
+        mProgressBar.setProgress((percent), true);
+
+    }
+    private static double distanceGPS(double lat1, double lon1, double lat2, double lon2, String unit) {
+        double theta = lon1 - lon2;
+        double dist = Math.sin(deg2rad(lat1)) * Math.sin(deg2rad(lat2)) + Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * Math.cos(deg2rad(theta));
+        dist = Math.acos(dist);
+        dist = rad2deg(dist);
+        dist = dist * 60 * 1.1515;
+        if (unit == "K") {
+            dist = dist * 1.609344;
+        } else if (unit == "N") {
+            dist = dist * 0.8684;
+        }
+        return (dist);
+    }
+
+    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+    /*::	This function converts decimal degrees to radians						 :*/
+    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+    private static double deg2rad(double deg) {
+        return (deg * Math.PI / 180.0);
+    }
+
+    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+    /*::	This function converts radians to decimal degrees						 :*/
+    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+    private static double rad2deg(double rad) {
+        return (rad * 180 / Math.PI);
     }
 
     private void initMap() {

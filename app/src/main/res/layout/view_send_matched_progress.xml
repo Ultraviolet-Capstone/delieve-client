@@ -7,15 +7,16 @@
     android:layout_height="match_parent">
 
     <ProgressBar
-        android:id="@+id/progressBar"
+        android:id="@+id/send_match_progressbar"
         style="@android:style/Widget.Material.Light.ProgressBar.Horizontal"
         android:layout_width="0dp"
-        android:layout_height="14dp"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="32dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
+        android:progressTint="@color/colorPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/send_match_percentage"
         app:layout_constraintStart_toEndOf="@+id/dum" />
 
     <TextView
@@ -28,7 +29,7 @@
         android:text="진행률"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/progressBar"
+        app:layout_constraintEnd_toStartOf="@+id/send_match_progressbar"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
@@ -36,10 +37,22 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
-        android:layout_marginStart="32dp"
-        android:text="진행중"
+        android:layout_marginStart="24dp"
+        android:text="배달 진행중"
         android:textColor="@color/colorPrimary"
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/dum"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/send_match_percentage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:text="--%"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/send_match_progressbar" />
 </android.support.constraint.ConstraintLayout>
