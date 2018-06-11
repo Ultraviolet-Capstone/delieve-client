@@ -19,7 +19,7 @@ public class ImageLoadHelper {
                                              String key) {
         String url;
         url = "https://maps.googleapis.com/maps/api/staticmap?";
-        url += "&size=900x600";
+        url += "&size=500x250";
         url += "&maptype=roadmap";
         url += "&markers=color:green%7Clabel:G%7C" + beginLatitude + "," + beginLongitude;
         url += "&markers=color:red7Clabel:G%7C" + finishLatitude + ", " + finishLongitude;

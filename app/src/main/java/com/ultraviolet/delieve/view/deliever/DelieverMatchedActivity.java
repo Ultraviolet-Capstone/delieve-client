@@ -137,17 +137,21 @@ public class DelieverMatchedActivity extends BaseActivity {
                                     res.body().status.equals("PROGRESS")){
                                 mDeliveryMatching.matchingStatus = "PROGRESS";
                                 Log.d("credt", "matching status is changed to PROGRESS");
-                                Toast.makeText(this, "물품 양도가 확인되었습니다.", Toast.LENGTH_LONG).show();
-
+                                Toast.makeText(this, "물품을 성공적으로 양도받았습니다..", Toast.LENGTH_LONG).show();
                                 setUpProgressMode();
                             }
                             else if (mDeliveryMatching.matchingStatus.equals("PROGRESS") &&
                                     res.body().status.equals("FINISH")){
                                 Log.d("credt", "matching status is changed to FINISH");
-                                Toast.makeText(this, "물품 양도가 확인되었습니다.", Toast.LENGTH_LONG).show();
+                                Toast.makeText(this, "물품을 성공적으로 양도하였습니다.", Toast.LENGTH_LONG).show();
                                 setUpFinishMode();
-
                             }
+                            else{
+                                Toast.makeText(this, "유효하지 않은 코드입니다..", Toast.LENGTH_LONG).show();
+                            }
+                        }
+                        else {
+                            Toast.makeText(this, "유효하지 않은 코드입니다..", Toast.LENGTH_LONG).show();
                         }
                     }, throwable -> {
 
@@ -166,9 +170,9 @@ public class DelieverMatchedActivity extends BaseActivity {
     void setUpProgressMode(){
         button.setText("물품 양도 하기");
     }
+
     void setUpFinishMode(){
         button.setText("배송 완료");
         button.setEnabled(false);
     }
-
 }

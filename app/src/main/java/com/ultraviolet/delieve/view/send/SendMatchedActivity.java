@@ -264,4 +264,10 @@ public class SendMatchedActivity extends BaseActivity {
     private void setupReadyMode() {
         mViewFlipper.setDisplayedChild(0);
     }
+
+    @Override
+    protected void onDestroy() {
+        if (subscription.isUnsubscribed()) subscription.unsubscribe();
+        super.onDestroy();
+    }
 }
