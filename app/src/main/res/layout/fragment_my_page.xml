@@ -80,15 +80,13 @@
                     <Button
                         android:id="@+id/mypage_view_my_transacrion"
                         style="@android:style/Widget.Material.Light.Button.Borderless"
-                        android:layout_width="0dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="8dp"
-                        android:layout_marginStart="8dp"
+                        android:background="@drawable/btn_border"
                         android:text="배달 조회"
-                        android:textAlignment="textStart"
+                        android:textColor="@color/ultra_violet"
                         android:textSize="18sp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
+                        tools:layout_editor_absoluteX="8dp"
                         tools:layout_editor_absoluteY="0dp" />
                 </android.support.constraint.ConstraintLayout>
             </ScrollView>
