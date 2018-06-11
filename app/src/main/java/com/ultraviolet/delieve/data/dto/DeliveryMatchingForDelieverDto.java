@@ -24,4 +24,6 @@ public class DeliveryMatchingForDelieverDto {
     public String senderBirthday;
 
     public String recieverPhone;
+
+    public int price;
 }

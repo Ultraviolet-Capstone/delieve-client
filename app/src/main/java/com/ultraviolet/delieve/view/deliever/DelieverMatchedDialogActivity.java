@@ -31,34 +31,16 @@ public class DelieverMatchedDialogActivity extends BaseActivity {
 
     DeliveryMatchingForDeliever mDeliveryMatchingForDeliever;
 
-    @BindView(R.id.matched_map_image_view)
-    ImageView mMapImageView;
-
-    @BindView(R.id.matched_profile_image)
-    ImageView mMatchedProfileImageView;
-
-    @BindView(R.id.matched_username)
-    TextView mMatchedUsername;
-
-    @BindView(R.id.matched_startaddress)
-    TextView mMatchedStartAddress;
-
-    @BindView(R.id.matched_finishaddress)
-    TextView mMatchedFinishAddress;
-
-    @BindView(R.id.matched_stuff_name)
-    TextView mMatchedStuffName;
-
-    @BindView(R.id.matched_stuff_weight)
-    TextView mMatchedStuffWeight;
-
-    @BindView(R.id.matched_stuff_size)
-    TextView mMatchedStuffSize;
-
-    @BindView(R.id.deliever_matched_distance)
-    TextView mMatchedDistance;
-
-
+    @BindView(R.id.matched_map_image_view) ImageView mMapImageView;
+    @BindView(R.id.matched_profile_image) ImageView mMatchedProfileImageView;
+    @BindView(R.id.matched_username) TextView mMatchedUsername;
+    @BindView(R.id.matched_startaddress) TextView mMatchedStartAddress;
+    @BindView(R.id.matched_finishaddress) TextView mMatchedFinishAddress;
+    @BindView(R.id.matched_stuff_name) TextView mMatchedStuffName;
+    @BindView(R.id.matched_stuff_weight) TextView mMatchedStuffWeight;
+    @BindView(R.id.matched_stuff_size) TextView mMatchedStuffSize;
+    @BindView(R.id.deliver_match_dialog_distance) TextView mMatchedDistance;
+    @BindView(R.id.deliever_dialog_price) TextView mMatchedPrice;
 
     @OnClick(R.id.matched_accept)
     public void onAcceptClick(){
@@ -105,6 +87,7 @@ public class DelieverMatchedDialogActivity extends BaseActivity {
         mMatchedStuffWeight.setText(mDeliveryMatchingForDeliever.stuffWeight + " Kg");
         mMatchedStuffSize.setText(mDeliveryMatchingForDeliever.stuffSize);
         mMatchedDistance.setText(String.format("%.2f", mDeliveryMatchingForDeliever.distance) + "Km");
+        mMatchedPrice.setText(mDeliveryMatchingForDeliever.price + " ￦");
 
         ImageLoadHelper.loadMapImage(mMapImageView, mDeliveryMatchingForDeliever.beginLatitude,
                 mDeliveryMatchingForDeliever.beginLongitude,

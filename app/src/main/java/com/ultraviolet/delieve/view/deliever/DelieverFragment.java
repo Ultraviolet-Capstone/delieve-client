@@ -72,14 +72,12 @@ public class DelieverFragment extends BaseFragment {
                         button.setEnabled(true);
                         return;
                     }
-                    Log.d("credt", "1234");
                     Intent intent = new Intent(getContext(), DelieverMatchedActivity.class);
                     intent.putExtra("Matching", matching);
                     startActivity(intent);
-                    Log.d("credt", "5678");
 
                 }, throwable -> {
-
+                    throwable.printStackTrace();
                 });
 
        return rootView;

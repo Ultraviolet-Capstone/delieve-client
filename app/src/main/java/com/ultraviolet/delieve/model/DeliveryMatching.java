@@ -34,10 +34,11 @@ public class DeliveryMatching implements Serializable {
     public String senderEmail;
     public String senderBirthday;
 
+    public int price;
 
 
 
-    public DeliveryMatching(DeliveryMatchingDto dto){
+    public DeliveryMatching(DeliveryMatchingDto dto) {
         matchingId = dto.matchingId;
         beginAddress = dto.beginAddress;
         beginLatitude = dto.beginLatitude;
@@ -66,6 +67,8 @@ public class DeliveryMatching implements Serializable {
         senderEmail = dto.senderEmail;
         senderName = dto.senderName;
         senderPhone = dto.senderPhone;
+
+        price = dto.price;
     }
 
     public DeliveryMatching(DeliveryMatchingForDeliever data){
@@ -89,6 +92,8 @@ public class DeliveryMatching implements Serializable {
         senderEmail = data.senderEmail;
         senderName = data.senderName;
         senderPhone = data.senderPhone;
+
+        price = data.price;
     }
 
 }

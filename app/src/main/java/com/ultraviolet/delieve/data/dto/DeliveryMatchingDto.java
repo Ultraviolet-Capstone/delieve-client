@@ -33,4 +33,6 @@ public class DeliveryMatchingDto {
     public String recieverPhone;
 
     public String matchingStatus;
+
+    public int price;
 }

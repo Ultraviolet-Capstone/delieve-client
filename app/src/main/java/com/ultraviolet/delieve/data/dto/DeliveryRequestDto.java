@@ -9,6 +9,7 @@ public class DeliveryRequestDto {
     int senderId;
     String recieverPhoneNumber;
     Stuff stuff;
+    int price;
 
     public DeliveryRequestDto(String beginAddress,
                               double bax,
@@ -23,7 +24,8 @@ public class DeliveryRequestDto {
                               String name,
                               String size,
                               double weight,
-                              int code){
+                              int code,
+                              int price){
         this.beginLocation = new BeginLocation(beginAddress,
                 new GPS(bax, bay));
         this.finishLocation = new FinishLocation(finishAddress,
@@ -33,6 +35,7 @@ public class DeliveryRequestDto {
         this.senderId = senderId;
         this.recieverPhoneNumber = receiverPhoneNumber;
         this.stuff = new Stuff(name, size, weight, code);
+        this.price = price;
     }
 
     public BeginLocation getBeginLocation() {

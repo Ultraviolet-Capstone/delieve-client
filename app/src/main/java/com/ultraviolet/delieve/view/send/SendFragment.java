@@ -125,6 +125,10 @@ public class SendFragment extends BaseFragment {
     @BindView(R.id.nameEdit)
     TextView editName;
 
+    @BindView(R.id.send_price)
+    TextView send_price ;
+
+
 
 
     private final int PLACE_PICKER_REQUEST = 1;
@@ -157,6 +161,7 @@ public class SendFragment extends BaseFragment {
     private Marker beginLocationMarker;
     private Polyline mPathPolyLine;
 
+    private int price;
 
     @OnClick({R.id.send_textbox_to, R.id.send_textbox_from})
     public void onSendTextBoxClicked(View textbox) {
@@ -231,7 +236,7 @@ public class SendFragment extends BaseFragment {
 
         phoneNumber=editNumber.getText().toString();
         name=editName.getText().toString();
-
+        price = Integer.valueOf(send_price.getText().toString());
 
         if (isRequestValid());
         {
@@ -243,7 +248,7 @@ public class SendFragment extends BaseFragment {
                     finishAdderes, fax, fay,
                     beginTime, finishTime,
                     Id, phoneNumber,
-                    name, size, stuffWeight, typeC))
+                    name, size, stuffWeight, typeC,price))
                     .subscribe(res -> {
                         Log.d("credt", String.valueOf(res.message()));
                         Toast.makeText(getContext(),String.valueOf(res.message()),
@@ -322,9 +327,6 @@ public class SendFragment extends BaseFragment {
         mSizeSpinner.setPrompt("Select the stuff type.");
         mSizeSpinner.setAdapter(adapter2);
         size = mSizeSpinner.getSelectedItem().toString();
-
-
-
 
         if (mSupportMapFragment == null){
             initMap();

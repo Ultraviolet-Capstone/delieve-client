@@ -1,4 +1,4 @@
-package com.ultraviolet.delieve.view.deliever;
+,package com.ultraviolet.delieve.view.deliever;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -160,7 +160,7 @@ public class DelieverWaitingForMatchingActivity extends BaseActivity {
             findViewById(R.id.deliever_matching_cancle).setOnTouchListener(mDelayHideTouchListener);
 
             // Timer
-            subscription = Observable.interval(0, 5000, TimeUnit.MILLISECONDS)
+            subscription = Observable.interval(2000, 5000, TimeUnit.MILLISECONDS)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(new Action1<Long>() {
@@ -251,6 +251,7 @@ public class DelieverWaitingForMatchingActivity extends BaseActivity {
 
         @Override
         protected void onDestroy() {
+            if (!subscription.isUnsubscribed()) subscription.unsubscribe();
             super.onDestroy();
         }
 }

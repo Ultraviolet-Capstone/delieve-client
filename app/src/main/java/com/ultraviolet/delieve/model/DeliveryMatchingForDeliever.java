@@ -26,6 +26,9 @@ public class DeliveryMatchingForDeliever implements Serializable {
     public String senderBirthday;
     public String recieverPhone;
 
+    public int price;
+
+
     public DeliveryMatchingForDeliever(DeliveryMatchingForDelieverDto dto){
         requestId = dto.requestId;
         beginAddress = dto.beginAddress;
@@ -48,6 +51,7 @@ public class DeliveryMatchingForDeliever implements Serializable {
         senderName = dto.senderName;
         senderPhone = dto.senderPhone;
         recieverPhone = dto.recieverPhone;
+        price = dto.price;
     }
 
     public DeliveryMatchingForDeliever(DeliveryMatching dto){

@@ -39,36 +39,17 @@ public class DelieverMatchedActivity extends BaseActivity {
     @Inject
     QRApiRepository mQRApiRepository;
 
-    @BindView(R.id.matched_map_image_view)
-    ImageView mMatchedMapImageView;
-
-    @BindView(R.id.matched_profile_image)
-    ImageView mMatchedProfileImageView;
-
-    @BindView(R.id.matched_username)
-    TextView mMatchedUsername;
-
-    @BindView(R.id.matched_startaddress)
-    TextView mMatchedStartAddress;
-
-    @BindView(R.id.matched_finishaddress)
-    TextView mMatchedFinishAddress;
-
-    @BindView(R.id.matched_stuff_size)
-    TextView mMatchedStuffSize;
-
-    @BindView(R.id.matched_stuff_weight)
-    TextView mMatchedStuffWeight;
-
-    @BindView(R.id.matched_stuff_name)
-    TextView mMatchedStuffName;
-
-    @BindView(R.id.deliever_matched_distance)
-    TextView mMatchedDistance;
-
-    @BindView(R.id.button_transfer_from_sender)
-    Button button;
-
+    @BindView(R.id.matched_map_image_view) ImageView mMatchedMapImageView;
+    @BindView(R.id.matched_profile_image) ImageView mMatchedProfileImageView;
+    @BindView(R.id.matched_username) TextView mMatchedUsername;
+    @BindView(R.id.matched_startaddress) TextView mMatchedStartAddress;
+    @BindView(R.id.matched_finishaddress) TextView mMatchedFinishAddress;
+    @BindView(R.id.matched_stuff_size) TextView mMatchedStuffSize;
+     @BindView(R.id.matched_stuff_weight)TextView mMatchedStuffWeight;
+    @BindView(R.id.matched_stuff_name) TextView mMatchedStuffName;
+    @BindView(R.id.deliever_matched_distance) TextView mMatchedDistance;
+    @BindView(R.id.button_transfer_from_sender) Button button;
+    @BindView(R.id.deliever_matched_price) TextView mMatchedPrice;
     @OnClick(R.id.button_transfer_from_sender)
     public void onClick(){
         qrScan = new IntentIntegrator(this);
@@ -98,7 +79,7 @@ public class DelieverMatchedActivity extends BaseActivity {
         mMatchedStuffName.setText(mDeliveryMatching.stuffName);
         mMatchedStuffSize.setText(mDeliveryMatching.stuffSize);
         mMatchedDistance.setText(String.format("%.2f", mDeliveryMatching.distance) + "Km");
-
+        mMatchedPrice.setText(mDeliveryMatching.price + " ￦");
         switch (mDeliveryMatching.matchingStatus){
             case "READY" :
                 setupReadyMode();
