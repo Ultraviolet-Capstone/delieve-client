@@ -3,6 +3,7 @@ package com.ultraviolet.delieve.view.mypage.matchingList;
 import android.content.Intent;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,14 +23,13 @@ import butterknife.ButterKnife;
 
 public class MatchingListAdapter extends RecyclerView.Adapter<MatchingListAdapter.ViewHolder> {
 
-    @BindView(R.id.card_profilepic) ImageView mCardProfilePicImageView;
-    @BindView(R.id.card_delivername) TextView mCardDelieverNameTextView;
+    //@BindView(R.id.card_profilepic) ImageView mCardProfilePicImageView;
+    //@BindView(R.id.card_delivername) TextView mCardDelieverNameTextView;
     @BindView(R.id.card_beginaddress) TextView mCardBeginAddress;
     @BindView (R.id.card_finish_address) TextView mCardFinishAddress;
     @BindView(R.id.card_stuffname) TextView mCardStuffName;
     @BindView(R.id.card_matching_status) TextView mCardMatchingStatus;
-
-
+    @BindView(R.id.card_view_distance) TextView mDistanceView;
 
     private List<DeliveryMatching> mDataset;
     //private DeliveryClickListener deliveryClickListener;
@@ -82,13 +82,17 @@ public class MatchingListAdapter extends RecyclerView.Adapter<MatchingListAdapte
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         DeliveryMatching item = mDataset.get(position);
-
-        if (item.delieverSelfiURL != null)
-            ImageLoadHelper.loadProfileImage(mCardProfilePicImageView, item.delieverSelfiURL);
-        mCardDelieverNameTextView.setText(item.delieverName);
+        Log.d("credt", "position : " + position);
+        Log.d("credt", "url : " + item.delieverSelfiURL);
+        //Log.d("credt", mCardProfilePicImageView.toString());
+        //if (item.delieverSelfiURL != null) {
+        //    ImageLoadHelper.loadProfileImage(mCardProfilePicImageView, item.delieverSelfiURL);
+        //}
+        ///mCardDelieverNameTextView.setText(item.delieverName);
         mCardBeginAddress.setText(item.beginAddress);
         mCardFinishAddress.setText(item.finishAddress);
         mCardStuffName.setText(item.stuffName);
+        mDistanceView.setText(String.format("%.2f", item.distance )+ "Km");
         String status = " ";
         switch(item.matchingStatus){
             case "READY":

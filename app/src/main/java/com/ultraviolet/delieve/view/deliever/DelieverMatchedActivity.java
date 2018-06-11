@@ -147,13 +147,17 @@ public class DelieverMatchedActivity extends BaseActivity {
                                 setUpFinishMode();
                             }
                             else{
-                                Toast.makeText(this, "유효하지 않은 코드입니다..", Toast.LENGTH_LONG).show();
+                                Log.d("credt", mDeliveryMatching.matchingStatus);
+                                Log.d("credt", res.body().status);
+
+                                Toast.makeText(this, "유효하지 않은 코드입니다..1", Toast.LENGTH_LONG).show();
                             }
                         }
                         else {
-                            Toast.makeText(this, "유효하지 않은 코드입니다..", Toast.LENGTH_LONG).show();
+                            Toast.makeText(this, "유효하지 않은 코드입니다..2 code " + res.code(), Toast.LENGTH_LONG).show();
                         }
                     }, throwable -> {
+                        throwable.printStackTrace();
 
                     });
                 }
@@ -165,7 +169,6 @@ public class DelieverMatchedActivity extends BaseActivity {
 
     void setupReadyMode(){
         button.setText("물품 양도 받기");
-
     }
     void setUpProgressMode(){
         button.setText("물품 양도 하기");
@@ -174,5 +177,6 @@ public class DelieverMatchedActivity extends BaseActivity {
     void setUpFinishMode(){
         button.setText("배송 완료");
         button.setEnabled(false);
+
     }
 }

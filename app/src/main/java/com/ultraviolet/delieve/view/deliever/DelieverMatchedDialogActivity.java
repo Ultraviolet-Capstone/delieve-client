@@ -2,7 +2,6 @@ package com.ultraviolet.delieve.view.deliever;
 
 import android.os.Bundle;
 import android.util.Log;
-import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -41,6 +40,7 @@ public class DelieverMatchedDialogActivity extends BaseActivity {
     @BindView(R.id.matched_stuff_size) TextView mMatchedStuffSize;
     @BindView(R.id.deliver_match_dialog_distance) TextView mMatchedDistance;
     @BindView(R.id.deliever_dialog_price) TextView mMatchedPrice;
+    @BindView(R.id.deliver_match_dialog_distance2) TextView mMatchedDistance2;
 
     @OnClick(R.id.matched_accept)
     public void onAcceptClick(){
@@ -86,8 +86,9 @@ public class DelieverMatchedDialogActivity extends BaseActivity {
         mMatchedFinishAddress.setText(mDeliveryMatchingForDeliever.finishAddress);
         mMatchedStuffWeight.setText(mDeliveryMatchingForDeliever.stuffWeight + " Kg");
         mMatchedStuffSize.setText(mDeliveryMatchingForDeliever.stuffSize);
-        mMatchedDistance.setText(String.format("%.2f", mDeliveryMatchingForDeliever.distance) + "Km");
+        mMatchedDistance.setText(String.format("%.2f", mDeliveryMatchingForDeliever.distanceToDeparture) + "Km");
         mMatchedPrice.setText(mDeliveryMatchingForDeliever.price + " ￦");
+        mMatchedDistance2.setText(String.format("%.2f", mDeliveryMatchingForDeliever.distanceToDestination) + "Km");
 
         ImageLoadHelper.loadMapImage(mMapImageView, mDeliveryMatchingForDeliever.beginLatitude,
                 mDeliveryMatchingForDeliever.beginLongitude,
