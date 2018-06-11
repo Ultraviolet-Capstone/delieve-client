@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.content.Intent;
 import android.util.Log;
 
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.kakao.auth.ErrorCode;
 import com.kakao.network.ErrorResult;
 import com.kakao.usermgmt.UserManagement;
@@ -79,7 +80,7 @@ public class KakaoSignupActivity extends BaseActivity {
                 Log.d("kakao", "==========================");
 
 
-                mAuthRepository.login(kakaoID)//kakaoID is token
+                mAuthRepository.login(kakaoID, FirebaseInstanceId.getInstance().getToken().toString())//kakaoID is token
                         .subscribe(res->{
                             LoginDto loginDto = res.body();
                             /*
