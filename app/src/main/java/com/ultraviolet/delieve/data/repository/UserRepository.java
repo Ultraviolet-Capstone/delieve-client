@@ -13,6 +13,10 @@ public interface UserRepository {
 
     void userSignIn(LoginDto loginDto);
 
+    boolean isUserMatching();
+    int getUserMatchingId();
+    void setUserMatching(int matchingId);
+
 
     int getUserType();
 
@@ -24,6 +28,4 @@ public interface UserRepository {
     int getUserId();
 
     String getUsername();
-
-
 }

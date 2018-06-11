@@ -18,7 +18,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -29,6 +28,11 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.directions.route.AbstractRouting;
+import com.directions.route.Route;
+import com.directions.route.RouteException;
+import com.directions.route.Routing;
+import com.directions.route.RoutingListener;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -43,7 +47,11 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.maps.model.PolylineOptions;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 import com.ultraviolet.delieve.R;
 import com.ultraviolet.delieve.data.dto.DeliveryRequestDto;
@@ -52,6 +60,7 @@ import com.ultraviolet.delieve.data.repository.UserRepository;
 import com.ultraviolet.delieve.view.base.BaseFragment;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -144,6 +153,9 @@ public class SendFragment extends BaseFragment {
     private String beginAddress;
     private String finishAdderes;
     private String name;
+    private Marker finishLocationMarker;
+    private Marker beginLocationMarker;
+    private Polyline mPathPolyLine;
 
 
     @OnClick({R.id.send_textbox_to, R.id.send_textbox_from})
@@ -371,15 +383,94 @@ public class SendFragment extends BaseFragment {
                     bay=place.getLatLng().longitude;
                     bax=place.getLatLng().latitude;
                     beginAddress=text;
+                    setBeginAddressMarker();
                 }
                 else if (selectedTextbox == 2){
                     mToTextBox.setText(text);
                     fay=place.getLatLng().longitude;
                     fax=place.getLatLng().latitude;
                     finishAdderes=text;
+                    setFinishMarker();
                 }
             }
         }
+    }
+    private void setFinishMarker() {
+        if (currentLocationMaker != null) currentLocationMaker.remove();
+        if (finishLocationMarker == null){
+            finishLocationMarker = mGoogleMap.addMarker(new MarkerOptions()
+                    .position(new LatLng(fax, fay))
+                    .title("배달 완료 지점")
+                    .snippet(finishAdderes));
+        }
+        mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(fax, fay), 15));
+        drawBetweenMarkers();
+    }
+
+    private void drawBetweenMarkers() {
+        if (finishLocationMarker != null &&
+                beginLocationMarker != null){
+            Routing routing = new Routing.Builder()
+                    .travelMode(Routing.TravelMode.TRANSIT)
+                    .waypoints(new LatLng(bax, bay),
+                            new LatLng(fax, fay))
+                    .withListener(new RoutingListener() {
+                        @Override
+                        public void onRoutingFailure(RouteException e) {
+                            Log.e("credt", "routing failed");
+                        }
+
+                        @Override
+                        public void onRoutingStart() {
+                            Log.i("credt", "routing started");
+                        }
+
+                        @Override
+                        public void onRoutingSuccess(ArrayList<Route> routeList, int shortestPathIndex) {
+                            Route shortestPath = routeList.get(shortestPathIndex);
+                            PolylineOptions options = new PolylineOptions()
+                                    .width(25)
+                                    .color(R.color.colorPrimary);
+                            options.addAll(shortestPath.getPoints());
+                            mPathPolyLine = mGoogleMap.addPolyline(options);
+
+                            LatLngBounds.Builder builder = new LatLngBounds.Builder();
+                            for (LatLng i : shortestPath.getPoints()){
+                                builder.include(i);
+                            }
+                            LatLngBounds bounds = builder.build();
+                            mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, 250));
+                            slidingUpPanelLayout.setPanelState(COLLAPSED);
+
+                        }
+
+                        @Override
+                        public void onRoutingCancelled() {
+                            Log.i("credt", "routing canceled");
+
+                        }
+                    })
+                    .build();
+            routing.execute();
+
+        }
+    }
+    private void setBeginAddressMarker() {
+        if (mPathPolyLine != null) mPathPolyLine.remove();
+        if (currentLocationMaker != null) currentLocationMaker.remove();
+        if (beginLocationMarker == null){
+            beginLocationMarker = mGoogleMap.addMarker(new MarkerOptions()
+                    .position(new LatLng(bax, bay))
+                    .title("물품 양도 지점")
+                    .snippet(beginAddress)
+            );
+        }
+        else{
+            beginLocationMarker.setPosition(new LatLng(bax, bay));
+        }
+
+        mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(bax, bay), 15));
+        drawBetweenMarkers();
     }
     private void setGoogleMapLocationEnabled(boolean b){
         try {
@@ -390,6 +481,7 @@ public class SendFragment extends BaseFragment {
     }
 
     private void setupSlidingUpPanel(){
+        if (mPathPolyLine != null) mPathPolyLine.remove();
         if (slidingUpPanelLayout != null) {
             slidingUpPanelLayout.setPanelHeight(
                     slidingUpPanelLayout.getPanelHeight() +
@@ -409,9 +501,10 @@ public class SendFragment extends BaseFragment {
         mSupportMapFragment.getMapAsync(new OnMapReadyCallback() {
             @Override
             public void onMapReady(GoogleMap googleMap) {
-
                 mGoogleMap = googleMap;
                 mGoogleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+                mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
+                        new LatLng(37.284337, 127.044246), 15));
 
                 locationRequest = new LocationRequest();
                 locationRequest.setInterval(60000);
@@ -438,9 +531,9 @@ public class SendFragment extends BaseFragment {
             }
         });
         getChildFragmentManager().beginTransaction().replace(R.id.send_map, mSupportMapFragment).commit();
-
-
     }
+
+
     LocationCallback locationCallback = new LocationCallback() {
         @Override
         public void onLocationResult(LocationResult locationResult) {

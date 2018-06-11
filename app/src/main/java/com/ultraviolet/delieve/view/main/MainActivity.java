@@ -13,15 +13,21 @@ import android.widget.Toast;
 
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.ultraviolet.delieve.R;
+import com.ultraviolet.delieve.data.dto.DeliveryMatchingDto;
 import com.ultraviolet.delieve.data.repository.AuthRepository;
 import com.ultraviolet.delieve.data.repository.DeliveryRepository;
 import com.ultraviolet.delieve.data.repository.EnrollRepository;
+import com.ultraviolet.delieve.data.repository.QRApiRepository;
 import com.ultraviolet.delieve.data.repository.UserInfoRepository;
 import com.ultraviolet.delieve.data.repository.UserRepository;
+
 import com.ultraviolet.delieve.firebase.MyFirebaseInstanceIDService;
+import com.ultraviolet.delieve.model.DeliveryMatching;
 import com.ultraviolet.delieve.model.User;
+import com.ultraviolet.delieve.service.GPSService;
 import com.ultraviolet.delieve.view.base.BaseActivity;
 import com.ultraviolet.delieve.view.deliever.DelieverFragment;
+import com.ultraviolet.delieve.view.deliever.DelieverMatchedActivity;
 import com.ultraviolet.delieve.view.mypage.matchingList.MatchingListFragment;
 import com.ultraviolet.delieve.view.enroll.BeforeEnrollFragment;
 import com.ultraviolet.delieve.view.enroll.EnrollWaitingFragment;
@@ -131,11 +137,35 @@ public class MainActivity extends BaseActivity
         Bundle bundle = new Bundle();
         bundle.putString("kakaoId", kakaoId);
 
-        // set Fragmentclass Arguments
       //  mSendFragment.setArguments(bundle);
         Log.d("firebaseToken",FirebaseInstanceId.getInstance().getToken().toString());
 
+        mSendFragment.setArguments(bundle);
+        checkUserMatched();
         init();
+
+        startService(new Intent(this, GPSService.class));
+
+    }
+
+    private void checkUserMatched() {
+        mDeliveryRepository.getDeliveryMatchingListForDeliever(mUserRepository.getUserId())
+                .subscribe(res->{
+                    DeliveryMatching matching = null;
+                    for (DeliveryMatchingDto i : res.body()){
+                        Log.d("credt", "matching status : " + i.matchingStatus);
+                        if(i.matchingStatus.equals("READY") || i.matchingStatus.equals("PROGRESS")){
+                            matching = new DeliveryMatching(i);
+                            break;
+                        }
+                    }
+                    if (matching != null){
+                        mUserRepository.setUserMatching(matching.matchingId);
+                    }
+
+                }, throwable -> {
+
+                });
     }
 
     private void init(){

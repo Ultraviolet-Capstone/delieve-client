@@ -12,11 +12,10 @@ import android.view.ViewGroup;
 
 import com.baoyz.widget.PullRefreshLayout;
 import com.ultraviolet.delieve.R;
-import com.ultraviolet.delieve.data.dto.DeliveryMatchingForSenderDto;
+import com.ultraviolet.delieve.data.dto.DeliveryMatchingDto;
 import com.ultraviolet.delieve.data.repository.DeliveryRepository;
 import com.ultraviolet.delieve.data.repository.UserRepository;
-import com.ultraviolet.delieve.model.DeliveryMatchingForDeliever;
-import com.ultraviolet.delieve.model.DeliveryMatchingForSender;
+import com.ultraviolet.delieve.model.DeliveryMatching;
 import com.ultraviolet.delieve.view.base.ContractFragment;
 
 import java.util.ArrayList;
@@ -26,11 +25,10 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 public class MatchingListFragment extends ContractFragment<MatchingListFragment.Contract> implements MatchingListContract.View {
 
-    private List<DeliveryMatchingForSender> matchingList;
+    private List<DeliveryMatching> matchingList;
 
     @Inject
     DeliveryRepository mDeliveryRepository;
@@ -46,6 +44,7 @@ public class MatchingListFragment extends ContractFragment<MatchingListFragment.
 
     @BindView(R.id.pull_refresh_layout)
     PullRefreshLayout mPullRefreshLayout;
+
     private MatchingListAdapter mMatchingListAdapter;
 
     @Override
@@ -88,12 +87,8 @@ public class MatchingListFragment extends ContractFragment<MatchingListFragment.
 
     @Override
     public void updateContent() {
-        mDeliveryRepository.getDeliveryMatchingList(mUserRepository.getUserId())
+        mDeliveryRepository.getDeliveryMatchingListForSender(mUserRepository.getUserId())
                 .subscribe(res->{
-                    if(res.body()!=null){
-                        Log.d("credt", res.code() +"");
-                        Log.d("credt", res.body().size() + "");
-                    }
                     if (res.code() == 200 || res.code() == 304) {
                         if (res.body() == null){
                             showNoContentLayout();
@@ -101,8 +96,9 @@ public class MatchingListFragment extends ContractFragment<MatchingListFragment.
                         }
                         else {
                             matchingList.clear();
-                            for (DeliveryMatchingForSenderDto E : res.body()) {
-                                matchingList.add(new DeliveryMatchingForSender(E));
+                            for (DeliveryMatchingDto E : res.body()) {
+                                Log.d("credt","matching status : " +  E.matchingStatus);
+                                matchingList.add(new DeliveryMatching(E));
                             }
                         }
                     }
@@ -141,7 +137,7 @@ public class MatchingListFragment extends ContractFragment<MatchingListFragment.
 
     }
     public interface Contract {
-        void onItemSelected(DeliveryMatchingForSender dr);
+        void onItemSelected(DeliveryMatching dr);
     }
 
 }

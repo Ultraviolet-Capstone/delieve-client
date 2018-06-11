@@ -3,7 +3,6 @@ package com.ultraviolet.delieve.view.mypage.matchingList;
 import android.content.Intent;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,17 +11,14 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.ultraviolet.delieve.R;
-import com.ultraviolet.delieve.model.DeliveryMatchingForDeliever;
-import com.ultraviolet.delieve.model.DeliveryMatchingForSender;
+import com.ultraviolet.delieve.model.DeliveryMatching;
 import com.ultraviolet.delieve.util.ImageLoadHelper;
-import com.ultraviolet.delieve.view.deliever.DelieverWaitingForMatchingActivity;
 import com.ultraviolet.delieve.view.send.SendMatchedActivity;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 public class MatchingListAdapter extends RecyclerView.Adapter<MatchingListAdapter.ViewHolder> {
 
@@ -31,9 +27,11 @@ public class MatchingListAdapter extends RecyclerView.Adapter<MatchingListAdapte
     @BindView(R.id.card_beginaddress) TextView mCardBeginAddress;
     @BindView (R.id.card_finish_address) TextView mCardFinishAddress;
     @BindView(R.id.card_stuffname) TextView mCardStuffName;
+    @BindView(R.id.card_matching_status) TextView mCardMatchingStatus;
 
 
-    private List<DeliveryMatchingForSender> mDataset;
+
+    private List<DeliveryMatching> mDataset;
     //private DeliveryClickListener deliveryClickListener;
     private View.OnClickListener onClickListener;
     private RecyclerView mRecyclerView;
@@ -53,7 +51,7 @@ public class MatchingListAdapter extends RecyclerView.Adapter<MatchingListAdapte
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public MatchingListAdapter(List<DeliveryMatchingForSender> myDataset, RecyclerView v) {
+    public MatchingListAdapter(List<DeliveryMatching> myDataset, RecyclerView v) {
         this.mRecyclerView = v;
         mDataset = myDataset;
         //this.deliveryClickListener = deliveryClickListener;
@@ -68,7 +66,7 @@ public class MatchingListAdapter extends RecyclerView.Adapter<MatchingListAdapte
                 .inflate(R.layout.view_cardview, parent, false);
         v.setOnClickListener(v1 -> {
             int position = mRecyclerView.getChildAdapterPosition(v1);
-            DeliveryMatchingForSender data = mDataset.get(position);
+            DeliveryMatching data = mDataset.get(position);
 
             Intent intent = new Intent(mRecyclerView.getContext(), SendMatchedActivity.class);
             intent.putExtra("Matching", data);
@@ -83,7 +81,7 @@ public class MatchingListAdapter extends RecyclerView.Adapter<MatchingListAdapte
     // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        DeliveryMatchingForSender item = mDataset.get(position);
+        DeliveryMatching item = mDataset.get(position);
 
         if (item.delieverSelfiURL != null)
             ImageLoadHelper.loadProfileImage(mCardProfilePicImageView, item.delieverSelfiURL);
@@ -91,7 +89,25 @@ public class MatchingListAdapter extends RecyclerView.Adapter<MatchingListAdapte
         mCardBeginAddress.setText(item.beginAddress);
         mCardFinishAddress.setText(item.finishAddress);
         mCardStuffName.setText(item.stuffName);
-
+        String status = " ";
+        switch(item.matchingStatus){
+            case "READY":
+                status = "양도 대기중";
+                break;
+            case "PROGRESS":
+                status = "배달 진행중";
+                break;
+            case "FINISH":
+                status = "배달 완료";
+                break;
+            case "ACCIDENT":
+                status = "사고";
+                break;
+            case "CANCELED":
+                status = "취소됨";
+                break;
+        }
+        mCardMatchingStatus.setText(status);
     }
 
     // Return the size of your dataset (invoked by the layout manager)
@@ -101,7 +117,7 @@ public class MatchingListAdapter extends RecyclerView.Adapter<MatchingListAdapte
     }
 
     interface DeliveryClickListener {
-        void onDelieryClick(DeliveryMatchingForSender city);
+        void onDelieryClick(DeliveryMatching city);
     }
 
 }

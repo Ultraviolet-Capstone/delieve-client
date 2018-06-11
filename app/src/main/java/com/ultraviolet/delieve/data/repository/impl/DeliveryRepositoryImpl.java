@@ -3,7 +3,7 @@ package com.ultraviolet.delieve.data.repository.impl;
 import com.ultraviolet.delieve.data.dto.DelieverAcceptDto;
 import com.ultraviolet.delieve.data.dto.DelieverAcceptResDto;
 import com.ultraviolet.delieve.data.dto.DeliveryMatchingForDelieverDto;
-import com.ultraviolet.delieve.data.dto.DeliveryMatchingForSenderDto;
+import com.ultraviolet.delieve.data.dto.DeliveryMatchingDto;
 import com.ultraviolet.delieve.data.dto.DeliveryRequestDto;
 
 import com.ultraviolet.delieve.data.dto.DeliveryRequestResDto;
@@ -48,9 +48,9 @@ public class DeliveryRepositoryImpl implements DeliveryRepository {
     }
 
     @Override
-    public Observable<Response<DeliveryMatchingForSenderDto>> getDeliveryMatchingForSender(String id) {
-        Observable<Response<DeliveryMatchingForSenderDto>> res = service
-                .getDeliveryMatchingForSender(id);
+    public Observable<Response<DeliveryMatchingDto>> getDeliveryMatchingForSender(String id) {
+        Observable<Response<DeliveryMatchingDto>> res = service
+                .getDeliveryMatchingForSenderByRequestId(id);
 
         return res.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
@@ -75,10 +75,27 @@ public class DeliveryRepositoryImpl implements DeliveryRepository {
     }
 
     @Override
-    public Observable<Response<List<DeliveryMatchingForSenderDto>>> getDeliveryMatchingList(int id) {
-        Observable<Response<List<DeliveryMatchingForSenderDto>>> res = service
-                .getDeliveryMatchingList(id);
+    public Observable<Response<List<DeliveryMatchingDto>>> getDeliveryMatchingListForSender(int id) {
+        Observable<Response<List<DeliveryMatchingDto>>> res = service
+                .getDeliveryMatchingList(id, 0);
         return res.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
+
+    @Override
+    public Observable<Response<List<DeliveryMatchingDto>>> getDeliveryMatchingListForDeliever(int id) {
+        Observable<Response<List<DeliveryMatchingDto>>> res = service
+                .getDeliveryMatchingList(id, 1);
+        return res.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    public Observable<Response<DeliveryMatchingDto>> getDeliveryMatchingInfoByMatchingIdForSender(int matchingId) {
+        Observable<Response<DeliveryMatchingDto>> res = service
+                .getDeliveryMatchingInfoByMatchingId(matchingId);
+        return res.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+
 }

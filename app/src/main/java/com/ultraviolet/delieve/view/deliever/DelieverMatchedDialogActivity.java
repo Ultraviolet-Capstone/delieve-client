@@ -63,9 +63,13 @@ public class DelieverMatchedDialogActivity extends BaseActivity {
                 mDeliveryMatchingForDeliever.requestId,
                 (new Date()).toString()
         )).subscribe(res -> {
-            if(res.code() == 200 && res.body().delivererId == mUserRepository.getUserId())
+            if(res.code() == 200 && res.body().delivererId == mUserRepository.getUserId()) {
                 Log.d("credt", "successfully accepted request");
-            setResult(RESULT_OK);
+                setResult(RESULT_OK);
+            }
+            else {
+                setResult(RESULT_CANCELED);
+            }
             finish();
         }, throwable -> {
         });
@@ -87,7 +91,6 @@ public class DelieverMatchedDialogActivity extends BaseActivity {
     }
 
     void setupUi(){
-
         mMatchedStuffName.setText(mDeliveryMatchingForDeliever.stuffName);
         mMatchedUsername.setText(mDeliveryMatchingForDeliever.senderName);
         mMatchedStartAddress.setText(mDeliveryMatchingForDeliever.beginAddress);

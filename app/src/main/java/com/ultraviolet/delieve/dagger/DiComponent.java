@@ -2,6 +2,8 @@ package com.ultraviolet.delieve.dagger;
 
 import com.ultraviolet.delieve.dagger.module.RepositoryModule;
 import com.ultraviolet.delieve.dagger.module.ServiceModule;
+import com.ultraviolet.delieve.service.GPSService;
+import com.ultraviolet.delieve.view.deliever.DelieverFragment;
 import com.ultraviolet.delieve.view.deliever.DelieverMatchedDialogActivity;
 import com.ultraviolet.delieve.view.deliever.DelieverWaitingForMatchingActivity;
 import com.ultraviolet.delieve.view.mypage.matchingList.MatchingListFragment;
@@ -13,9 +15,8 @@ import com.ultraviolet.delieve.view.main.MainActivity;
 import com.ultraviolet.delieve.dagger.module.ApplicationModule;
 import com.ultraviolet.delieve.dagger.module.NetworkModule;
 import com.ultraviolet.delieve.view.mypage.MyPageFragment;
-import com.ultraviolet.delieve.view.mypage.matchingList.MatchingListPresenter;
 import com.ultraviolet.delieve.view.send.SendFragment;
-import com.ultraviolet.delieve.view.send.SendMatchedFragmentDialog;
+import com.ultraviolet.delieve.view.send.SendMatchedActivity;
 import com.ultraviolet.delieve.view.send.SendWaitingActivity;
 
 import javax.inject.Singleton;
@@ -35,6 +36,8 @@ public interface DiComponent {
 
     void inject(SendFragment fragment);
 
+    void inject(DelieverFragment fragment);
+
     void inject(BeforeEnrollFragment fragment);
 
     void inject(MatchingListFragment fragment);
@@ -49,9 +52,11 @@ public interface DiComponent {
 
     void inject(SendWaitingActivity activity);
 
-    void inject(SendMatchedFragmentDialog fragment);
-
     void inject(DelieverMatchedDialogActivity activity);
 
     void inject(MyPageFragment fragment);
+
+    void inject(SendMatchedActivity activity);
+
+    void inject(GPSService service);
 }
