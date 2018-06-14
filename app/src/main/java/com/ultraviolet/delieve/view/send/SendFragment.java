@@ -331,6 +331,10 @@ public class SendFragment extends BaseFragment {
         if (mSupportMapFragment == null){
             initMap();
         }
+
+        if (mPathPolyLine != null){
+            mPathPolyLine.setVisible(true);
+        }
         return rootView;
 
     }
@@ -397,18 +401,6 @@ public class SendFragment extends BaseFragment {
             }
         }
     }
-    private void setFinishMarker() {
-        if (currentLocationMaker != null) currentLocationMaker.remove();
-        if (finishLocationMarker == null){
-            finishLocationMarker = mGoogleMap.addMarker(new MarkerOptions()
-                    .position(new LatLng(fax, fay))
-                    .title("배달 완료 지점")
-                    .snippet(finishAdderes));
-        }
-        mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(fax, fay), 15));
-        drawBetweenMarkers();
-    }
-
     private void drawBetweenMarkers() {
         if (finishLocationMarker != null &&
                 beginLocationMarker != null){
@@ -459,7 +451,6 @@ public class SendFragment extends BaseFragment {
     }
     private void setBeginAddressMarker() {
         if (mPathPolyLine != null) {
-            Log.d("credt", "mPath is removed");
             mPathPolyLine.remove();
         }
         if (currentLocationMaker != null) currentLocationMaker.remove();
@@ -477,6 +468,26 @@ public class SendFragment extends BaseFragment {
         mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(bax, bay), 15));
         drawBetweenMarkers();
     }
+
+
+    private void setFinishMarker() {
+        if (mPathPolyLine != null) {
+            Log.d("credt", "mPath is removed");
+            mPathPolyLine.remove();
+        }
+        if (currentLocationMaker != null) currentLocationMaker.remove();
+        if (finishLocationMarker == null){
+            finishLocationMarker = mGoogleMap.addMarker(new MarkerOptions()
+                    .position(new LatLng(fax, fay))
+                    .title("배달 완료 지점")
+                    .snippet(finishAdderes));
+        }else{
+            finishLocationMarker.setPosition( new LatLng(fax, fay));
+        }
+        mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(fax, fay), 15));
+        drawBetweenMarkers();
+    }
+
     private void setGoogleMapLocationEnabled(boolean b){
         try {
             mGoogleMap.setMyLocationEnabled(b);
@@ -502,6 +513,7 @@ public class SendFragment extends BaseFragment {
     }
 
     private void initMap(){
+
         mSupportMapFragment = SupportMapFragment.newInstance();
         mSupportMapFragment.getMapAsync(new OnMapReadyCallback() {
             @Override

@@ -15,6 +15,7 @@ import com.google.zxing.integration.android.IntentResult;
 import com.ultraviolet.delieve.R;
 import com.ultraviolet.delieve.data.dto.QRDto;
 import com.ultraviolet.delieve.data.repository.QRApiRepository;
+import com.ultraviolet.delieve.data.repository.UserRepository;
 import com.ultraviolet.delieve.model.DeliveryMatching;
 import com.ultraviolet.delieve.model.DeliveryMatchingForDeliever;
 import com.ultraviolet.delieve.util.ImageLoadHelper;
@@ -38,6 +39,9 @@ public class DelieverMatchedActivity extends BaseActivity {
 
     @Inject
     QRApiRepository mQRApiRepository;
+
+    @Inject
+    UserRepository mUserRepository;
 
     @BindView(R.id.matched_map_image_view) ImageView mMatchedMapImageView;
     @BindView(R.id.matched_profile_image) ImageView mMatchedProfileImageView;
@@ -66,12 +70,25 @@ public class DelieverMatchedActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         getDiComponent().inject(this);
         setContentView(R.layout.activity_deliever_matched);
+
+
         ButterKnife.bind(this);
         mDeliveryMatching = (DeliveryMatching)getIntent().getSerializableExtra("Matching");
+
+        if (mDeliveryMatching.matchingId == 0){
+            Toast.makeText(this, "유효하지 않은 매칭입니다. matchingId is 0", Toast.LENGTH_SHORT).show();
+
+        }else {
+            mUserRepository.setUserMatching(mDeliveryMatching.matchingId);
+        }
         setupUi();
     }
 
     private void setupUi() {
+        Log.d("credt", "1531 debug : " + mDeliveryMatching.matchingId);
+        Log.d("credt", "1531 debug : " + mDeliveryMatching.matchingStatus);
+
+
         mMatchedUsername.setText(mDeliveryMatching.senderName);
         mMatchedStartAddress.setText(mDeliveryMatching.beginAddress);
         mMatchedFinishAddress.setText(mDeliveryMatching.finishAddress);
@@ -171,10 +188,13 @@ public class DelieverMatchedActivity extends BaseActivity {
         button.setText("물품 양도 받기");
     }
     void setUpProgressMode(){
+        Toast.makeText(this, "물품을 성공적으로 양도받았습니다.", Toast.LENGTH_LONG).show();
         button.setText("물품 양도 하기");
     }
 
     void setUpFinishMode(){
+        Toast.makeText(this, "물품을 성공적으로 양도하였습니다.", Toast.LENGTH_LONG).show();
+
         button.setText("배송 완료");
         button.setEnabled(false);
 

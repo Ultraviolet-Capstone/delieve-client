@@ -240,10 +240,15 @@ public class DelieverWaitingForMatchingActivity extends BaseActivity {
         }
 
         public void onActivityResult(int requestCode, int resultCode, Intent data) {
+            Log.d("credt", "from matched dialog, " + requestCode + " ," + resultCode );
             if (resultCode == RESULT_OK) {
                 if (!subscription.isUnsubscribed()) {subscription.unsubscribe();}
                 Intent intent = new Intent(getApplicationContext(), DelieverMatchedActivity.class);
-                intent.putExtra("Matching", new DeliveryMatching(mDeliveryMatchingForDeliever));
+                int matchingId = data.getIntExtra("matchingId", 0);
+                DeliveryMatching tmp = new DeliveryMatching(mDeliveryMatchingForDeliever);
+                tmp.matchingStatus = "READY";
+                tmp.matchingId = matchingId;
+                intent.putExtra("Matching",tmp );
                 startActivity(intent);
                 finish();
             }

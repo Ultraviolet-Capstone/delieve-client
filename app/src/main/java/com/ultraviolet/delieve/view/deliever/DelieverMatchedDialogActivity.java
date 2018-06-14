@@ -1,5 +1,6 @@
 package com.ultraviolet.delieve.view.deliever;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ImageView;
@@ -50,11 +51,10 @@ public class DelieverMatchedDialogActivity extends BaseActivity {
                 (new Date()).toString()
         )).subscribe(res -> {
             if(res.code() == 200 && res.body().delivererId == mUserRepository.getUserId()) {
-                Log.d("credt", "successfully accepted request");
-                ((DelieverWaitingForMatchingActivity)getParent())
-                        .getSubscription()
-                        .unsubscribe();
-                setResult(RESULT_OK);
+                Log.d("credt", "successfully accepted request, matching id is " + res.body().matchingId);
+                Intent intent = new Intent();
+                intent.putExtra("matchingId", res.body().matchingId);
+                setResult(RESULT_OK, intent);
             }
             else {
                 setResult(RESULT_CANCELED);
