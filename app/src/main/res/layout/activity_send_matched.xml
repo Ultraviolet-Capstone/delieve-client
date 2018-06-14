@@ -278,6 +278,12 @@
                 android:id="@+id/progress"
                 layout="@layout/view_send_matched_progress" />
 
+            <include
+                android:id="@+id/finish "
+                layout="@layout/view_send_matched_finish"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
         </ViewFlipper>
 
         <TextView

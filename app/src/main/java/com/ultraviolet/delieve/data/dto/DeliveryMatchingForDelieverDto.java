@@ -12,7 +12,8 @@ public class DeliveryMatchingForDelieverDto {
     public String stuffName;
     public String stuffSize;
     public double stuffWeight;
-    public double distance;
+    public double distanceToDeparture;
+    public double distanceToDestination;
     public String beginTime;
     public int type;
     public String finishTime;
