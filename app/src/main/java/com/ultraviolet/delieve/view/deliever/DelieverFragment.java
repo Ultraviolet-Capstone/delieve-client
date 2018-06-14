@@ -2,12 +2,14 @@ package com.ultraviolet.delieve.view.deliever;
 
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.ultraviolet.delieve.R;
 import com.ultraviolet.delieve.data.dto.DeliveryMatchingDto;
@@ -53,7 +55,9 @@ public class DelieverFragment extends BaseFragment {
 
         getDiComponent().inject(this);
         button.setEnabled(false);
-
+        Typeface typeface=Typeface.createFromAsset(getActivity().getAssets(),"BMJUA.ttf");
+        Button tv=(Button)rootView.findViewById(R.id.start_delieve_btn);
+        tv.setTypeface(typeface);
         mDeliveryRepository.getDeliveryMatchingListForDeliever(mUserRepository.getUserId())
                 .subscribe(res->{
                     if (res.body() == null || res.body().size() == 0) {

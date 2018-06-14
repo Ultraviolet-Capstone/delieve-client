@@ -100,7 +100,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/btn_border"
-                        android:text="배달 조회"
+                        android:text="요청한 딜리브 조회"
                         android:textColor="@color/ultra_violet"
                         android:textSize="18sp"
                         tools:layout_editor_absoluteX="8dp"
