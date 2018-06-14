@@ -49,6 +49,14 @@ public class MyPageFragment extends BaseFragment {
     @OnClick(R.id.mypage_view_my_transacrion)
     public void onClick(){
         Intent intent = new Intent(getActivity(), MatchingListActivity.class);
+        intent.putExtra("isDeliever", 0);
+        startActivity(intent);
+    }
+
+    @OnClick(R.id.mypage_view_my_transacrion2)
+    public void onClick2(){
+        Intent intent = new Intent(getActivity(), MatchingListActivity.class);
+        intent.putExtra("isDeliever", 1);
         startActivity(intent);
     }
 

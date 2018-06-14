@@ -15,7 +15,8 @@ public class DeliveryMatchingForDeliever implements Serializable {
     public String stuffName;
     public String stuffSize;
     public double stuffWeight;
-    public double distance;
+    public double distanceToDeparture;
+    public double distanceToDestination;
     public String beginTime;
     public int type;
     public String finishTime;
@@ -40,7 +41,8 @@ public class DeliveryMatchingForDeliever implements Serializable {
         stuffName = dto.stuffName;
         stuffSize = dto.stuffSize;
         stuffWeight = dto.stuffWeight;
-        distance = dto.distance;
+        distanceToDeparture = dto.distanceToDeparture;
+        distanceToDestination = dto.distanceToDestination;
         beginTime = dto.beginTime;
         type = dto.type;
         beginTime = dto.beginTime;

@@ -195,17 +195,17 @@ public class SendMatchedActivity extends BaseActivity {
     private void updateProgressBar(double lat, double lng) {
         double totalDisrtance = mDeliveryMatching.distance;
         Log.d("credt" , "finish " + mDeliveryMatching.finishLatitude + ", " + mDeliveryMatching.finishLongitude);
-        Log.d("credt", "total distance percent : " +  totalDisrtance);
+        Log.d("credt", "total distanceToDeparture percent : " +  totalDisrtance);
         double remainedDistance;
         remainedDistance = distanceGPS(lat,lng,
                 mDeliveryMatching.finishLatitude,
                 mDeliveryMatching.finishLongitude,
         "K");
 
-        Log.d("credt", "remained distance percent : " +  remainedDistance);
+        Log.d("credt", "remained distanceToDeparture percent : " +  remainedDistance);
 
         int percent =100 - (int)(remainedDistance / totalDisrtance * 100) ;
-        Log.d("credt", "distance percent : " +  percent);
+        Log.d("credt", "distanceToDeparture percent : " +  percent);
         if (percent > 100) percent = 100;
         mPercentage.setText(String.format("%d", percent) + "%");
 
@@ -255,6 +255,7 @@ public class SendMatchedActivity extends BaseActivity {
     }
 
     private void setupFinishMode() {
+        mViewFlipper.setDisplayedChild(2);
     }
 
     private void setupProgressMode() {
