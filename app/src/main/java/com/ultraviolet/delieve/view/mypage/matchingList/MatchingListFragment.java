@@ -30,6 +30,8 @@ public class MatchingListFragment extends ContractFragment<MatchingListFragment.
 
     private List<DeliveryMatching> matchingList;
 
+    private int isDeliever;
+
     @Inject
     DeliveryRepository mDeliveryRepository;
 
@@ -62,6 +64,15 @@ public class MatchingListFragment extends ContractFragment<MatchingListFragment.
         ButterKnife.bind(this, rootView);
         presenter.setView(this);
         init();
+
+        if (matchingList != null){
+            matchingList.clear();
+        }
+        isDeliever = getActivity().getIntent().getIntExtra("isDeliever", -1);
+        if (isDeliever == -1){
+            Log.e("credt", "invalid access");
+        }
+
         setupUi();
         return rootView;
     }
@@ -87,29 +98,62 @@ public class MatchingListFragment extends ContractFragment<MatchingListFragment.
 
     @Override
     public void updateContent() {
-        mDeliveryRepository.getDeliveryMatchingListForSender(mUserRepository.getUserId())
-                .subscribe(res->{
-                    if (res.code() == 200 || res.code() == 304) {
-                        if (res.body() == null){
+        if (isDeliever == 0) {
+            mDeliveryRepository.getDeliveryMatchingListForSender(mUserRepository.getUserId())
+                    .subscribe(res -> {
+                        if (res.code() == 200 || res.code() == 304) {
+                            if (res.body() == null) {
+                                showNoContentLayout();
+                                matchingList.clear();
+                            } else {
+                                matchingList.clear();
+                                for (DeliveryMatchingDto E : res.body()) {
+                                    Log.d("credt", "matching status : " + E.matchingStatus);
+                                    matchingList.add(new DeliveryMatching(E));
+                                }
+                            }
+                        }
+                        else{
                             showNoContentLayout();
                             matchingList.clear();
                         }
-                        else {
-                            matchingList.clear();
-                            for (DeliveryMatchingDto E : res.body()) {
-                                Log.d("credt","matching status : " +  E.matchingStatus);
-                                matchingList.add(new DeliveryMatching(E));
-                            }
-                        }
-                    }
-                    mMatchingListAdapter.notifyDataSetChanged();
-                    mPullRefreshLayout.setRefreshing(false);
-                }, throwable -> {
-                    throwable.printStackTrace();
-                    mPullRefreshLayout.setRefreshing(false);
+                        mMatchingListAdapter.notifyDataSetChanged();
+                        mPullRefreshLayout.setRefreshing(false);
+                    }, throwable -> {
+                        throwable.printStackTrace();
+                        mPullRefreshLayout.setRefreshing(false);
 
 //                        view.showNoContentLayout();
-                });
+                    });
+        }
+        else {
+            mDeliveryRepository.getDeliveryMatchingListForDeliever(mUserRepository.getUserId())
+                    .subscribe(res -> {
+                        if (res.code() == 200 || res.code() == 304) {
+                            if (res.body() == null) {
+                                showNoContentLayout();
+                                matchingList.clear();
+                            } else {
+                                matchingList.clear();
+                                for (DeliveryMatchingDto E : res.body()) {
+                                    Log.d("credt", "matching status : " + E.matchingStatus);
+                                    matchingList.add(new DeliveryMatching(E));
+                                }
+                            }
+                        }
+                        else {
+                            showNoContentLayout();
+                            matchingList.clear();
+                        }
+                        mMatchingListAdapter.notifyDataSetChanged();
+                        mPullRefreshLayout.setRefreshing(false);
+                    }, throwable -> {
+                        throwable.printStackTrace();
+                        mPullRefreshLayout.setRefreshing(false);
+
+//                        view.showNoContentLayout();
+                    });
+        }
     }
 
     void setupUi(){
