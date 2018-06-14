@@ -236,9 +236,11 @@ public class SendFragment extends BaseFragment {
 
         phoneNumber=editNumber.getText().toString();
         name=editName.getText().toString();
-        price = Integer.valueOf(send_price.getText().toString());
+        if (send_price.getText().toString().equals(""))
+            price = 0;
+        else price = Integer.valueOf(send_price.getText().toString());
 
-        if (isRequestValid());
+        if (isRequestValid())
         {
 
             //'yyyy-mm-dd hh:mm:ss'
@@ -262,6 +264,9 @@ public class SendFragment extends BaseFragment {
                     }, throwable -> {
                         throwable.printStackTrace();
                     });
+        }
+        else {
+            Toast.makeText(getContext(),"입력 폼을 완성시켜 주세요.",Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -371,7 +376,20 @@ public class SendFragment extends BaseFragment {
         }
 
     public boolean isRequestValid(){
-        return true;
+        if (stuffWeight == 0 || bax == 0 ||
+                bay == 0 || fax == 0 || fay == 0 ||
+                beginTime == null || finishTime == null ||
+                price ==0 ||
+                name == null || beginAddress == null ||
+                finishAdderes == null || phoneNumber == null
+                || name.equals("") || beginAddress.equals("") ||
+                finishAdderes.equals("") || phoneNumber.equals("") ||
+                beginTime.equals("") || finishTime.equals("")
+                )
+            return false;
+        else
+            return true;
+
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
