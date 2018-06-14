@@ -1,7 +1,6 @@
 package com.ultraviolet.delieve.model;
 
 import com.ultraviolet.delieve.data.dto.DeliveryMatchingDto;
-import com.ultraviolet.delieve.data.dto.DeliveryMatchingForDelieverDto;
 
 import java.io.Serializable;
 
@@ -16,7 +15,9 @@ public class DeliveryMatching implements Serializable {
     public String stuffName;
     public String stuffSize;
     public double stuffWeight;
+
     public double distance;
+
     public String beginTime;
     public int type;
     public String finishTime;
@@ -81,7 +82,7 @@ public class DeliveryMatching implements Serializable {
         stuffName = data.stuffName;
         stuffSize = data.stuffSize;
         stuffWeight = data.stuffWeight;
-        distance = data.distance;
+        distance = data.distanceToDeparture;
         beginTime = data.beginTime;
         type = data.type;
         beginTime = data.beginTime;
